@@ -1,0 +1,5 @@
+$('.city_selection').empty();
+$('.city_selection').append( $('<option>Select the City</option>'));
+<% @cities.each do |city| %>
+  $('.city_selection').append($('<option value="<%= city.id %>"><%= city.city %></option>'));
+<% end %>

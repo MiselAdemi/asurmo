@@ -10,4 +10,9 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :moderators
+  has_many :organizations, :through => :moderators
+
+  accepts_nested_attributes_for :moderators, :organizations
 end

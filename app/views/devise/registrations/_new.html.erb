@@ -1,0 +1,45 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :class => "col-lg-4" }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="form-group">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true, :class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, :class => "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, :class => "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off", :class => "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.collection_select :country_code, Country.all, :code, :name, {:prompt => "Please select a country"}, {:name => "country_code", :class => "country_selection"} %>
+  </div>
+
+  <div class="form-group">
+    <%= collection_select(:home, :city_id, @cities || [], :id, :name, {:prompt => "Please select a city"}, {:name => "city_id", :class => "city_selection"}) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>

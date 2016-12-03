@@ -16,6 +16,64 @@ ActiveRecord::Schema.define(version: 20161126202200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "countries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "country"
+    t.string   "city"
+    t.string   "accentcity"
+    t.string   "region"
+    t.integer  "population"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "dob"
+    t.string   "street"
+    t.integer  "house_number"
+    t.integer  "zip"
+    t.string   "mobile_phone"
+    t.string   "email"
+    t.string   "gender"
+    t.integer  "employed"
+    t.string   "activiti_type"
+    t.integer  "status"
+    t.string   "academic_qualification"
+    t.string   "qualifications"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "moderators", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "role"
+  end
+
+  add_index "moderators", ["organization_id"], name: "index_moderators_on_organization_id", using: :btree
+  add_index "moderators", ["user_id"], name: "index_moderators_on_user_id", using: :btree
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "organizations", ["user_id"], name: "index_organizations_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -30,9 +88,19 @@ ActiveRecord::Schema.define(version: 20161126202200) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "country_code"
+    t.integer  "city_id"
+    t.string   "mobile_phone"
+    t.integer  "gender"
+    t.integer  "employee_status"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "moderators", "organizations"
+  add_foreign_key "moderators", "users"
+  add_foreign_key "organizations", "users"
 end

@@ -1,0 +1,33 @@
+<%= form_for(:user, :url => registration_path(:user), :html => {:class => "form-horizontal center col-lg-4"}) do |f| %>
+  <div class="form-group">
+    <%= f.text_field :first_name, :name => "first_name", class: "form-control", :placeholder => "First name" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :last_name, :name=> "last_name", class: "form-control", :placeholder => "Last name" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.email_field :email, :name => "email", class: "form-control", :placeholder => "Email" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.password_field :password, :name => "password", class: "form-control", :placeholder => "Password" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.password_field :password_confirmation, :name => "password_confirmation", class: "form-control", :placeholder => "Repeat password" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.collection_select :country_code, Country.all, :code, :name, {:prompt => "Please select a country"}, {:name => "country_code", :class => "country_selection"} %>
+  </div>
+
+  <div class="form-group">
+    <%= collection_select(:home, :city_id, @cities || [], :id, :name, {:prompt => "Please select a city"}, {:name => "city_id", :class => "city_selection"}) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Sign Up' %>
+  </div>
+<% end %>
