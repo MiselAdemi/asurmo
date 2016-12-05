@@ -15,4 +15,6 @@ class User < ActiveRecord::Base
   has_many :organizations, :through => :moderators
 
   accepts_nested_attributes_for :moderators, :organizations
+
+  has_many :activities
 end
