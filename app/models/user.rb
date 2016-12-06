@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :full_name, :use => :slugged
+
   enum role: [:user, :moderator, :organization, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
@@ -17,4 +20,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :moderators, :organizations
 
   has_many :activities
+
+  def full_name
+    first_name + " " + last_name
+  end
 end
