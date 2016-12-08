@@ -26,8 +26,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_avatar
+    if current_user.update_attributes(user_avatar)
+      redirect_to user_path(current_user), :success => "Avatar is updated"
+    else
+      redirect_to user_path(current_user), :alert => "Unable to update avatar"
+    end
+  end
+
   private
     def user_params
       params.require(:user).permit(:role)
+    end
+
+    def user_avatar
+      params.require(:user).permit(:avatar)
     end
 end

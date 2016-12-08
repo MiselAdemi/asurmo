@@ -24,4 +24,6 @@ class User < ActiveRecord::Base
   def full_name
     first_name + " " + last_name
   end
+
+  mount_uploader :avatar, AvatarUploader
 end

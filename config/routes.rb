@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   root 'home#index'
   get "home/get_cities", :as => "get_cities"
 
-  resources :users
+  resources :users do
+    put "update_avatar", :as => "update_avatar"
+  end
+
   resources :organizations do
     resources :moderators
   end
