@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = Organization.find(params[:id])
+    @organization = Organization.friendly.find(params[:id])
   end
 
   def new
@@ -56,7 +56,7 @@ class OrganizationsController < ApplicationController
   end
 
   def set_organization
-    @organization = Organization.find(params[:id])
+    @organization = Organization.friendly.find(params[:id])
   end
 
   def set_moderators

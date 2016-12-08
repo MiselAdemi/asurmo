@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161204221245) do
+ActiveRecord::Schema.define(version: 20161206223432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,36 +27,12 @@ ActiveRecord::Schema.define(version: 20161204221245) do
 
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
-  create_table "albums", force: :cascade do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.string   "description"
-    t.integer  "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "user_id"
-  end
-
-  add_index "albums", ["user_id"], name: "index_albums_on_user_id", using: :btree
-
   create_table "countries", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "images", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "album_id"
-    t.string   "image"
-    t.string   "path"
-  end
-
-  add_index "images", ["album_id"], name: "index_images_on_album_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "country"
@@ -105,8 +81,10 @@ ActiveRecord::Schema.define(version: 20161204221245) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.string   "slug"
   end
 
+  add_index "organizations", ["slug"], name: "index_organizations_on_slug", using: :btree
   add_index "organizations", ["user_id"], name: "index_organizations_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -132,14 +110,14 @@ ActiveRecord::Schema.define(version: 20161204221245) do
     t.integer  "employee_status"
     t.string   "profile_image"
     t.string   "cover_image"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
 
   add_foreign_key "activities", "users"
-  add_foreign_key "albums", "users"
-  add_foreign_key "images", "albums"
   add_foreign_key "moderators", "organizations"
   add_foreign_key "moderators", "users"
   add_foreign_key "organizations", "users"

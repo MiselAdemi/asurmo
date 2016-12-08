@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'pundit'
 gem "twitter-bootstrap-rails"
+gem 'friendly_id', '~> 5.1.0'
 
 group :development, :test do
   gem 'byebug'
