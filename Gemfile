@@ -14,6 +14,7 @@ gem 'devise'
 gem 'pundit'
 gem "twitter-bootstrap-rails"
 gem 'friendly_id', '~> 5.1.0'
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 
 group :development, :test do
   gem 'byebug'
