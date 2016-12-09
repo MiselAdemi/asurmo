@@ -1,22 +1,20 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, :only => [:show, :destroy, :update]
 
   def index
   end
 
   def show
-    @user = User.friendly.find(params[:id])
   end
 
   def destroy
-    user = User.friendly.find(params[:id])
-    authorize user
-    user.destroy
+    authorize @user
+    @user.destroy
     redirect_to users_path, :notice => "User deleted"
   end
 
   def update
-    @user = User.friendly.find(params[:id])
     authorize @user
 
     if @user.update_attributes(user_params)
@@ -41,5 +39,9 @@ class UsersController < ApplicationController
 
     def user_avatar
       params.require(:user).permit(:avatar)
+    end
+
+    def set_user
+      @user = User.friendly.find(params[:id])
     end
 end

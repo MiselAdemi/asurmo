@@ -1,14 +1,13 @@
 class OrganizationsController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_user!
-  before_action :set_organization, :except => [:create, :new, :show]
+  before_action :set_organization, :except => [:create, :new]
   before_action :set_moderators, :except => [:create, :new, :show]
 
   def index
   end
 
   def show
-    @organization = Organization.friendly.find(params[:id])
   end
 
   def new
@@ -22,7 +21,6 @@ class OrganizationsController < ApplicationController
     if @organization.save
       @organization.moderators.create(:user_id => current_user.id, :role => 2)
       track_activity(@organization)
-      # New organization is saved
       respond_with(@organization) do |format|
         format.json { render :json => @organization.as_json }
       end
