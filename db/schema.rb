@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217124952) do
+ActiveRecord::Schema.define(version: 20161220170427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,10 +38,17 @@ ActiveRecord::Schema.define(version: 20161217124952) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
   end
 
-  add_index "interests", ["user_id"], name: "index_interests_on_user_id", using: :btree
+  create_table "interests_lists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "interest_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "interests_lists", ["interest_id"], name: "index_interests_lists_on_interest_id", using: :btree
+  add_index "interests_lists", ["user_id"], name: "index_interests_lists_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "country"
@@ -128,7 +135,8 @@ ActiveRecord::Schema.define(version: 20161217124952) do
   add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
 
   add_foreign_key "activities", "users"
-  add_foreign_key "interests", "users"
+  add_foreign_key "interests_lists", "interests"
+  add_foreign_key "interests_lists", "users"
   add_foreign_key "moderators", "organizations"
   add_foreign_key "moderators", "users"
   add_foreign_key "organizations", "users"

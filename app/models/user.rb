@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :moderators, :organizations
 
   has_many :activities
-  has_many :interests
+  has_many :interests_list
+  has_many :interests, :through => :interests_list
 
   def full_name
     first_name + " " + last_name

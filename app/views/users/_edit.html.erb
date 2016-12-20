@@ -85,3 +85,27 @@
     <% end %>
   </div>
 </div>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Update interests</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@user) do |f| %>
+      <div class="form-group">
+        <div class="col-md-8">
+          <%= hidden_field_tag "user[interest_ids][]", nil %>
+          <% Interest.all.each do |interest| %>
+            <%= check_box_tag "user[interest_ids][]", interest.id, @user.interest_ids.include?(interest.id), :class => "checkbox-inline" %>
+            <%= interest.name %>
+          <% end %>
+        </div>
+      </div>
+      <br>
+
+      <td>
+        <%= f.submit 'Update interests', :class => "form-control btn btn-info" %>
+      </td>
+    <% end %>
+  </div>
+</div>
