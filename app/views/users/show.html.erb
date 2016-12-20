@@ -3,16 +3,9 @@
   <%= image_tag @user.avatar.url, :class => "fb-image-profile thumbnail", :align => "left" %>
   <div class="fb-profile-text">
     <h1><%= @user.first_name %> <%= @user.last_name %></h1>
-    <p><%= @user.email %></p>
   </div>
 </div>
 
-<%= form_for(@user, :url => user_update_avatar_path(@user), :method => :put, :html => {:multipart => true}) do |f| %>
-  <%= f.label :avatar %>
-  <%= f.file_field :avatar %>
-
-  <%= f.submit %>
-<% end %>
 <%= render "sidebar_left" %>
 
 <div class="col-lg-6 profile-center">

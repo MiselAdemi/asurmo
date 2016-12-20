@@ -1,0 +1,87 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Edit info</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@user) do |f| %>
+      <div class="form-group">
+        <%= f.label :first_name, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :first_name, :class => "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :last_name, :class => "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :gender, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.select :gender, [["Male", "male"], ["Female", "female"]], {}, {class: "form-control"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :mobile_phone, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :mobile_phone, :id => "phone", :class => "form-control" %>
+        </div>
+      </div>
+
+      <td>
+        <%= f.submit 'Update profile', :class => "form-control btn btn-info" %>
+      </td>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Edit Address</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@user) do |f| %>
+      <div class="form-group">
+        <%= f.label :country_code, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.collection_select :country_code, Country.all, :code, :name, {:prompt => "Please select a country"}, {:name => "country_code", :class => "country_selection form-control"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :city_id, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= collection_select(:home, :city_id, @cities || [], :id, :name, {:prompt => "Please select a city"}, {:name => "city_id", :class => "city_selection form-control"}) %>
+        </div>
+      </div>
+
+      <td>
+        <%= f.submit 'Update address', :class => "form-control btn btn-info" %>
+      </td>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Update profile and cover photo</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@user, :url => user_update_avatar_path(@user), :method => :put, :html => {:multipart => true}) do |f| %>
+      <div class="form-group">
+        <%= f.label :avatar, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.file_field :avatar, :class => "form-control" %>
+        </div>
+      </div>
+
+      <td>
+        <%= f.submit 'Update photo', :class => "form-control btn btn-info" %>
+      </td>
+    <% end %>
+  </div>
+</div>
