@@ -1,0 +1,10 @@
+<div class="panel panel-default panel-nav">
+  <div class="panel-body">
+    <ul>
+      <%= menu_item "Profile", user_path(current_user) %>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Photos</a></li>
+      <%= menu_item "Edit profile", edit_user_path(current_user) if @user == current_user%>
+    </ul>
+  </div>
+</div>
