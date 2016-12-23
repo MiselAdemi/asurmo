@@ -3,3 +3,4 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
   $("#phone").mask("(999) 99-999-999")
+  $("#datepicker").datepicker()

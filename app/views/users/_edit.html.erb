@@ -26,9 +26,23 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :birthday, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :dob, :id => "datepicker", :class => "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
         <%= f.label :mobile_phone, :class => "col-md-3 control-label" %>
         <div class="col-md-8">
           <%= f.text_field :mobile_phone, :id => "phone", :class => "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :qualification, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :qualification, :class => "form-control" %>
         </div>
       </div>
 
@@ -56,6 +70,20 @@
         <%= f.label :city_id, :class => "col-md-3 control-label" %>
         <div class="col-md-8">
           <%= collection_select(:home, :city_id, @cities || [], :id, :name, {:prompt => "Please select a city"}, {:name => "city_id", :class => "city_selection form-control"}) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :street, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.text_field :street, :class => "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :zip_code, :class => "col-md-3 control-label" %>
+        <div class="col-md-8">
+          <%= f.number_field :zip_code, :class => "form-control" %>
         </div>
       </div>
 

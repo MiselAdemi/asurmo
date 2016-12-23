@@ -18,6 +18,7 @@ gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'react-rails', '~> 1.9'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
+gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'
 
 group :development, :test do
   gem 'byebug'
