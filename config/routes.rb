@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :users do
     put "update_avatar", :as => "update_avatar"
+    get "about", :as => "about"
   end
 
   resources :organizations do

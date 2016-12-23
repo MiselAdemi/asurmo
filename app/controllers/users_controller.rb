@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, :only => [:show, :destroy, :update, :edit]
+  before_action :set_user, :only => [:show, :destroy, :update, :edit, :about]
 
   def index
   end
 
   def show
+  end
+
+  def about
   end
 
   def destroy
@@ -45,6 +48,10 @@ class UsersController < ApplicationController
     end
 
     def set_user
-      @user = User.friendly.find(params[:id])
+      if params[:id]
+        @user = User.friendly.find(params[:id])
+      else
+        @user = User.friendly.find(params[:user_id])
+      end
     end
 end
