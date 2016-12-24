@@ -1,11 +1,13 @@
-class UsersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_user, :only => [:show, :destroy, :update, :edit, :about]
+class Admin::UsersController < Admin::BaseController
+	layout "admin_dashboard"
+  before_action :authenticate_admin
+  before_action :set_user, :only => [:destroy, :update, :edit, :about]
 
   def index
   end
 
   def show
+    @users = User.all.where.not(:id => current_user.id)
   end
 
   def about
@@ -18,7 +20,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    authorize @user
   end
 
   def update
