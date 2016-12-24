@@ -17,4 +17,10 @@ Rails.application.routes.draw do
   resources :organizations do
     resources :moderators
   end
+
+  namespace :admin do
+    get 'dashboard/index'
+    resource :users
+  end
+
 end

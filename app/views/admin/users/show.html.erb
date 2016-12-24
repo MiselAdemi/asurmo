@@ -1,0 +1,17 @@
+<table class="table table-hover">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th></th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td>
+      <%= link_to "Edit", edit_user_path(user), :class => "btn btn-info" %>
+      <%= link_to "Block", edit_user_path(user), :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+</table>
