@@ -62,6 +62,15 @@
   text-decoration: none;
 }
 
+.panel-nav .panel-body .active a {
+  background: #f8f7f5;
+  border-left: 5px solid #3082b3;
+  color: #89817f;
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+}
+
 .panel-photo .panel-body div {
   padding: 1px;
 }
@@ -99,4 +108,22 @@
 .edit-center .btn {
   width: 20%;
   margin-top: 15px;
+}
+
+/* User profile activty posts */
+.post .post-heading {
+  height: 95px;
+  padding: 20px 15px;
+}
+
+.post .post-heading .avatar {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-right: 15px;
+  border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.post .post-description {
+  padding: 15px;
 }

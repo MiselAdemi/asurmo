@@ -10,6 +10,16 @@
 
 <div class="col-lg-6 profile-center">
   <div class="col-lg-12 status-box">
-    <textarea placeholder="What is on your mind?" rows="2"></textarea>
+    <%= form_for(@status, :url => user_statuses_path(@user)) do |f| %>
+      <%= f.text_area :body, :rows => "2", :placeholder => "What is on your mind?" %>
+
+      <%= f.submit "Post", :class => "form-control btn btn-info" %>
+    <% end %>
+  </div>
+
+  <div class="col-lg-12 status-box">
+    <% @activities.each do |activity| %>
+      <%= render :partial => "users/partials/activity/#{activity.trackable_type.downcase}/#{activity.action}", :locals => {:activity => activity } %>
+    <% end %>
   </div>
 </div>

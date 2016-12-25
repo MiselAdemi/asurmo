@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, :only => [:show, :destroy, :update, :edit, :about]
+  before_action :set_status, :onlu => [:show]
 
   def index
   end
 
   def show
+    @activities = current_user.activities.order(:created_at => :desc)
   end
 
   def about
@@ -54,5 +56,9 @@ class UsersController < ApplicationController
       else
         @user = User.friendly.find(params[:user_id])
       end
+    end
+
+    def set_status
+      @status = current_user.statuses.new
     end
 end
