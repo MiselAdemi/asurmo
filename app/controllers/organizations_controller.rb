@@ -38,7 +38,6 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       if @organization.update(organization_params)
         @organization.moderators.create(:user_id => organization_params[:user_id], :role => 1)
-        track_activity(@organization)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
         format.json { head :ok }
       else
