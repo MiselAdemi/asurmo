@@ -20,6 +20,7 @@ gem 'react-rails', '~> 1.9'
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
+gem 'rails-assets-timeago', source: 'https://rails-assets.org'
 
 group :development, :test do
   gem 'byebug'
