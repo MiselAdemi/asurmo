@@ -4,3 +4,4 @@
 $ ->
   $("#phone").mask("(999) 99-999-999")
   $("#datepicker").datepicker()
+  $("time.timeago").timeago()
