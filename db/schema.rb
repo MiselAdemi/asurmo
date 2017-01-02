@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224221735) do
+ActiveRecord::Schema.define(version: 20170102133507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 20161224221735) do
   end
 
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
+
+  create_table "albums", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "albums", ["user_id"], name: "index_albums_on_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -103,6 +112,19 @@ ActiveRecord::Schema.define(version: 20161224221735) do
   add_index "organizations", ["slug"], name: "index_organizations_on_slug", using: :btree
   add_index "organizations", ["user_id"], name: "index_organizations_on_user_id", using: :btree
 
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "album_id"
+    t.integer  "user_id"
+    t.string   "caption"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "picture"
+  end
+
+  add_index "pictures", ["album_id"], name: "index_pictures_on_album_id", using: :btree
+  add_index "pictures", ["user_id"], name: "index_pictures_on_user_id", using: :btree
+
   create_table "statuses", force: :cascade do |t|
     t.text     "body"
     t.integer  "user_id"
@@ -150,10 +172,13 @@ ActiveRecord::Schema.define(version: 20161224221735) do
   add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
 
   add_foreign_key "activities", "users"
+  add_foreign_key "albums", "users"
   add_foreign_key "interests_lists", "interests"
   add_foreign_key "interests_lists", "users"
   add_foreign_key "moderators", "organizations"
   add_foreign_key "moderators", "users"
   add_foreign_key "organizations", "users"
+  add_foreign_key "pictures", "albums"
+  add_foreign_key "pictures", "users"
   add_foreign_key "statuses", "users"
 end

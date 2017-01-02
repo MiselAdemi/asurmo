@@ -1,0 +1,25 @@
+<h1>Albums list</h1>
+
+<% if @albums.blank? %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      There is no albums yet!
+    </div>
+  </div>
+<% else %>
+  <% @albums.each do |album| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <a href="#">
+          <%= image_tag "http://combiboilersleeds.com/images/album/album-3.jpg" %>
+        </a>
+        <div class="caption">
+          <%= link_to album.title, album_pictures_path(@user, album) %>
+          <%= link_to "Delete", album_path(current_user, album), :method => :delete %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to "New album", new_album_path(current_user) %>
