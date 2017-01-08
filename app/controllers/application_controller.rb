@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	def after_sign_in_path_for(resource)
-		stored_location_for(resource) || new_organization_path
+		stored_location_for(resource) || organizations_path
 	end
 
   private
@@ -15,5 +15,10 @@ class ApplicationController < ActionController::Base
 
     def track_activity(trackable, action = params[:action])
       current_user.activities.create!(:action => action, :trackable => trackable)
+    end
+
+    def untrack_activity(trackable, action = params[:action])
+      activity = current_user.activities.where(:trackable => trackable).first
+      Activity.destroy(activity.id)
     end
 end

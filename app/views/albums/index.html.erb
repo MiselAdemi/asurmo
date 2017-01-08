@@ -1,0 +1,25 @@
+<div class="row">
+
+  <div class="col-lg-12">
+    <h1 class="page-header">Photo Albums <%= link_to "New album", new_album_path(current_user), :class => "btn btn-info" %></h1>
+  </div>
+
+  <% if @albums.blank? %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        There is no albums yet!
+      </div>
+    </div>
+  <% else %>
+    <% @albums.each do |album| %>
+      <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+        <%= link_to album_thumbnail(album), album_pictures_path(@user, album), :class => "thumbnail" %>
+        <div class="caption">
+          <%= link_to album.title, album_pictures_path(@user, album) %>
+          <%= link_to "Delete", album_path(current_user, album), :method => :delete %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+

@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   resources :activities
   devise_for :users, :controllers => { registrations: 'registrations' }
 
+  as :user do
+    #get "/:id" , :to => "users#show", :as => "user_path"
+  end
+
   authenticated :user do
     root 'organizations#new', as: :authenticated_root
   end
@@ -22,6 +26,12 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'dashboard/index'
     resource :users
+  end
+
+  scope ":profile_name" do
+    resources :albums do
+      resources :pictures
+    end
   end
 
 end

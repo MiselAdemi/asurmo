@@ -3,8 +3,9 @@
     <ul>
       <%= menu_item "Profile", user_path(current_user) %>
       <%= menu_item "About", user_about_path(current_user) %>
-      <li><a href="#">Photos</a></li>
+      <%= menu_item "Photos", albums_path(current_user) %>
       <%= menu_item "Edit profile", edit_user_path(current_user) if @user == current_user%>
+      <%= menu_item "Organizations", organizations_path(current_user) if @user == current_user%>
     </ul>
   </div>
 </div>
