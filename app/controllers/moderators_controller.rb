@@ -33,7 +33,7 @@ class ModeratorsController < ApplicationController
 
   private
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = Organization.friendly.find(params[:organization_id])
   end
 
   def set_moderators

@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   resources :activities
   devise_for :users, :controllers => { registrations: 'registrations' }
 
+  as :user do
+    #get "/:id" , :to => "users#show", :as => "user_path"
+  end
+
   authenticated :user do
     root 'organizations#new', as: :authenticated_root
   end

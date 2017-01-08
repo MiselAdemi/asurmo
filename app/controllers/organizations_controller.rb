@@ -1,10 +1,18 @@
 class OrganizationsController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_user!
-  before_action :set_organization, :except => [:create, :new]
-  before_action :set_moderators, :except => [:create, :new, :show]
+  before_action :set_organization, :except => [:create, :new, :index]
+  before_action :set_moderators, :except => [:create, :new, :show, :index]
+  before_action :set_user
 
   def index
+    #owned organizations
+    @organizations_id = Moderator.where(:user => current_user).where(:role => 2).pluck(:organization_id)
+    @owner_organizations = current_user.organizations.where(:id => @organizations_id)
+
+    #moderated organizations
+    @organizations_id = Moderator.where(:user => current_user).where(:role => 1).pluck(:organization_id)
+    @moderate_organizations = current_user.organizations.where(:id => @organizations_id)
   end
 
   def show
@@ -37,7 +45,7 @@ class OrganizationsController < ApplicationController
     authorize @organization
     respond_to do |format|
       if @organization.update(organization_params)
-        @organization.moderators.create(:user_id => organization_params[:user_id], :role => 1)
+        @organization.moderators.create(:user_id => params[:organization][:user_id], :role => 1)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
         format.json { head :ok }
       else
@@ -47,9 +55,15 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def destroy
+    untrack_activity(@organization)
+    @organization.destroy
+    redirect_to organizations_path(current_user)
+  end
+
   private
   def organization_params
-    params.require(:organization).permit(:name, :user_id)
+    params.require(:organization).permit(:name)
   end
 
   def set_organization
@@ -59,5 +73,9 @@ class OrganizationsController < ApplicationController
   def set_moderators
     @moderators_id = @organization.moderators.pluck(:user_id)
     @moderators = User.where(:id => @moderators_id)
+  end
+
+  def set_user
+    @user = current_user
   end
 end
