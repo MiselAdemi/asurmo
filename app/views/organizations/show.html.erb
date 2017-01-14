@@ -5,6 +5,7 @@
 <%= @organization.name %>
 </p>
 
+<%= image_tag @organization.avatar.url %>
 
 <%= link_to 'Edit', edit_organization_path(@organization) %>
 <%= link_to 'Back', organization_path %>

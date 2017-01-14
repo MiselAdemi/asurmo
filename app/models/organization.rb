@@ -6,4 +6,6 @@ class Organization < ActiveRecord::Base
   has_many :users, :through => :moderators
 
   accepts_nested_attributes_for :moderators, :users
+
+  mount_uploader :avatar, OrganizationAvatarUploader
 end
