@@ -16,6 +16,11 @@
     <%= f.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= f.label :avatar %><br>
+    <%= f.file_field :avatar %>
+  </div>
+
   <%= f.select :user_id, User.all.map{ |u| [u.email, u.id]} %>
 
   <div class="actions">

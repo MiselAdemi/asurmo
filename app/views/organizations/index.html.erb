@@ -17,11 +17,13 @@
         <div class="table-responsive">
           <table class="table">
             <tr>
+              <th width="10%"></th>
               <th>Name</th>
               <th></th>
             </tr>
             <% @owner_organizations.each do |organization| %>
               <tr>
+                <td><%= image_tag organization.avatar.url, :class => "icon-responsive" %></td>
                 <td><%= link_to organization.name, organization_path(organization) %></td>
                 <td class="text-right">
                   <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" %>
