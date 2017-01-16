@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, :only => [:show, :destroy, :update, :edit, :about]
-  before_action :set_status, :onlu => [:show]
+  before_action :set_status, :only => [:show]
 
   def index
   end
@@ -11,12 +11,6 @@ class UsersController < ApplicationController
   end
 
   def about
-  end
-
-  def destroy
-    authorize @user
-    @user.destroy
-    redirect_to users_path, :notice => "User deleted"
   end
 
   def edit
@@ -39,6 +33,12 @@ class UsersController < ApplicationController
     else
       redirect_to user_path(current_user), :alert => "Unable to update avatar"
     end
+  end
+
+  def destroy
+    authorize @user
+    @user.destroy
+    redirect_to users_path, :notice => "User deleted"
   end
 
   private

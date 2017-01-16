@@ -1,9 +1,9 @@
 class OrganizationsController < ApplicationController
-  respond_to :html, :json
   before_action :authenticate_user!
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
+  respond_to :html, :json
 
   def index
     #owned organizations
