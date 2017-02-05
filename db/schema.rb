@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114175314) do
+ActiveRecord::Schema.define(version: 20170205170003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,25 +72,6 @@ ActiveRecord::Schema.define(version: 20170114175314) do
   end
 
   create_table "members", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.date     "dob"
-    t.string   "street"
-    t.integer  "house_number"
-    t.integer  "zip"
-    t.string   "mobile_phone"
-    t.string   "email"
-    t.string   "gender"
-    t.integer  "employed"
-    t.string   "activiti_type"
-    t.integer  "status"
-    t.string   "academic_qualification"
-    t.string   "qualifications"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "moderators", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
@@ -98,8 +79,8 @@ ActiveRecord::Schema.define(version: 20170114175314) do
     t.integer  "role"
   end
 
-  add_index "moderators", ["organization_id"], name: "index_moderators_on_organization_id", using: :btree
-  add_index "moderators", ["user_id"], name: "index_moderators_on_user_id", using: :btree
+  add_index "members", ["organization_id"], name: "index_members_on_organization_id", using: :btree
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
@@ -177,8 +158,8 @@ ActiveRecord::Schema.define(version: 20170114175314) do
   add_foreign_key "albums", "users"
   add_foreign_key "interests_lists", "interests"
   add_foreign_key "interests_lists", "users"
-  add_foreign_key "moderators", "organizations"
-  add_foreign_key "moderators", "users"
+  add_foreign_key "members", "organizations"
+  add_foreign_key "members", "users"
   add_foreign_key "organizations", "users"
   add_foreign_key "pictures", "albums"
   add_foreign_key "pictures", "users"

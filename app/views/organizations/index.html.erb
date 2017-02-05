@@ -11,9 +11,9 @@
   <div class="panel panel-info">
     <div class="panel-body">
       <h3 class="col-lg-6">My Organiations</h3>
-      <%= link_to "New", new_organization_path, :class => "btn btn-primary" %>
+      <%= link_to "New", new_organization_path, :class => "col-lg-6 btn btn-primary" %>
       <% if @owner_organizations.blank? %>
-        <p>There is no organization you owne yet! Create one now</p>
+        <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
       <% else %>
         <div class="table-responsive">
           <table class="table">

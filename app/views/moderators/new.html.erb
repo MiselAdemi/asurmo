@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= f.select :user_id, User.all.map{ |u| [u.email, u.id]} %>
+  <%= f.select :user_id, @potential_moderators.map{ |u| [u.email, u.id] if u.id != current_user.id }.compact %>
 
   <div class="actions">
     <%= f.submit %>
