@@ -3,6 +3,7 @@ class ModeratorsController < ApplicationController
   before_action :set_organization
   before_action :set_moderators
   before_action :set_moderator
+  before_action :set_potential_moderators, :only => [ :new, :create ]
 
   def index
     authorize @moderator
@@ -45,5 +46,10 @@ class ModeratorsController < ApplicationController
   def set_moderator
     moderators = @organization.moderators
     @moderator = moderators.where(:user_id => current_user.id)
+  end
+
+  def set_potential_moderators
+    current_moderators = @organization.moderators
+    @potential_moderators = User.where.not(:id => current_moderators)
   end
 end

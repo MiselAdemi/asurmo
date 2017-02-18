@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   end
 
   resources :organizations do
-    resources :moderators
+    resources :members
+    put "join/:user_id", :to => "organizations#join_member", :as => "join"
+    delete "unjoin/:user_id", :to => "organizations#remove_member", :as => "unjoin"
   end
 
   namespace :admin do

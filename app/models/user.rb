@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :moderators
-  has_many :organizations, :through => :moderators
+  has_many :members
+  has_many :organizations, :through => :members
 
-  accepts_nested_attributes_for :moderators, :organizations
+  accepts_nested_attributes_for :members, :organizations
 
   has_many :activities
   has_many :interests_list
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_many :pictures
 
   def full_name
-    first_name + " " + last_name
+    #first_name + " " + last_name
   end
 
   mount_uploader :avatar, AvatarUploader

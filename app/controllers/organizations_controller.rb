@@ -7,12 +7,16 @@ class OrganizationsController < ApplicationController
 
   def index
     #owned organizations
-    @organizations_id = Moderator.where(:user => current_user).where(:role => 2).pluck(:organization_id)
+    @organizations_id = Member.where(:user => current_user).where(:role => 2).pluck(:organization_id)
     @owner_organizations = current_user.organizations.where(:id => @organizations_id)
 
     #moderated organizations
-    @organizations_id = Moderator.where(:user => current_user).where(:role => 1).pluck(:organization_id)
+    @organizations_id = Member.where(:user => current_user).where(:role => 1).pluck(:organization_id)
     @moderate_organizations = current_user.organizations.where(:id => @organizations_id)
+
+    # organizations where user has member permission
+    @organizations_id = Member.where(:user => current_user).where(:role => 0).pluck(:organization_id)
+    @member_organizations = current_user.organizations.where(:id => @organizations_id)
   end
 
   def show
@@ -27,7 +31,7 @@ class OrganizationsController < ApplicationController
 
     # Confirm organization is valid and save or return error
     if @organization.save
-      @organization.moderators.create(:user_id => current_user.id, :role => 2)
+      @organization.members.create(:user_id => current_user.id, :role => 2)
       track_activity(@organization)
       respond_with(@organization) do |format|
         format.json { render :json => @organization.as_json }
@@ -55,6 +59,17 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def join_member
+    @organization.members.create(:user_id => params[:user_id], :role => 0)
+    redirect_to organization_path(@organization)
+  end
+
+  def remove_member
+    @organization.members.where(:user_id => params[:user_id]).first.destroy
+    #Member.find(:user_id => params[:user_id]).destroy
+    redirect_to organization_path(@organization)
+  end
+
   def destroy
     untrack_activity(@organization)
     @organization.destroy
@@ -67,11 +82,15 @@ class OrganizationsController < ApplicationController
   end
 
   def set_organization
-    @organization = Organization.friendly.find(params[:id])
+    if params[:organization_id]
+      @organization = Organization.friendly.find(params[:organization_id])
+    else
+      @organization = Organization.friendly.find(params[:id])
+    end
   end
 
   def set_moderators
-    @moderators_id = @organization.moderators.pluck(:user_id)
+    @moderators_id = @organization.members.where(:role => 2).pluck(:user_id)
     @moderators = User.where(:id => @moderators_id)
   end
 
