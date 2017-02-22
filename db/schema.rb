@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205170003) do
+ActiveRecord::Schema.define(version: 20170222205117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(version: 20170205170003) do
   end
 
   add_index "albums", ["user_id"], name: "index_albums_on_user_id", using: :btree
+
+  create_table "campains", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.string   "slug"
+  end
+
+  add_index "campains", ["organization_id"], name: "index_campains_on_organization_id", using: :btree
+  add_index "campains", ["slug"], name: "index_campains_on_slug", using: :btree
+  add_index "campains", ["user_id"], name: "index_campains_on_user_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -156,6 +169,8 @@ ActiveRecord::Schema.define(version: 20170205170003) do
 
   add_foreign_key "activities", "users"
   add_foreign_key "albums", "users"
+  add_foreign_key "campains", "organizations"
+  add_foreign_key "campains", "users"
   add_foreign_key "interests_lists", "interests"
   add_foreign_key "interests_lists", "users"
   add_foreign_key "members", "organizations"
