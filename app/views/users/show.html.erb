@@ -1,8 +1,23 @@
-<div class="fb-profile">
-  <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
-  <%= image_tag @user.avatar.url, :class => "fb-image-profile thumbnail", :align => "left" %>
-  <div class="fb-profile-text">
-    <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+<div class="profile clearfix">
+  <div class="image">
+    <img src="http://lorempixel.com/700/300/nature/2/" class="img-cover">
+  </div>
+
+  <div class="user clearfix">
+    <div class="avatar">
+      <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
+    </div>
+
+    <h2><%= @user.first_name %> <%= @user.last_name %></h2>
+
+    <div class="actions">
+      <div class="btn-group">
+        <%= profile_action_link("About", user_about_path(current_user)) %>
+        <%= profile_action_link("Photos", albums_path(current_user)) %>
+        <%= profile_action_link("Edit profile", edit_user_path(current_user)) if @user == current_user%>
+        <%= profile_action_link("Organizations", organizations_path(current_user)) if @user == current_user%>
+      </div>
+    </div>
   </div>
 </div>
 

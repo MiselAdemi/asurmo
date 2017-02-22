@@ -1,35 +1,86 @@
-.fb-profile img.fb-image-lg{
-  margin-top: -29px;
-  z-index: 0;
+.profile {
   width: 100%;
-  margin-bottom: 10px;
+  position: relative;
+  background: #FFF;
+  margin-bottom: 20px;
 }
 
-.fb-image-profile
-{
-  margin: -90px 10px 0px 32px;
-  z-index: 9;
-  width: 20%;
+.profile .image {
+  display: block;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
 }
 
-@media (max-width:768px)
-{
+.profile .user {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 0px 5px 5px;
+}
 
-  .fb-profile-text>h1{
-    font-weight: 700;
-    font-size:16px;
+.profile .user .avatar {
+  position: absolute;
+  left: 20px;
+  bottom: 0px;
+  z-index: 2;
+}
+
+.profile .user h2 {
+  position: relative;
+  font-size: 16px;
+  line-height: 20px;
+  display: block;
+  float: left;
+  margin: 4px 0px 0px 135px;
+  font-weight: bold;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.profile .user .actions {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  z-index: 2;
+}
+
+.profile .user .actions .btn {
+  margin-bottom: 0px;
+}
+
+.img-profile{
+  height:100px;
+  width:100px;
+}
+
+.img-cover{
+  width: 100%;
+  height: 350px;
+}
+
+@media (max-width: 768px) {
+  .btn-responsive {
+    padding:2px 4px;
+    font-size:80%;
+    line-height: 1;
+    border-radius:3px;
   }
+}
 
-  .fb-image-profile
-  {
-    margin: -45px 10px 0px 25px;
-    z-index: 9;
-    width: 20%;
+@media (min-width: 769px) and (max-width: 992px) {
+  .btn-responsive {
+    padding:4px 9px;
+    font-size:90%;
+    line-height: 1.2;
   }
 }
 
 .left-sidebar {
   clear: both;
+  padding-left: 0px;
 }
 
 .panel-nav .panel-body {
