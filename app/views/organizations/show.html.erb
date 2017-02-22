@@ -12,3 +12,4 @@
 <%= link_to 'Add moderator', organization_members_path(@organization) if is_organization_owner?(@organization) %>
 <%= link_to 'Join', organization_join_path(@organization, current_user), :method => :put if !is_supporting_organization?(@organization, current_user) %>
 <%= link_to 'Exit organization', organization_unjoin_path(@organization, current_user), :method => :delete if is_member?(@organization, current_user) %>
+<%= link_to 'Start campain', new_organization_campain_path(@organization) %>

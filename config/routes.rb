@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :members
     put "join/:user_id", :to => "organizations#join_member", :as => "join"
     delete "unjoin/:user_id", :to => "organizations#remove_member", :as => "unjoin"
+
+    resources :campains
   end
 
   namespace :admin do

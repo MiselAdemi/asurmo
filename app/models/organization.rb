@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
 
   has_many :members, :dependent => :destroy
   has_many :users, :through => :members
+  has_many :campains
 
   accepts_nested_attributes_for :members, :users
 
