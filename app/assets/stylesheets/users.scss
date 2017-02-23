@@ -139,6 +139,11 @@
   padding: 0px;
 }
 
+.status-form {
+  border: 2px solid white;
+  margin-bottom: 20px;
+}
+
 .status-box textarea {
   width: 100%;
   border: 0px;
@@ -177,4 +182,10 @@
 
 .post .post-description {
   padding: 15px;
+}
+
+.status-post-btn {
+  width: 12%;
+  margin: 4px 4px;
+  float: right;
 }

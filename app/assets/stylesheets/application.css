@@ -15,14 +15,25 @@
  *= require jquery-ui
  *= require fontawesome
  */
+
 body {
-  /*padding-top: 60px;*/
   background-color: #f1f1f1;
 }
 
 .navbar-default {
-  background-color: #3ca2e0;
+  background-color: #0064a0;
+}
 
+.navbar-glyph {
+  background-color: #0064a0 !important;
+  color: #c7c7c7 !important;
+  font-size: 30px;
+  padding: 10px !important;
+}
+
+.navbar-link {
+  background-color: #0064a0 !important;
+  color: #c7c7c7 !important;
 }
 
 .navbar-default .navbar-brand {

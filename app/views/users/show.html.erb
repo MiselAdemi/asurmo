@@ -12,10 +12,7 @@
 
     <div class="actions">
       <div class="btn-group">
-        <%= profile_action_link("About", user_about_path(current_user)) %>
         <%= profile_action_link("Photos", albums_path(current_user)) %>
-        <%= profile_action_link("Edit profile", edit_user_path(current_user)) if @user == current_user%>
-        <%= profile_action_link("Organizations", organizations_path(current_user)) if @user == current_user%>
       </div>
     </div>
   </div>
@@ -24,11 +21,11 @@
 <%= render "sidebar_left" %>
 
 <div class="col-lg-6 profile-center">
-  <div class="col-lg-12 status-box">
+  <div class="col-lg-12 status-box status-form">
     <%= form_for(@status, :url => user_statuses_path(@user)) do |f| %>
       <%= f.text_area :body, :rows => "2", :placeholder => "What is on your mind?" %>
 
-      <%= f.submit "Post", :class => "form-control btn btn-info" %>
+      <%= f.submit "Post", :class => "form-control btn btn-info status-post-btn" %>
     <% end %>
   </div>
 
