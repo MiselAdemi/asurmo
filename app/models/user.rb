@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   has_many :campains
 
   def full_name
-    #first_name + " " + last_name
+    first_name + " " + last_name
   end
 
   mount_uploader :avatar, AvatarUploader

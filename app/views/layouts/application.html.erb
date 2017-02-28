@@ -7,9 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render 'layouts/header' %>
 
   <div class="container">
+    <%= render 'layouts/header' %>
+
     <% if flash[:notice] %>
       <div class="alert alert-success" role="alert">
         <a class="notice"><%= notice %></a>

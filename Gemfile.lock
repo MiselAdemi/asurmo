@@ -120,6 +120,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.1)
       sprockets-rails
+    rails-assets-animate-css (3.5.2)
     rails-assets-fontawesome (4.7.0)
     rails-assets-jquery (3.1.1)
     rails-assets-jquery-maskedinput (1.4.1)
@@ -208,6 +209,7 @@ DEPENDENCIES
   pg
   pundit
   rails (= 4.2.1)
+  rails-assets-animate-css!
   rails-assets-fontawesome!
   rails-assets-jquery-maskedinput!
   rails-assets-jquery-ui!
@@ -222,4 +224,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.6
+   1.14.5

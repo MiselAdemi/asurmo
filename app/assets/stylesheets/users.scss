@@ -16,16 +16,30 @@
 
 .profile .user {
   position: absolute;
-  bottom: 0px;
+  top: 10%;
   width: 100%;
   padding: 0px 5px 5px;
 }
 
 .profile .user .avatar {
   position: absolute;
-  left: 20px;
-  bottom: 0px;
+  left: 2%;
   z-index: 2;
+}
+
+.profile .user:hover .upload-avatar {
+  display: block;
+}
+
+.profile .user .upload-avatar {
+  position : absolute;
+  display:none;
+  left: 3%;
+  z-index: 100;
+}
+
+.profile .user .upload-avatar a {
+  font-size: 24px;
 }
 
 .profile .user h2 {
@@ -40,20 +54,28 @@
   color: #ffffff;
 }
 
-.profile .user .actions {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  z-index: 2;
+.profile .user .cover-text {
+  margin-top: 12%
 }
 
-.profile .user .actions .btn {
-  margin-bottom: 0px;
+.profile .user .cover-text h2 {
+  margin-left: 2%;
+  font-size: 22px;
 }
 
-.img-profile{
-  height:100px;
-  width:100px;
+.profile .user .cover-text p {
+  position: absolute !important;
+  z-index: 2 !important;
+  margin-left: 2%;
+  top: 100%;
+  color: #ffffff;
+}
+
+.img-profile {
+  height: 120px;
+  width: 120px;
+  border-radius: 10px;
+  border: 1px;
 }
 
 .img-cover{
@@ -137,6 +159,7 @@
 
 .status-box {
   padding: 0px;
+  margin-bottom: 20px;
 }
 
 .status-form {
@@ -144,13 +167,43 @@
   margin-bottom: 20px;
 }
 
+.status-actions {
+  height: 100%;
+}
+
+.status-actions a {
+  font-size: 22px;
+  display: block;
+  padding-left: 12px;
+}
+
 .status-box textarea {
   width: 100%;
-  border: 0px;
+  border: 1px transparent solid;
   box-shadow: none;
   font-size: 16px;
-  color: #c3c3c3;
-  padding: 5px 10px;
+  color: #c3d7df;
+  padding: 10px 10px;
+  resize: none;
+}
+
+.status-box textarea:focus {
+  outline: none !important;
+  border:1px solid #67727a;
+  box-shadow: 0 0 10px #67727a;
+}
+
+.status-box .btn-info {
+  background: #6991ac;
+  color: #f5f5f5;
+}
+
+.status-box .btn-info:hover {
+  background: #6299bd;
+}
+
+.status-picture img {
+  width: 100%;
 }
 
 .sidebar-avatar {
@@ -188,4 +241,23 @@
   width: 12%;
   margin: 4px 4px;
   float: right;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
