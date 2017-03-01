@@ -5,7 +5,8 @@ class ActivityStatus extends React.Component {
       editing: null,
       activity: this.props.activity,
       user: this.props.user,
-      item: this.props.item
+      item: this.props.item,
+      body: this.props.body
     }
   }
 
@@ -104,7 +105,7 @@ class ActivityStatus extends React.Component {
         </div>
 
         <div className="post-description">
-        <p>{ this.state.item.body }</p>
+        <p dangerouslySetInnerHTML={{__html: this.state.body}}></p>
         </div>
         </div>
       )
@@ -117,4 +118,3 @@ class ActivityStatus extends React.Component {
     )
   }
 }
-

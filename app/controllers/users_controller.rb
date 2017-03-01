@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @activities = current_user.activities.order(:created_at => :desc)
+    @activities = current_user.activities.order(:created_at => :desc).page(params[:page]).per(2)
   end
 
   def about

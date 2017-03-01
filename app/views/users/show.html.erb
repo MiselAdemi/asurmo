@@ -27,7 +27,9 @@
   <div class="col-lg-6 profile-center">
     <div class="col-lg-12 status-box status-form">
       <%= form_for(@status, :url => user_statuses_path(@user)) do |f| %>
-        <%= f.text_area :body, :rows => "2", :placeholder => "Say your oppinion..." %>
+        <p class="">
+        <%= f.text_area :body, :rows => "2", :placeholder => "Say your oppinion...", :data => { emojiable: true } %>
+        </p>
 
         <%= f.submit "Post", :class => "col-md-2 btn btn-info pull-right" %>
       <% end %>
@@ -38,9 +40,16 @@
     </div>
 
     <div class="col-lg-12 status-box">
-      <% @activities.each do |activity| %>
-        <%= render :partial => "users/partials/activity/#{activity.trackable_type.downcase}/#{activity.action}", :locals => {:activity => activity } %>
+      <div id="content">
+        <%= render :partial => 'users/partials/status_message', :collection => @activities, :as => :activity %>
+      </div>
+
+      <% unless @activities.current_page == @activities.total_pages %>
+        <p id="view-more">
+        <%= link_to('View More', url_for(page: @activities.current_page + 1), remote: true) %>
+        </p>
       <% end %>
+
     </div>
   </div>
 
