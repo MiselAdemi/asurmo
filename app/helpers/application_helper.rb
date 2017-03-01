@@ -18,4 +18,10 @@ module ApplicationHelper
       link_to link_text, link_path
     end
   end
+
+  def profile_action_link(link_text, link_path)
+    content_tag(:li, :class => "btn btn-default btn-sm tip btn-responsive") do
+      link_to link_text, link_path
+    end
+  end
 end

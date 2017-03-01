@@ -1,0 +1,7 @@
+$('#content').append("<%=j render(partial: 'users/partials/status_message', collection: @activities, as: :activity, format: 'html') %>");
+
+<% if @activities.current_page == @activities.total_pages %>
+    $('#view-more').remove();
+<% else %>
+    $('#view-more a').attr('href', '<%= url_for(page: @activities.current_page + 1) %>');
+<% end %>

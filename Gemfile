@@ -16,11 +16,14 @@ gem "twitter-bootstrap-rails"
 gem 'friendly_id', '~> 5.1.0'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'react-rails', '~> 1.9'
+gem 'kaminari', '~> 0.16.3'
+gem 'rails_emoji_picker'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-timeago', source: 'https://rails-assets.org'
+gem 'rails-assets-animate-css', source: 'https://rails-assets.org'
 
 group :development, :test do
   gem 'byebug'

@@ -50,7 +50,7 @@ class ActivityPictureStatus extends React.Component {
           </div>
         </div>
 
-        <div className="post-description">
+        <div className="post-description status-picture">
           <a href={"/" +this.props.user.slug + "/albums/" + this.state.picture.album_id + "/pictures/" + this.state.picture.id }>
             <img src={ this.state.picture.picture.url } className="img-responsive" />
           </a>

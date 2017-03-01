@@ -20,4 +20,6 @@
 //= require react_ujs
 //= require components
 //= require timeago
+//= require jquery.infinitescroll
+//= require rails_emoji_picker
 //= require_tree .
