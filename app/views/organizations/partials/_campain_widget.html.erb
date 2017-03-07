@@ -1,0 +1,17 @@
+<div class="panel panel-default latest-campain-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title">Latest campains</h3>
+    <%= link_to 'New campain', new_organization_campain_path(@organization) %>
+  </div>
+  <div class="panel-body">
+    <% if !@campains.exists? %>
+      <p>Create first campain for this organization</p>
+    <% else %>
+      <ul>
+      <% @campains.each do |campain| %>
+        <li> <%= campain.name %> </li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
