@@ -1,46 +1,23 @@
-<div class="row">
-  <div class="profile clearfix">
-    <div class="image">
-      <img src="http://lorempixel.com/700/300/nature/2/" class="img-cover">
-    </div>
+<%= render 'users/partials/header' %>
 
-    <div class="user clearfix">
-      <div class="avatar">
-        <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
-      </div>
-
-      <h2><%= @user.first_name %> <%= @user.last_name %></h2>
-
-      <div class="actions">
-        <div class="btn-group">
-          <%= profile_action_link("Photos", albums_path(current_user)) %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-3"></div>
+<div id="row">
+  <%= render 'users/sidebar_left' %>
 
   <div class="col-lg-6 edit-center">
     <div class="panel panel-info">
       <div class="panel-body">
-        <h3 class="col-lg-6">My Organiations</h3>
-        <%= link_to "New", new_organization_path, :class => "col-lg-6 btn btn-primary pull-right" %>
+        <h3 class="col-lg-6">Owner</h3>
+        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
         <% if @owner_organizations.blank? %>
           <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
         <% else %>
           <div class="table-responsive table-sm">
             <table class="table table-sm">
-              <% @owner_organizations.each do |organization| %>
-                <tr>
-                  <td width="10%"><%= image_tag organization.avatar.url, :class => "icon-responsive" %></td>
-                  <td><%= link_to organization.name, organization_path(organization) %></td>
-                  <td class="text-right">
-                    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" %>
-                    <%= link_to "", organization_path(organization), :method => :delete, :class => "fa fa-trash text-danger" %>
-                  </td>
-                </tr>
-              <% end %>
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+              <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :owner} %>
             </table>
           </div>
         <% end %>
@@ -49,7 +26,7 @@
 
     <div class="panel panel-info">
       <div class="panel-body">
-        <h3>Organiations I Moderate</h3>
+        <h3>Moderator</h3>
         <% if @moderate_organizations.blank? %>
           <p>There is no organization you moderate yet!</p>
         <% else %>
@@ -59,14 +36,7 @@
                 <th>Name</th>
                 <th></th>
               </tr>
-              <% @moderate_organizations.each do |organization| %>
-                <tr>
-                  <td><%= link_to organization.name, organization_path(organization) %></td>
-                  <td class="text-right">
-                    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" %>
-                  </td>
-                </tr>
-              <% end %>
+              <%= render :partial => 'organizations/partials/organization_list', :collection => @moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
             </table>
           </div>
         <% end %>
@@ -75,28 +45,57 @@
 
     <div class="panel panel-info">
       <div class="panel-body">
-        <h3>Organiations I am member</h3>
+        <h3>Member</h3>
         <% if @member_organizations.blank? %>
           <p>There is no organization you are member yet!</p>
         <% else %>
-          <div class="table-responsive">
-            <table class="table">
+          <div class="table-responsive table-sm">
+            <table class="table table-sm">
               <tr>
                 <th>Name</th>
                 <th></th>
               </tr>
-              <% @member_organizations.each do |organization| %>
-                <tr>
-                  <td><%= link_to organization.name, organization_path(organization) %></td>
-                  <td class="text-right">
-                    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" %>
-                  </td>
-                </tr>
-              <% end %>
+              <%= render :partial => 'organizations/partials/organization_list', :collection => @member_organizatios, :as => :organization, :locals => {:type => :member} %>
             </table>
           </div>
         <% end %>
       </div>
     </div>
+
+
   </div>
 </div>
+
+<!-- New Organization Modal -->
+<div class="modal animated zoomIn" id="newOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="newOrganizationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create new organization</h4>
+      </div>
+      <%= form_for(@organization, :html => {:multipart => true}) do |f| %>
+        <div class="modal-body clearfix">
+
+          <div class="field">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="field">
+          <%= f.label :avatar, :class => "col-md-3 control-label" %>
+            <div class="col-md-8 pull-right">
+              <%= f.file_field :avatar, :class => "form-control" %>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Create", :class => "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

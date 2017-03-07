@@ -1,0 +1,45 @@
+<div id="row" class="profile">
+  <div class="image">
+    <%= image_tag "http://lorempixel.com/700/300/nature/2/", :class => "img-cover" %>
+  </div>
+
+  <div class="user clearfix">
+    <div class="avatar">
+      <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
+    </div>
+
+    <div class="upload-avatar">
+      <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+    </div>
+
+    <div class="cover-text">
+      <h2><%= current_user.full_name %></h2>
+      <p><i class="fa fa-clock-o" aria-hidden="true"></i> Last active 1 hour ago</p>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Avatar Modal -->
+<div class="modal animated zoomIn" id="uploadAvatarModal" tabindex="-1" role="dialog" aria-labelledby="uploadAvatarModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Profile Picture</h4>
+      </div>
+      <%= form_for(@user, :url => user_update_avatar_path(@user), :method => :put, :html => {:multipart => true}) do |f| %>
+        <div class="modal-body clearfix">
+          <%= f.label :avatar, :class => "col-md-3 control-label" %>
+          <div class="col-md-8">
+            <%= f.file_field :avatar, :class => "form-control" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Upload", :class => "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

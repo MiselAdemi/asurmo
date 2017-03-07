@@ -3,6 +3,7 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
+  before_action :set_campains, :only => [:show]
   respond_to :html, :json
 
   def index
@@ -17,6 +18,8 @@ class OrganizationsController < ApplicationController
     # organizations where user has member permission
     @organizations_id = Member.where(:user => current_user).where(:role => 0).pluck(:organization_id)
     @member_organizations = current_user.organizations.where(:id => @organizations_id)
+
+    @organization = current_user.organizations.new
   end
 
   def show
@@ -96,5 +99,9 @@ class OrganizationsController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_campains
+    @campains = @organization.campains
   end
 end

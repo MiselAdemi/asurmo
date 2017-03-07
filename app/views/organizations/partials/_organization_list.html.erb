@@ -1,0 +1,8 @@
+<tr>
+  <td width="10%"><%= image_tag organization.avatar.url, :class => "icon-responsive" %></td>
+  <td><%= link_to organization.name, organization_path(organization) %></td>
+  <td class="text-right">
+    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" if type == :owner || type == :moderator %>
+    <%= link_to "", organization_path(organization), :method => :delete, :class => "fa fa-trash text-danger" if type == :owner %>
+  </td>
+</tr>
