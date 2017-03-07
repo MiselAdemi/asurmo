@@ -1,7 +1,7 @@
 module UsersHelper
 
   def is_organization_owner?(organization)
-    if Member.exists?(:user_id => current_user.id)
+    if Member.exists?(:user_id => current_user.id, :organization_id => organization.id)
       organization.members.where(:user_id => current_user).first.role == 'owner' ? true : false
     else
       return false

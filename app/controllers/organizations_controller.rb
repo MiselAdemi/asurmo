@@ -23,6 +23,7 @@ class OrganizationsController < ApplicationController
   end
 
   def show
+    @campain = @organization.campains.new
   end
 
   def new
