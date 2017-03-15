@@ -32,5 +32,8 @@ group :development, :test do
 end
 
 gem 'rails_12factor', group: :production
+gem 'simplecov'
+gem 'simplecov-csv'
+gem 'minitest-reporters'
 
-ruby "2.1"
+ruby "2.1.10"
