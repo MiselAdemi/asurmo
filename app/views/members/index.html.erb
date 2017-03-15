@@ -1,0 +1,8 @@
+<ul>
+  <% @members_info.zip(@members).each do |user, moderator| %>
+    <li><%= user.email %></li>
+    <%= link_to("Delete Moderator", organization_member_path(@organization, moderator), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger') %>
+
+    <%= link_to 'Add moderator', new_organization_member_path(@organization), :class => "btn btn-info" %>
+  <% end %>
+</ul>
