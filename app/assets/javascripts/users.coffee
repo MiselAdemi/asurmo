@@ -5,3 +5,19 @@ $ ->
   $("#phone").mask("(999) 99-999-999")
   $("#datepicker").datepicker()
   $("time.timeago").timeago()
+
+  # Upload avatar preview functionality
+
+  $('#upload').change ->
+    input = document.getElementById("upload")
+    if input.files and input.files[0]
+      reader = new FileReader
+
+      reader.onload = (e) ->
+        $('#img_prev').attr('src', e.target.result).width(200).height 200
+        return
+
+      reader.readAsDataURL input.files[0]
+
+  $('#upload-avatar-button').click ->
+    $('#upload').click()
