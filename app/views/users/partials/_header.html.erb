@@ -14,7 +14,7 @@
 
     <div class="cover-text">
       <h2><%= current_user.full_name %></h2>
-      <p><i class="fa fa-clock-o" aria-hidden="true"></i> Last active 1 hour ago</p>
+      <p><i class="fa fa-clock-o" aria-hidden="true"></i> Last active <%= last_time_active(@user) %></p>
     </div>
   </div>
 </div>

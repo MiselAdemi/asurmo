@@ -1,4 +1,5 @@
 module UsersHelper
+  include ActionView::Helpers::DateHelper
 
   def is_organization_owner?(organization)
     if Member.exists?(:user_id => current_user.id, :organization_id => organization.id)
@@ -22,5 +23,11 @@ module UsersHelper
     else
       return false
     end
+  end
+
+  # last time active
+  def last_time_active(user)
+    time = Time.now.to_i - user.current_sign_in_at.to_time.to_i
+    distance_of_time_in_words(user.current_sign_in_at.to_time, Time.now)
   end
 end

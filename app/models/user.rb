@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :members
+  has_many :members, :class_name => "Member", :foreign_key => "user_id", :dependent => :destroy
   has_many :organizations, :through => :members
 
   accepts_nested_attributes_for :members, :organizations
@@ -32,4 +32,29 @@ class User < ActiveRecord::Base
   end
 
   mount_uploader :avatar, AvatarUploader
+
+  # is user admin of organization
+  def is_organization_admin?(organization)
+    organization.admins.include?(current_user)
+  end
+
+  # is user moderator of organization
+  def is_organization_moderator?(organizatin)
+    organizatin.moderators.include?(current_user)
+  end
+
+  # all organizations where user is admin
+  def self.all_organizations_where_user_admin(user)
+    Organization.joins(:members).where("members.user_id = ? AND members.role = ?", user.id, 2)
+  end
+
+  # all organizations where user is moderator
+  def self.all_organizations_where_user_moderator(user)
+    Organization.joins(:members).where("members.user_id = ? AND members.role = ?", user.id, 1)
+  end
+
+  # all organizations where user is member
+  def self.all_organizations_where_user_member(user)
+    Organization.joins(:members).where("members.user_id = ? AND members.role = ?", user.id, 0)
+  end
 end
