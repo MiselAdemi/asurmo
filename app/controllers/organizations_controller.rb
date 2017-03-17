@@ -7,17 +7,14 @@ class OrganizationsController < ApplicationController
   respond_to :html, :json
 
   def index
-    #owned organizations
-    @organizations_id = Member.where(:user => current_user).where(:role => 2).pluck(:organization_id)
-    @owner_organizations = current_user.organizations.where(:id => @organizations_id)
+    # organizations where user is admin
+    @owner_organizations = User.all_organizations_where_user_admin(@user)
 
-    #moderated organizations
-    @organizations_id = Member.where(:user => current_user).where(:role => 1).pluck(:organization_id)
-    @moderate_organizations = current_user.organizations.where(:id => @organizations_id)
+    # organizations where user is moderator
+    @moderate_organizations = User.all_organizations_where_user_moderator(@user)
 
-    # organizations where user has member permission
-    @organizations_id = Member.where(:user => current_user).where(:role => 0).pluck(:organization_id)
-    @member_organizations = current_user.organizations.where(:id => @organizations_id)
+    # organizations where user is member
+    @member_organizations = User.all_organizations_where_user_member(@user)
 
     @organization = current_user.organizations.new
   end

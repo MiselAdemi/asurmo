@@ -20,10 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations do
-    resources :members
-    put "join/:user_id", :to => "organizations#join_member", :as => "join"
-    delete "unjoin/:user_id", :to => "organizations#remove_member", :as => "unjoin"
-
+    resources :members, :only => [:create, :destroy]
     resources :campains
   end
 

@@ -6,22 +6,22 @@
 #
 default: &default
   adapter: postgresql
-  encoding: unicode
   pool: 5
+  username: admin
+  password: root
+  host: localhost
 
 development:
   <<: *default
-  database: sample-rubyonrails-postgres-heroku_development
+  database: asurmo_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: sample-rubyonrails-postgres-heroku_test
+  database: asurmo_test
 
 production:
   <<: *default
-  database: sample-rubyonrails-postgres-heroku_production
-  username: sample-rubyonrails-postgres-heroku
-  password: <%= ENV['SAMPLE-RUBYONRAILS-POSTGRES-HEROKU_DATABASE_PASSWORD'] %>
+  database: asurmo_production
