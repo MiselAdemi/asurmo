@@ -1,7 +1,16 @@
 <div id="row" class="profile">
   <div class="image">
-    <%= image_tag "http://lorempixel.com/700/300/nature/2/", :class => "img-cover" %>
+    <% if @user.cover_image.url %>
+      <%= image_tag @user.cover_image.url, :class => "img-cover" %>
+    <% else %>
+      <%= image_tag "http://lorempixel.com/700/300/nature/2/", :class => "img-cover" %>
+    <% end %>
+
+    <div class="upload-cover">
+      <a data-toggle="modal" data-target="#uploadCoverModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+    </div>
   </div>
+
 
   <div class="user clearfix">
     <div class="avatar">
@@ -37,6 +46,35 @@
 
           <div class="col-lg-6">
             <img id="img_prev" class="img-thumbnail" src="https://techpur.com/wp-content/plugins/facebook-share-like-popup-viralplus/default.jpg" alt="your image" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Upload", :class => "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Cover Modal -->
+<div class="modal animated zoomIn" id="uploadCoverModal" tabindex="-1" role="dialog" aria-labelledby="uploadCoverModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Profile Picture</h4>
+      </div>
+      <%= form_for(@user, :url => user_upload_cover_path(@user), :method => :put, :html => {:multipart => true}) do |f| %>
+        <div class="modal-body clearfix">
+          <%= f.file_field :cover_image, :class => "form-control", :id => "upload-cover-file" %>
+
+          <div class="col-lg-12">
+            <img id="cover-img-prev" class="img-thumbnail" src="https://techpur.com/wp-content/plugins/facebook-share-like-popup-viralplus/default.jpg" alt="your image" />
+          </div>
+
+          <div class="col-lg-6 col-lg-offset-4">
+            <input type="button" class="btn btn-primary" id="upload-cover-button" value="Select Image">
           </div>
         </div>
         <div class="modal-footer">

@@ -37,6 +37,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload_cover
+    if current_user.update_attributes(user_cover)
+      redirect_to user_path(current_user), :success => "Cover is updated"
+    else
+      redirect_to user_path(current_user), :alert => "Unable to update cover"
+    end
+  end
+
   def destroy
     authorize @user
     @user.destroy
@@ -50,6 +58,10 @@ class UsersController < ApplicationController
 
     def user_avatar
       params.require(:user).permit(:avatar)
+    end
+
+    def user_cover
+      params.require(:user).permit(:cover_image)
     end
 
     def set_user

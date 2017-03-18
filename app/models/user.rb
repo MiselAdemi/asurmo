@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   end
 
   mount_uploader :avatar, AvatarUploader
+  mount_uploader :cover_image, CoverPhotoUploader
 
   # is user admin of organization
   def is_organization_admin?(organization)

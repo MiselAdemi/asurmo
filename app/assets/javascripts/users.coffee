@@ -21,3 +21,19 @@ $ ->
 
   $('#upload-avatar-button').click ->
     $('#upload').click()
+
+  # Upload cover image preview functionality
+
+  $('#upload-cover-file').change ->
+    input = document.getElementById("upload-cover-file")
+    if input.files and input.files[0]
+      reader = new FileReader
+
+      reader.onload = (e) ->
+        $('#cover-img-prev').attr('src', e.target.result)
+        return
+
+      reader.readAsDataURL input.files[0]
+
+  $('#upload-cover-button').click ->
+    $('#upload-cover-file').click()
