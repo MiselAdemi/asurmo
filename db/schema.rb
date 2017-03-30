@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222205117) do
+ActiveRecord::Schema.define(version: 20170330183624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,20 @@ ActiveRecord::Schema.define(version: 20170222205117) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.string   "location"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "campain_id"
+    t.string   "avatar"
+    t.string   "slug"
+  end
+
+  add_index "events", ["campain_id"], name: "index_events_on_campain_id", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
 
   create_table "interests", force: :cascade do |t|
     t.string   "name"
@@ -171,6 +185,7 @@ ActiveRecord::Schema.define(version: 20170222205117) do
   add_foreign_key "albums", "users"
   add_foreign_key "campains", "organizations"
   add_foreign_key "campains", "users"
+  add_foreign_key "events", "campains"
   add_foreign_key "interests_lists", "interests"
   add_foreign_key "interests_lists", "users"
   add_foreign_key "members", "organizations"
