@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
 
+  # Validation
+  validates_presence_of :first_name,
+                        :last_name,
+                        :email,
+                        :password
+
+  validates_uniqueness_of :email
+
   # is user admin of organization
   def is_organization_admin?(organization)
     organization.admins.include?(current_user)

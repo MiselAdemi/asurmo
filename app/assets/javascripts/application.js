@@ -22,4 +22,5 @@
 //= require timeago
 //= require jquery.infinitescroll
 //= require rails_emoji_picker
+//= require rails.validations
 //= require_tree .

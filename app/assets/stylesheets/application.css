@@ -64,3 +64,13 @@ body {
   background-color: #fafdff;
   color: #3082b3 !important;
 }
+
+/* Validation */
+.field_with_errors {
+  width: 100%;
+  background: transparent !important;
+}
+
+.field_with_errors .message {
+  color: red;
+}
