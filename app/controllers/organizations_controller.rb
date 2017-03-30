@@ -4,6 +4,7 @@ class OrganizationsController < ApplicationController
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
   before_action :set_campains, :only => [:show]
+  before_action :set_events, :only => [:show]
   respond_to :html, :json
 
   def index
@@ -21,6 +22,8 @@ class OrganizationsController < ApplicationController
 
   def show
     @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
   end
 
   def new
@@ -33,6 +36,7 @@ class OrganizationsController < ApplicationController
     # Confirm organization is valid and save or return error
     if @organization.save
       @organization.members.create(:user_id => current_user.id, :role => 2)
+      @organization.campains.create(:name => "Default")
       track_activity(@organization)
       respond_with(@organization) do |format|
         format.json { render :json => @organization.as_json }
@@ -101,5 +105,9 @@ class OrganizationsController < ApplicationController
 
   def set_campains
     @campains = @organization.campains
+  end
+
+  def set_events
+    @events = @organization.campains.map { |campain| campain.events }.flatten
   end
 end

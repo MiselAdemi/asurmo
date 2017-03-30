@@ -1,0 +1,61 @@
+<div class="panel panel-default latest-campain-widget">
+  <div class="panel-heading">
+    <h3 class="panel-title">Events</h3>
+    <a data-toggle="modal" data-target="#newEventModal">New event</a>
+  </div>
+  <div class="panel-body">
+    <% if !@events.any? %>
+      <p>Create first event</p>
+    <% else %>
+      <ul>
+      <% @events.each do |event| %>
+        <li> <%= event.name %> </li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+<!-- New Event Modal -->
+<div class="modal animated zoomIn" id="newEventModal" tabindex="-1" role="dialog" aria-labelledby="newEventModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create new event</h4>
+      </div>
+      <%= form_for([@organization, @default_campain, @event], :html => {:multipart => true}) do |f| %>
+        <div class="modal-body clearfix">
+
+          <div class="field">
+            <%= f.label :name, :class => "col-md-3 control-label" %>
+            <div class="col-md-8 pull-right">
+              <%= f.text_field :name %>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :location, :class => "col-md-3 control-label" %>
+            <div class="col-md-8 pull-right">
+              <%= f.text_field :location %>
+            </div>
+          </div>
+
+
+          <div class="field">
+          <%= f.label :avatar, :class => "col-md-3 control-label" %>
+            <div class="col-md-8 pull-right">
+              <%= f.file_field :avatar, :class => "form-control" %>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Create", :class => "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

@@ -4,4 +4,6 @@ class Campain < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :organization
+
+  has_many :events
 end

@@ -22,7 +22,10 @@ Rails.application.routes.draw do
 
   resources :organizations do
     resources :members, :only => [:create, :destroy]
-    resources :campains
+
+    resources :campains do
+      resources :events
+    end
   end
 
   namespace :admin do
