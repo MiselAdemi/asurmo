@@ -1,7 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
 
-<p>
-<strong>Name:</strong>
-<%= @campain.name %>
-</p>
+  <div class="col-lg-9">
+  </div>
 
+  <div class="col-lg-3 campain-left-side">
+    <div class="info">
+      <%= image_tag "http://english.tw/wp-content/themes/qaengine/img/default-thumbnail.jpg", :class => "campain-avatar" %>
+
+      <h4><%= @campain.name %></h4>
+    </div>
+
+    <div class="events panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Events</h3>
+      </div>
+      <div class="panel-body">
+        Event list
+      </div>
+    </div>
+  </div>
+
+</div>
