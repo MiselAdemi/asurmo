@@ -54,7 +54,6 @@ class OrganizationsController < ApplicationController
     authorize @organization
     respond_to do |format|
       if @organization.update(organization_params)
-        @organization.moderators.create(:user_id => params[:organization][:user_id], :role => 1)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
         format.json { head :ok }
       else
@@ -76,9 +75,10 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
+    authorize @organization
     untrack_activity(@organization)
     @organization.destroy
-    redirect_to organizations_path(current_user)
+    redirect_to user_organizations_path(current_user)
   end
 
   private

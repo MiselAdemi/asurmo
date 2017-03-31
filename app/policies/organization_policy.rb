@@ -7,16 +7,14 @@ class OrganizationPolicy
   end
 
   def edit?
-    user_is_moderator_or_owner
+    current_user.is_organization_admin?(@organization) || current_user.is_organization_moderator?(@organization)
   end
 
   def update?
-    user_is_moderator_or_owner
+    current_user.is_organization_admin?(@organization) || current_user.is_organization_moderator?(@organization)
   end
 
-  private
-  def user_is_moderator_or_owner
-    # User is owner or moderator
-    @organization.moderators.map(&:user_id).include?(current_user.id) && (@organization.moderators.map(&:role).include?("moderator") || @organization.moderators.map(&:role).include?("owner"))
+  def destroy?
+    current_user.is_organization_admin?(@organization)
   end
 end
