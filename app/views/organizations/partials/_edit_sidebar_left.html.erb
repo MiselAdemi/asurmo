@@ -1,0 +1,13 @@
+<div class="col-lg-3 left-sidebar">
+
+  <%= render 'organizations/partials/admin_left' if is_organization_owner?(@organization) %>
+
+  <div class="panel panel-default panel-photo">
+    <div class="panel-heading">
+      <h3 class="panel-title">You are admin</h3>
+    </div>
+    <div class="panel-body">
+      <%= link_to 'Start campain', new_organization_campain_path(@organization) %>
+    </div>
+  </div>
+</div>

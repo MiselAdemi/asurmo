@@ -19,6 +19,6 @@ class ApplicationController < ActionController::Base
 
     def untrack_activity(trackable, action = params[:action])
       activity = current_user.activities.where(:trackable => trackable).first
-      Activity.destroy(activity.id)
+      Activity.destroy(activity.id) if activity
     end
 end

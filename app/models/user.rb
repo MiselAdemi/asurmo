@@ -27,10 +27,6 @@ class User < ActiveRecord::Base
   has_many :pictures
   has_many :campains
 
-  def full_name
-    first_name + " " + last_name
-  end
-
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
 
@@ -42,14 +38,18 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :email
 
+  def full_name
+    first_name + " " + last_name
+  end
+
   # is user admin of organization
   def is_organization_admin?(organization)
-    organization.admins.include?(current_user)
+    organization.admins.include?(self)
   end
 
   # is user moderator of organization
   def is_organization_moderator?(organizatin)
-    organizatin.moderators.include?(current_user)
+    organizatin.moderators.include?(self)
   end
 
   # all organizations where user is admin

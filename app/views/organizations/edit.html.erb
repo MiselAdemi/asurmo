@@ -1,6 +1,6 @@
-<h1>Editing Orgranization</h1>
+<%= render 'organizations/partials/header' %>
 
-<%= render 'edit' %>
-
-<%= link_to 'Show', @organization %> |
-<%= link_to 'Back', organizations_path %>
+<div id="row">
+  <%= render 'organizations/partials/edit_sidebar_left' %>
+  <%= render 'organizations/partials/edit' %>
+</div>

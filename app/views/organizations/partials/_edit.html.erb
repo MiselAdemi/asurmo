@@ -1,0 +1,33 @@
+<div class="col-lg-6 panel panel-default">
+  <%= form_for(@organization, :html => {:multipart => true}) do |f| %>
+    <% if @organization.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+        <ul>
+          <% @organization.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, :class => "col-md-3 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :name, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="field clearfix">
+      <%= f.label :avatar, :class => "col-md-3 control-label" %>
+      <div class="col-md-8">
+        <%= f.file_field :avatar, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save changes", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

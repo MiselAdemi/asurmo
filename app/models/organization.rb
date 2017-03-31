@@ -4,9 +4,9 @@ class Organization < ActiveRecord::Base
 
   has_many :members, :dependent => :destroy
   has_many :users, :through => :members
-  has_many :moderators, -> { where :role => 1 }, :through => :members
-  has_many :admins, -> { where :role => 2 }, :through => :members
-  has_many :campains
+  has_many :moderators, -> { where :members => { :role => 1 } }, :through => :members, :source => :user
+  has_many :admins, -> { where :members => { :role => 2 } }, :through => :members, :source => :user
+  has_many :campains, :dependent => :destroy
 
   accepts_nested_attributes_for :members, :users
 
