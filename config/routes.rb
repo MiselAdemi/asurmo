@@ -2,10 +2,6 @@ Rails.application.routes.draw do
   resources :activities
   devise_for :users, :controllers => { registrations: 'registrations' }
 
-  as :user do
-    #get "/:id" , :to => "users#show", :as => "user_path"
-  end
-
   authenticated :user do
     root 'organizations#new', as: :authenticated_root
   end
@@ -13,14 +9,17 @@ Rails.application.routes.draw do
   root 'home#index'
   get "home/get_cities", :as => "get_cities"
 
-  resources :users do
+  resources :users, :path => "" do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
     get "about", :as => "about"
+
+    get "organizations/index", :as => "organizations", :path => "organizations"
+
     resources :statuses
   end
 
-  resources :organizations do
+  resources :organizations, :except => [:index] do
     resources :members, :only => [:create, :destroy]
 
     resources :campains do
