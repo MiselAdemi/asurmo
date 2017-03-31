@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 2.1.10
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database asurmo_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+  - bin/rake db:create db:migrate
