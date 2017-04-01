@@ -12,6 +12,26 @@ class Organization < ActiveRecord::Base
 
   mount_uploader :avatar, OrganizationAvatarUploader
 
+  # add new admin
+  def add_admin(user)
+    members.create(:user => user, :role => 2)
+  end
+
+  # remove admin
+  def remove_admin(user)
+    members.destroy(:user => user, :role => 2)
+  end
+
+  # add new moderator
+  def add_moderator(user)
+    members.create(:user => user, :role => 1)
+  end
+
+  # remove moderator
+  def remove_moderator(user)
+    members.destroy(:user => user, :role => 1)
+  end
+
   # User joins organization
   def join(user)
     members.create(:user => user, :role => 0)

@@ -3,8 +3,8 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
-  before_action :set_campains, :only => [:show]
-  before_action :set_events, :only => [:show]
+  before_action :set_campains, :only => [:show, :show_admins]
+  before_action :set_events, :only => [:show, :show_admins]
   respond_to :html, :json
 
   def index
@@ -26,12 +26,20 @@ class OrganizationsController < ApplicationController
     @event = @default_campain.events.new
   end
 
+  def show_admins
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @admins = @organization.admins.select { |admin| admin if admin.id != @organization.owner_id }
+  end
+
   def new
     @organization = current_user.organizations.new
   end
 
   def create
     @organization = current_user.organizations.build(organization_params)
+    @organization.user_id = current_user.id
 
     # Confirm organization is valid and save or return error
     if @organization.save

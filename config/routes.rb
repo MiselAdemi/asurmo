@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :search_suggestions
   resources :activities
   devise_for :users, :controllers => { registrations: 'registrations' }
 
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
 
   resources :organizations, :except => [:index] do
     resources :members, :only => [:create, :destroy]
+
+    get "organizations/show_admins", :as => "show_admins", :path => "admins"
 
     resources :campains do
       resources :events

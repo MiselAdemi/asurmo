@@ -1,0 +1,33 @@
+<div class="col-lg-6 panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Admin list</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <input type="text" id="search">
+      <%= link_to "Add", users_path, :class => "btn btn-primary" %>
+      <% if @admins.empty? %>
+        <p>There is no admin yet</p>
+      <% else %>
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @admins.each do |admin| %>
+            <tr>
+              <td><%= admin.first_name %></td>
+              <td><%= admin.last_name %></td>
+              <td><%= admin.email %></td>
+              <td>x</td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  <% end %>
+  </div>
+</div>
