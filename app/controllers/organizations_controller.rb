@@ -3,8 +3,8 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
-  before_action :set_campains, :only => [:show, :show_admins, :show_moderators]
-  before_action :set_events, :only => [:show, :show_admins, :show_moderators]
+  before_action :set_campains, :only => [:show, :show_admins, :show_moderators, :show_members]
+  before_action :set_events, :only => [:show, :show_admins, :show_moderators, :show_members]
   respond_to :html, :json
 
   def index
@@ -38,6 +38,13 @@ class OrganizationsController < ApplicationController
     @default_campain = @organization.campains.first
     @event = @default_campain.events.new
     @moderators = @organization.moderators
+  end
+
+  def show_members
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @members = @organization.members.select { |member| member.user.id != current_user.id }
   end
 
   def new

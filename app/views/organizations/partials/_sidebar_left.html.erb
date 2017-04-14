@@ -1,6 +1,6 @@
 <div class="col-lg-3 left-sidebar">
 
-  <%= render 'organizations/partials/admin_left' if is_organization_owner?(@organization) %>
+  <%= render 'organizations/partials/admin_left' if is_organization_admin?(@organization) %>
   <%= render 'organizations/partials/campain_widget' %>
   <%= render 'organizations/partials/event_widget' %>
 

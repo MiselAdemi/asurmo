@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations, :except => [:index] do
-    resources :members
+    #resources :members
     post "members/create_admin", :as => "create_admin", :path => "admins"
     get "members/remove_admin/:user" => "members#remove_admin", :as => "remove_admin", :path => "admins/:user"
 
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
     get "organizations/show_admins", :as => "show_admins", :path => "admins"
     get "organizations/show_moderators", :as => "show_moderators", :path => "moderators"
+    get "organizations/show_members", :as => "show_members", :path => "members"
     get :autocomplete
 
     resources :campains do
