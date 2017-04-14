@@ -14,12 +14,18 @@ class Organization < ActiveRecord::Base
 
   # add new admin
   def add_admin(user)
-    members.create(:user => user, :role => 2)
+    if(members.include?(user))
+      user.role = 2
+      user.save
+    elsif
+      members.create(:user => user, :role => 2)
+    end
   end
 
   # remove admin
   def remove_admin(user)
-    members.destroy(user.id)
+    user.role = 0
+    user.save
   end
 
   # add new moderator
@@ -29,7 +35,8 @@ class Organization < ActiveRecord::Base
 
   # remove moderator
   def remove_moderator(user)
-    members.destroy(:user => user, :role => 1)
+    user.role = 0
+    user.save
   end
 
   # User joins organization
