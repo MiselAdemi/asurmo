@@ -14,10 +14,10 @@ class Organization < ActiveRecord::Base
 
   # add new admin
   def add_admin(user)
-    if(members.include?(user))
-      user.role = 2
-      user.save
-    elsif
+    member = members.where(:user => user).first
+    if(member.present?)
+      member.update_attributes(:role => 2)
+    else
       members.create(:user => user, :role => 2)
     end
   end
@@ -30,7 +30,12 @@ class Organization < ActiveRecord::Base
 
   # add new moderator
   def add_moderator(user)
-    members.create(:user => user, :role => 1)
+    member = members.where(:user => user).first
+    if(member.present?)
+      member.update_attributes(:role => 1)
+    else
+      members.create(:user => user, :role => 1)
+    end
   end
 
   # remove moderator

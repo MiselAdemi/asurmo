@@ -1,0 +1,38 @@
+<div class="col-lg-6 panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Moderators list</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+
+      <%= form_for(@organization, :url => organization_create_moderator_path(@organization), :method => "post") do |f| %>
+        <%= f.text_field_tag :query, params[:query], :class => 'form-control typeahead', :id => "search-field" %>
+        <%= f.hidden_field_tag :user_email, params[:user], :class => 'hidden-autocomplete' %>
+        <%= f.submit "Add", :class => "btn btn-primary" %>
+      <% end %>
+
+      <% if @moderators.empty? %>
+        <p>There is no moderators yet</p>
+      <% else %>
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @moderators.each do |moderator| %>
+            <tr>
+              <td><%= moderator.first_name %></td>
+              <td><%= moderator.last_name %></td>
+              <td><%= moderator.email %></td>
+              <td><%= link_to "x", organization_remove_admin_path(@organization, moderator.id), :method => :get %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  <% end %>
+  </div>
+</div>

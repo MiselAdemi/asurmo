@@ -5,6 +5,8 @@
   <div class="panel-body">
     <ul>
       <li><%= link_to "Manage admins", organization_show_admins_path(@organization), :method => :get %></li>
+      <li><%= link_to "Manage moderators", organization_show_moderators_path(@organization), :method => :get %></li>
+      <li><%= link_to "Manage members", organization_show_admins_path(@organization), :method => :get %></li>
     </ul>
   </div>
 </div>

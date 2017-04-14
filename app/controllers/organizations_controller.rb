@@ -3,8 +3,8 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
-  before_action :set_campains, :only => [:show, :show_admins]
-  before_action :set_events, :only => [:show, :show_admins]
+  before_action :set_campains, :only => [:show, :show_admins, :show_moderators]
+  before_action :set_events, :only => [:show, :show_admins, :show_moderators]
   respond_to :html, :json
 
   def index
@@ -31,6 +31,13 @@ class OrganizationsController < ApplicationController
     @default_campain = @organization.campains.first
     @event = @default_campain.events.new
     @admins = @organization.admins.select { |admin| admin if admin.id != @organization.owner_id }
+  end
+
+  def show_moderators
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @moderators = @organization.moderators
   end
 
   def new
@@ -92,7 +99,11 @@ class OrganizationsController < ApplicationController
   def autocomplete
     users =  User.search(params[:query], match: :word_start, limit: 10)
 
-    render json: users.select { |user| !user.is_organization_admin?(@organization) }
+    if(params[:type] == "admins")
+      render json: users.select { |user| !user.is_organization_admin?(@organization) }
+    elsif (params[:type] == "moderators")
+      render json: users.select { |user| !user.is_organization_admin?(@organization) && !user.is_organization_moderator?(@organization) }
+    end
   end
 
   private

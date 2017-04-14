@@ -42,12 +42,14 @@ $ ->
 ready = undefined
 
 ready = ->
+  url_page = window.location.href.split("/")[5]
+
   engine = new Bloodhound(
     datumTokenizer: (d) ->
       Bloodhound.tokenizers.whitespace d.email
     queryTokenizer: Bloodhound.tokenizers.whitespace
     remote:
-      url: window.location.href.replace("admins", "") + '/autocomplete?query=%QUERY'
+      url: window.location.href.replace(url_page, "") + '/autocomplete?type=' + url_page + '&query=%QUERY'
       wildcard: '%QUERY')
   promise = engine.initialize()
   promise.done(->

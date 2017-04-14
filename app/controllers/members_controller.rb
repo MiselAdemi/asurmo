@@ -24,6 +24,18 @@ class MembersController < ApplicationController
     redirect_to :back
   end
 
+  def create_moderator
+    @organization.add_moderator(get_user_by_email)
+
+    redirect_to :back
+  end
+
+  def remove_moderator
+    @organization.remove_moderator(get_user_by_id)
+
+    redirect_to :back
+  end
+
   private
 
   def set_organization
