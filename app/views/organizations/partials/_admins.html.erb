@@ -4,8 +4,13 @@
   </div>
   <div class="panel-body">
     <table class="table table-bordered">
-      <input type="text" id="search">
-      <%= link_to "Add", users_path, :class => "btn btn-primary" %>
+
+      <%= form_for(@organization, :url => organization_create_admin_path(@organization), :method => "post") do |f| %>
+        <%= f.text_field_tag :query, params[:query], :class => 'form-control typeahead', :id => "search-field" %>
+        <%= f.hidden_field_tag :user_email, params[:user], :class => 'hidden-autocomplete' %>
+        <%= f.submit "Add", :class => "btn btn-primary" %>
+      <% end %>
+
       <% if @admins.empty? %>
         <p>There is no admin yet</p>
       <% else %>
@@ -23,7 +28,7 @@
               <td><%= admin.first_name %></td>
               <td><%= admin.last_name %></td>
               <td><%= admin.email %></td>
-              <td>x</td>
+              <td><%= link_to "x", organization_remove_admin_path(@organization, admin.id), :method => :get %></td>
             </tr>
           <% end %>
         </tbody>

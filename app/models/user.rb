@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name, :use => :slugged
+  searchkick word_start: [:email]
 
   enum role: [:user, :moderator, :organization, :admin]
   after_initialize :set_default_role, :if => :new_record?

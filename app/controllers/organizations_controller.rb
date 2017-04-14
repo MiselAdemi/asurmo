@@ -89,6 +89,12 @@ class OrganizationsController < ApplicationController
     redirect_to user_organizations_path(current_user)
   end
 
+  def autocomplete
+    users =  User.search(params[:query], match: :word_start, limit: 10)
+
+    render json: users.select { |user| !user.is_organization_admin?(@organization) }
+  end
+
   private
   def organization_params
     params.require(:organization).permit(:name, :description, :avatar)

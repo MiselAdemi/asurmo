@@ -19,7 +19,8 @@ gem 'react-rails', '~> 1.9'
 gem 'kaminari', '~> 0.16.3'
 gem 'rails_emoji_picker'
 gem 'client_side_validations'
-
+gem 'searchkick'
+gem 'twitter-typeahead-rails'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

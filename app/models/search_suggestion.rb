@@ -1,12 +1,13 @@
 class SearchSuggestion < ActiveRecord::Base
-  def self.terms_for(prefix)
+  def self.terms_for(prefix, organization_id)
     suggestions = where("term like ?", "#{prefix}_%")
     suggestions.order("popularity desc").limit(10).pluck(:term)
   end
 
   def self.index_users
-    User.for_each do |user|
-      index_term(user.email)
+    User.find_each do |user|
+      #if(!user.is_organization_admin?(organization))
+        index_term(user.email)
     end
   end
 

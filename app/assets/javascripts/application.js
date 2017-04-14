@@ -15,12 +15,13 @@
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require twitter/bootstrap
-//= require turbolinks
+//= require twitter/typeahead
+//= require jquery.infinitescroll
+//= require rails_emoji_picker
+//= require rails.validations
 //= require react
 //= require react_ujs
 //= require components
 //= require timeago
-//= require jquery.infinitescroll
-//= require rails_emoji_picker
-//= require rails.validations
+//= require turbolinks
 //= require_tree .

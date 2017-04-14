@@ -19,7 +19,7 @@ class Organization < ActiveRecord::Base
 
   # remove admin
   def remove_admin(user)
-    members.destroy(:user => user, :role => 2)
+    members.destroy(user.id)
   end
 
   # add new moderator
