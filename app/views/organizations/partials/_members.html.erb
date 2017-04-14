@@ -1,0 +1,32 @@
+<div class="col-lg-6 panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Members list</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+
+      <% if @members.empty? %>
+        <p>There is no member yet</p>
+      <% else %>
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @members.each do |member| %>
+            <tr>
+              <td><%= member.user.first_name %></td>
+              <td><%= member.user.last_name %></td>
+              <td><%= member.user.email %></td>
+              <td><%= member.role %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  <% end %>
+  </div>
+</div>

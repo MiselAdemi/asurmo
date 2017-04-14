@@ -3,8 +3,8 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
   before_action :set_user
-  before_action :set_campains, :only => [:show]
-  before_action :set_events, :only => [:show]
+  before_action :set_campains, :only => [:show, :show_admins, :show_moderators, :show_members]
+  before_action :set_events, :only => [:show, :show_admins, :show_moderators, :show_members]
   respond_to :html, :json
 
   def index
@@ -26,12 +26,34 @@ class OrganizationsController < ApplicationController
     @event = @default_campain.events.new
   end
 
+  def show_admins
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @admins = @organization.admins.select { |admin| admin if admin.id != @organization.owner_id }
+  end
+
+  def show_moderators
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @moderators = @organization.moderators
+  end
+
+  def show_members
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @members = @organization.members.select { |member| member.user.id != current_user.id }
+  end
+
   def new
     @organization = current_user.organizations.new
   end
 
   def create
     @organization = current_user.organizations.build(organization_params)
+    @organization.user_id = current_user.id
 
     # Confirm organization is valid and save or return error
     if @organization.save
@@ -79,6 +101,16 @@ class OrganizationsController < ApplicationController
     untrack_activity(@organization)
     @organization.destroy
     redirect_to user_organizations_path(current_user)
+  end
+
+  def autocomplete
+    users =  User.search(params[:query], match: :word_start, limit: 10)
+
+    if(params[:type] == "admins")
+      render json: users.select { |user| !user.is_organization_admin?(@organization) }
+    elsif (params[:type] == "moderators")
+      render json: users.select { |user| !user.is_organization_admin?(@organization) && !user.is_organization_moderator?(@organization) }
+    end
   end
 
   private

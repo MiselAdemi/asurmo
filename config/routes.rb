@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :search_suggestions
   resources :activities
   devise_for :users, :controllers => { registrations: 'registrations' }
 
@@ -20,7 +21,17 @@ Rails.application.routes.draw do
   end
 
   resources :organizations, :except => [:index] do
-    resources :members, :only => [:create, :destroy]
+    #resources :members
+    post "members/create_admin", :as => "create_admin", :path => "admins"
+    get "members/remove_admin/:user" => "members#remove_admin", :as => "remove_admin", :path => "admins/:user"
+
+    post "members/create_moderator", :as => "create_moderator", :path => "moderators"
+    get "members/remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator", :path => "admins/:user"
+
+    get "organizations/show_admins", :as => "show_admins", :path => "admins"
+    get "organizations/show_moderators", :as => "show_moderators", :path => "moderators"
+    get "organizations/show_members", :as => "show_members", :path => "members"
+    get :autocomplete
 
     resources :campains do
       resources :events

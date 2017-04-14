@@ -37,3 +37,32 @@ $ ->
 
   $('#upload-cover-button').click ->
     $('#upload-cover-file').click()
+
+# Typehead autocomplete search
+ready = undefined
+
+ready = ->
+  url_page = window.location.href.split("/")[5]
+
+  engine = new Bloodhound(
+    datumTokenizer: (d) ->
+      Bloodhound.tokenizers.whitespace d.email
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    remote:
+      url: window.location.href.replace(url_page, "") + '/autocomplete?type=' + url_page + '&query=%QUERY'
+      wildcard: '%QUERY')
+  promise = engine.initialize()
+  promise.done(->
+    console.log 'success!'
+    return
+  ).fail ->
+    console.log 'err!'
+    return
+  $('.typeahead').typeahead null,
+    name: 'engine'
+    displayKey: 'email'
+    source: engine.ttAdapter()
+  return
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

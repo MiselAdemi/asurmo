@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330183624) do
+ActiveRecord::Schema.define(version: 20170331185612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,14 +113,14 @@ ActiveRecord::Schema.define(version: 20170330183624) do
     t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.string   "slug"
     t.string   "avatar"
     t.string   "description"
   end
 
+  add_index "organizations", ["owner_id"], name: "index_organizations_on_owner_id", using: :btree
   add_index "organizations", ["slug"], name: "index_organizations_on_slug", using: :btree
-  add_index "organizations", ["user_id"], name: "index_organizations_on_user_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "album_id"
@@ -134,6 +134,13 @@ ActiveRecord::Schema.define(version: 20170330183624) do
 
   add_index "pictures", ["album_id"], name: "index_pictures_on_album_id", using: :btree
   add_index "pictures", ["user_id"], name: "index_pictures_on_user_id", using: :btree
+
+  create_table "search_suggestions", force: :cascade do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "statuses", force: :cascade do |t|
     t.text     "body"
@@ -190,7 +197,7 @@ ActiveRecord::Schema.define(version: 20170330183624) do
   add_foreign_key "interests_lists", "users"
   add_foreign_key "members", "organizations"
   add_foreign_key "members", "users"
-  add_foreign_key "organizations", "users"
+  add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "pictures", "albums"
   add_foreign_key "pictures", "users"
   add_foreign_key "statuses", "users"
