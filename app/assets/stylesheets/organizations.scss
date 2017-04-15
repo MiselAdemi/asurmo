@@ -17,7 +17,7 @@
   display: inline-block;
 }
 
-.latest-campain-widget a {
+.latest-campain-widget .panel-heading a {
   width: auto;
   float: right;
   font-size: 12px;
@@ -25,7 +25,7 @@
   border: 1px;
 }
 
-.latest-campain-widget a:hover {
+.latest-campain-widget .panel-heading a:hover {
   color: #67727a;
   text-decoration: none;
   border: 1px solid #67727a;

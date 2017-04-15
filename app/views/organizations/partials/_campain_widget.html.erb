@@ -7,11 +7,13 @@
     <% if !@campains.exists? %>
       <p>Create first campain for this organization</p>
     <% else %>
-      <ul>
-      <% @campains.each do |campain| %>
-        <li> <%= campain.name %> </li>
-      <% end %>
-      </ul>
+      <div class="list-group">
+        <% @campains.each do |campain| %>
+          <% if(campain.id != nil) %>
+            <%= link_to campain.name, organization_campain_path(@organization, campain), :class => "list-group-item list-group-item-action" %>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
@@ -35,7 +37,7 @@
           </div>
 
           <div class="field">
-          <%= f.label :avatar, :class => "col-md-3 control-label" %>
+            <%= f.label :avatar, :class => "col-md-3 control-label" %>
             <div class="col-md-8 pull-right">
               <%= f.file_field :avatar, :class => "form-control" %>
             </div>
