@@ -118,7 +118,7 @@
 
 .left-sidebar {
   clear: both;
-  padding-left: 0px;
+  padding-left: 0px !important;
 }
 
 .panel-nav .panel-body {
@@ -165,7 +165,7 @@
 }
 
 .panel-default .panel-heading {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
   color: #333333;
 }
 

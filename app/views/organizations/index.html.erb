@@ -1,6 +1,6 @@
 <%= render 'users/partials/header' %>
 
-<div id="row">
+<div id="row" data-turbolinks="false">
   <%= render 'users/sidebar_left' %>
 
   <div class="col-lg-6 edit-center">
@@ -8,6 +8,9 @@
       <div class="panel-body">
         <h3 class="col-lg-6">Owner</h3>
         <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
+        <br>
+        <br>
+        <br>
         <% if @owner_organizations.blank? %>
           <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
         <% else %>
