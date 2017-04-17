@@ -1,0 +1,8 @@
+<tr>
+  <td width="10%"><%= image_tag event.avatar.url, :class => "icon-responsive" %></td>
+  <td><%= link_to event.name, organization_campain_event_path(organization, event.campain_id, event) %></td>
+  <td class="text-right">
+    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" %>
+    <%= link_to "", organization_campain_event_path(organization, event.campain_id, event), :method => :delete, :class => "fa fa-trash text-danger" %>
+  </td>
+</tr>

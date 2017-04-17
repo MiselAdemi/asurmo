@@ -1,10 +1,25 @@
 class EventsController < ApplicationController
-  before_action :set_organization, :only => [:new, :create, :show]
-  before_action :set_campain, :only => [:new, :create, :show]
-  before_action :set_event, :only => [:show]
+  before_action :authenticate_user!
+  before_action :set_user
+  before_action :set_organization, :only => [:index, :campain_events, :new, :create, :show, :destroy]
+  before_action :set_campain, :only => [:new, :create, :show, :destroy]
+  before_action :set_event, :only => [:destroy, :show]
   respond_to :html, :json
 
   def index
+    @events = @organization.campains.map { |campain| campain.events }.flatten
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @campains = @organization.campains
+  end
+
+  def campain_events
+    @events = @organization.campains.map { |campain| campain.events }.flatten
+    @campain = @organization.campains.new
+    @default_campain = @organization.campains.first
+    @event = @default_campain.events.new
+    @campains = @organization.campains
   end
 
   def show
@@ -28,6 +43,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    @event.destroy
+    redirect_to :back
+  end
+
   private
 
   def set_organization
@@ -44,5 +64,9 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name, :location, :avatar, :description, :start_date, :end_date)
+  end
+
+  def set_user
+    @user = current_user
   end
 end
