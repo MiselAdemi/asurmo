@@ -34,7 +34,12 @@ Rails.application.routes.draw do
     get :autocomplete
 
     resources :campains do
-      resources :events
+      collection do
+        resources :events, :only => [:index]
+      end
+
+      resources :events, :except => [:index]
+      get "events/campain_events", :as => "all_events", :path => "events"
     end
   end
 

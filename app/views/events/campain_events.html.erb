@@ -1,0 +1,29 @@
+<%= render 'organizations/partials/header' %>
+
+<div id="row" data-turbolinks="false">
+  <%= render 'organizations/partials/sidebar_left' %>
+
+  <div class="col-lg-6 edit-center">
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <h3 class="col-lg-6">Events</h3>
+        <br>
+        <br>
+        <br>
+        <% if !@events.any? %>
+          <p class="col-lg-12">There is no campain with events yet!</p>
+        <% else %>
+          <div class="table-responsive table-sm">
+            <table class="table table-sm">
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+              <%= render :partial => 'events/partials/events_list', :collection => @events, :as => :event, :locals => {:organization => @organization, :campain => @cmpain} %>
+            </table>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

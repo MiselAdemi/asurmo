@@ -5,13 +5,15 @@
   </div>
   <div class="panel-body">
     <% if !@events.any? %>
-      <p>Create first event</p>
+      <p>There is no events yet</p>
     <% else %>
-      <ul>
-      <% @events.each do |event| %>
-        <li> <%= event.name %> </li>
-      <% end %>
-      </ul>
+      <div class="list-group">
+        <% @events.each do |event| %>
+          <% if(event.id != nil) %>
+            <%= link_to event.name, organization_campain_event_path(@organization, event.campain_id, event), :class => "list-group-item list-group-item-action" %>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
@@ -27,25 +29,51 @@
       <%= form_for([@organization, @default_campain, @event], :html => {:multipart => true}) do |f| %>
         <div class="modal-body clearfix">
 
-          <div class="field">
+          <div class="form-group field">
             <%= f.label :name, :class => "col-md-3 control-label" %>
             <div class="col-md-8 pull-right">
-              <%= f.text_field :name %>
+              <%= f.text_field :name, :class => "form-control" %>
             </div>
           </div>
 
-          <div class="field">
+          <div class="form-group field">
             <%= f.label :location, :class => "col-md-3 control-label" %>
             <div class="col-md-8 pull-right">
-              <%= f.text_field :location %>
+              <%= f.text_field :location, :class => "form-control" %>
             </div>
           </div>
 
+          <div class="form-group field">
+            <%= f.label :start_date, :class => "col-md-3 control-label" %>
+            <div class='col-md-8 pull-right input-group date' id='datetimepicker6'>
+              <%= f.text_field :start_date, :class => "form-control" %>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
 
-          <div class="field">
-          <%= f.label :avatar, :class => "col-md-3 control-label" %>
+          <div class="form-group field">
+            <%= f.label :end_date, :class => "col-md-3 control-label" %>
+            <div class='col-md-8 pull-right input-group date' id='datetimepicker7'>
+              <%= f.text_field :end_date, :class => "form-control" %>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group field">
+            <%= f.label :avatar, :class => "col-md-3 control-label" %>
             <div class="col-md-8 pull-right">
               <%= f.file_field :avatar, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group field">
+            <%= f.label :description, :class => "col-md-3 control-label" %>
+            <div class="col-md-8 pull-right">
+              <%= f.text_area :description, :class => "form-control" %>
             </div>
           </div>
 
@@ -58,4 +86,3 @@
     </div>
   </div>
 </div>
-

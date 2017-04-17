@@ -1,0 +1,10 @@
+
+<% if campain.id != nil %>
+<tr>
+  <td><%= link_to campain.name, organization_campain_all_events_path(organization, campain) %></td>
+  <td class="text-right">
+    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" %>
+    <%= link_to "", organization_path(organization), :method => :delete, :class => "fa fa-trash text-danger" %>
+  </td>
+</tr>
+<% end %>

@@ -15,6 +15,8 @@
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require twitter/bootstrap
+//= require moment
+//= require bootstrap-datetimepicker
 //= require twitter/typeahead
 //= require jquery.infinitescroll
 //= require rails_emoji_picker
