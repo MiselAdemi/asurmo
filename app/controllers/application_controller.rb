@@ -14,11 +14,22 @@ class ApplicationController < ActionController::Base
     end
 
     def track_activity(trackable, action = params[:action])
-      current_user.activities.create!(:action => action, :trackable => trackable)
+      determine_type
+      current_user.activities.create!(:action => action, :trackable => trackable, :to_id => @to, :from_type => "user", :to_type => @to_type)
     end
 
     def untrack_activity(trackable, action = params[:action])
       activity = current_user.activities.where(:trackable => trackable).first
       Activity.destroy(activity.id) if activity
+    end
+
+    def determine_type
+      if(params[:organization_id].present?)
+        @to_type = "organization"
+        @to = params[:organization_id]
+      elsif
+        @to_type = "user"
+        @to = User.friendly.find(params[:user_id]).id
+      end
     end
 end

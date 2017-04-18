@@ -25,5 +25,4 @@
 //= require react_ujs
 //= require components
 //= require timeago
-//= require turbolinks
 //= require_tree .
