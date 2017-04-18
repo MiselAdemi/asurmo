@@ -17,7 +17,11 @@ Rails.application.routes.draw do
 
     get "organizations/index", :as => "organizations", :path => "organizations"
 
-    resources :statuses
+    resources :statuses do
+      member do
+        put "support" => "statuses#support"
+      end
+    end
   end
 
   resources :organizations, :except => [:index] do

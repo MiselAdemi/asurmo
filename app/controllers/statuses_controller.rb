@@ -1,6 +1,6 @@
 class StatusesController < ApplicationController
-  respond_to :html, :json
-  before_action :set_status, :only => [:show, :edit, :update]
+  before_action :set_status, :only => [:show, :edit, :update, :support]
+  respond_to :js, :json, :html
 
   def index
     @statuses = current_user.statuses
@@ -47,6 +47,15 @@ class StatusesController < ApplicationController
   def destroy
   end
 
+  def support
+    if !current_user.liked?(@status)
+      @status.liked_by(current_user)
+    else
+      @status.unliked_by(current_user)
+    end
+    sync_update Activity.where(:trackable => @status)
+  end
+
   private
 
   def status_params
@@ -58,6 +67,6 @@ class StatusesController < ApplicationController
   end
 
   def set_status
-    @status = current_user.statuses.where(:id => status_id).first
+    @status = Status.find(status_id)
   end
 end

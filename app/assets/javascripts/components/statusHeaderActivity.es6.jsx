@@ -1,4 +1,4 @@
-class ActivityStatus extends React.Component {
+class StatusHeaderActivity extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -56,36 +56,41 @@ class ActivityStatus extends React.Component {
   }
 
   renderItemOrEditField() {
-    if(this.state.editing === this.props.activity.id) {
-      return (
-        <div key={ `editing-${ this.props.activity.id }` } className="panel panel-white post panel-shadow">
-        <div className="post-heading">
+    return (
+      <div className="post-heading">
         <div className="pull-left image">
-        <img src={ this.props.user.avatar.url } className="avatar" />
+          <img src={ this.props.user.avatar.url } className="avatar" />
         </div>
 
-        <div className="title h5">
-        <a href="#" className="post-user-name">{ this.props.user.first_name } { this.props.user.last_name } </a>
-        made a post.
+        <div className="pull-left meta">
+          <div className="title h5">
+            <a href="#" className="post-user-name">{ this.props.user.first_name } { this.props.user.last_name } </a>
+
+            { this.props.activity.user_id !== this.props.current_user.id &&
+              <span>
+                &rarr;
+                <a href="#" className="post-user-name"> { this.props.to_user.first_name } { this.props.to_user.last_name } </a>
+              </span>
+            }
+
+            made a post
           </div>
-        <h6 className="text-muted time">
-        <time className="timeago" dateTime={ this.props.activity.created_at }></time>
-        </h6>
+
+          <h6 className="text-muted time">
+            <time className="timeago" dateTime={ this.props.activity.created_at }></time>
+          </h6>
         </div>
 
-        <div className="post-description">
-        <textarea onKeyDown={ this.handleEditField.bind(this) } name="body" ref={ `status_${this.props.activity.id }` } defaultValue={ this.state.item.body }></textarea>
+        <div className="btn-group pull-right">
+          <i className="fa fa-cog" aria-hidden="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+          <ul className="dropdown-menu">
+            <li onClick={ this.toggleEditing.bind(this, this.props.activity.id) }><a>Edit</a></li>
+            <li><a href="#">Delete</a></li>
+          </ul>
         </div>
-        <button onClick={ this.handleEditItem.bind(this) } className="btn btn-success">Update</button>
-        </div>
-      )
-    }else {
-      return (
-        <div className="post-description">
-          <p dangerouslySetInnerHTML={{__html: this.state.body}}></p>
-        </div>
-      )
-    }
+      </div>
+
+    )
   }
 
   render () {

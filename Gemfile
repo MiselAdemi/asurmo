@@ -23,6 +23,10 @@ gem 'twitter-typeahead-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'acts_as_votable', '~> 0.10.0'
+gem 'faye'
+gem 'thin', require: false
+gem 'render_sync'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

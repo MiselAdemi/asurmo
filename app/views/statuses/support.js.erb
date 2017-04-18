@@ -1,0 +1,6 @@
+<% if(current_user.liked?(@status)) %>
+  $(".support-btn").addClass("supported")
+<% else %>
+  $(".support-btn").removeClass("supported")
+<% end %>
+$(".supports-count-<%= @status.id %>").html("<%= @status.get_upvotes.size %>")
