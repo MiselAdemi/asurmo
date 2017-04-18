@@ -5,6 +5,8 @@ class ActivityStatus extends React.Component {
       editing: null,
       activity: this.props.activity,
       user: this.props.user,
+      to_user: this.props.to_user,
+      current_user: this.props.current_user,
       item: this.props.item,
       body: this.props.body
     }
@@ -87,9 +89,18 @@ class ActivityStatus extends React.Component {
 
         <div className="pull-left meta">
         <div className="title h5">
-        <a href="#" className="post-user-name">{ this.props.user.first_name } { this.props.user.last_name } </a>
-        made a post.
-          </div>
+          <a href="#" className="post-user-name">{ this.props.user.first_name } { this.props.user.last_name } </a>
+
+          { this.props.activity.user_id !== this.props.current_user.id &&
+            <span>
+              &rarr;
+              <a href="#" className="post-user-name"> { this.props.to_user.first_name } { this.props.to_user.last_name } </a>
+            </span>
+          }
+
+          made a post
+        </div>
+
         <h6 className="text-muted time">
         <time className="timeago" dateTime={ this.props.activity.created_at }></time>
         </h6>

@@ -1,1 +1,1 @@
-<%= react_component 'ActivityStatus', { activity: activity, user: activity.user, item: activity.trackable, :body =>  content_with_emoji(activity.trackable.body) } %>
+<%= react_component 'ActivityStatus', { activity: activity, user: activity.user, to_user: User.find(activity.to_id), current_user: current_user, item: activity.trackable, :body =>  content_with_emoji(activity.trackable.body) } %>
