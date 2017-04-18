@@ -1,0 +1,4 @@
+<div class="support-box">
+  <%= link_to "Support", support_user_status_path(activity.user_id, activity.trackable), :class => "support-btn", :method => :put, :remote => :true %>
+  <span class="supports-count-<%= activity.trackable.id %>"><%= activity.trackable.get_upvotes.size %></span>
+</div>
