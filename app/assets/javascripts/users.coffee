@@ -38,6 +38,10 @@ $ ->
   $('#upload-cover-button').click ->
     $('#upload-cover-file').click()
 
+  window.toggler = (divId) ->
+    $(".comment-box-" + divId).toggle()
+
+
 # Typehead autocomplete search
 ready = undefined
 
