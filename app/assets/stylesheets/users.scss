@@ -326,3 +326,30 @@
   width: 100%;
   max-height: 100px;
 }
+
+/* Comments */
+.comment-box {
+  display: none;
+}
+
+.new_comment {
+  margin: 10px 10px;
+
+  #comment_body {
+    border: 1px solid #000000;
+  }
+}
+
+.comments-container {
+  margin: 10px 10px;
+
+  img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .reply {
+    margin: 10px 20px;
+  }
+
+}

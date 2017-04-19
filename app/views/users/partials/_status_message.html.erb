@@ -3,4 +3,12 @@
 
   <%= render :partial => "users/partials/activity/#{activity.trackable_type.downcase}/#{activity.action}", :locals => {:activity => activity} %>
   <%= sync partial: 'timeline_support_box', resource: activity %>
+
+  <a onclick="toggler(<%= activity.id %>);">
+     comments <i class="fa fa-level-down"></i>
+  </a>
+
+  <div class="comment-box comment-box-<%= activity.id %>" >
+    <%= render partial: "comments/template", locals: {commentable: activity.trackable, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>
+  </div>
 </div>

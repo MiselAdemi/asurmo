@@ -1,0 +1,21 @@
+<% comments.each do |comment| %>
+  <div class="comment">
+    <%= image_tag comment.user.avatar.url %>
+    <%= comment.body %>
+  </div>
+
+  <% if type == :root %>
+    <%= form_for new_comment do |f| %>
+      <%= f.hidden_field :commentable_id, value: new_comment.commentable_id %>
+      <%= f.hidden_field :commentable_type, value: new_comment.commentable_type %>
+      <%= f.hidden_field :comment_id, value: comment.id %>
+
+      <%= f.text_area :body, class: "form-control" %>
+      <%= submit_tag "Post Reply", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+
+  <div class="reply">
+    <%= render partial: "comments/reply", locals: {comments: comment.children, new_comment: new_comment, type: :children} %>
+  </div>
+<% end %>

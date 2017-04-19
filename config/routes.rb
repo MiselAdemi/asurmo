@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     end
   end
 
+      resources :comments
+
   resources :organizations, :except => [:index] do
     #resources :members
     post "members/create_admin", :as => "create_admin", :path => "admins"
