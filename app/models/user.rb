@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
   has_many :members, :class_name => "Member", :foreign_key => "user_id", :dependent => :destroy
   has_many :organizations, :through => :members
+  has_many :conversations, :foreign_key => :sender_id
 
   accepts_nested_attributes_for :members, :organizations
 
