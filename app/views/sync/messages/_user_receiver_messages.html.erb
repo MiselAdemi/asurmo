@@ -1,0 +1,35 @@
+<% if message.user.id == current_user.id %>
+  <div class="item clearfix">
+    <div class="content">
+      <div class="header">
+        <%= image_tag message.user.avatar.url, :class => "img-thumbnail" %>
+        <strong><%= message.user.first_name %></strong>
+        <%= message.message_time %>
+      </div>
+
+      <div class="well pull-right">
+        <div class="item">
+          <i class="right triangle icon"></i>
+          <%= message.body %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="item clearfix">
+    <div class="content">
+      <div class="header pull-right">
+        <strong><%= message.user.first_name %></strong>
+        <%= message.message_time %>
+        <%= image_tag message.user.avatar.url, :class => "img-thumbnail" %>
+      </div>
+
+      <div class="well well-sender">
+        <div class="item">
+          <i class="right triangle icon"></i>
+          <%= message.body %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
