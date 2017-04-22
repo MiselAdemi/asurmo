@@ -19,6 +19,8 @@ class MessagesController < ApplicationController
       end
     end
     @new_message = @conversation.messages.new
+
+    gon.current_user = current_user
   end
 
   def new

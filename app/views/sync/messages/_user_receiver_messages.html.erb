@@ -1,10 +1,10 @@
 <% if message.user.id == current_user.id %>
-  <div class="item clearfix">
+  <div class="item clearfix" id="<%= message.user.id %>">
     <div class="content">
       <div class="header">
         <%= image_tag message.user.avatar.url, :class => "img-thumbnail" %>
         <strong><%= message.user.first_name %></strong>
-        <%= message.message_time %>
+        <span class="time"><%= message.message_time %></span>
       </div>
 
       <div class="well pull-right">
@@ -16,11 +16,11 @@
     </div>
   </div>
 <% else %>
-  <div class="item clearfix">
+  <div class="item clearfix" id="<%= message.user.id %>">
     <div class="content">
       <div class="header pull-right">
         <strong><%= message.user.first_name %></strong>
-        <%= message.message_time %>
+        <span class="time"><%= message.message_time %></span>
         <%= image_tag message.user.avatar.url, :class => "img-thumbnail" %>
       </div>
 
