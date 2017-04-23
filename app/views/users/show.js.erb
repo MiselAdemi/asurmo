@@ -1,7 +1,8 @@
-$('#content').append("<%=j render(partial: 'users/partials/status_message', collection: @activities, as: :activity, format: 'html') %>");
+$('.timeline').append("<%=j render(@activities) %>");
 
-<% if @activities.current_page == @activities.total_pages %>
-    $('#view-more').remove();
+<% if @activities.next_page %>
+	$('pagination').replaceWith('<%= j paginate(@activities) %>');
 <% else %>
-    $('#view-more a').attr('href', '<%= url_for(page: @activities.current_page + 1) %>');
+	$('.pagination').remove();
 <% end %>
+<% sleep 1 %>

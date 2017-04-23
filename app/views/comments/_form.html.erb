@@ -1,7 +1,5 @@
-<%= form_for new_comment do |f| %>
+<%= form_for new_comment, :class => "comment-form", :html => { :id => "comment-form-#{new_comment.commentable_id}" } do |f| %>
   <%= f.hidden_field :commentable_id, value: new_comment.commentable_id %>
   <%= f.hidden_field :commentable_type, value: new_comment.commentable_type %>
-  <%= f.text_area :body, class: "form-control" %>
-
-  <%= submit_tag "Post comment", class: "btn btn-primary" %>
+  <%= f.text_area :body, class: "form-control", :placeholder => "Type your comment...", :onkeypress => "sendComment(#{new_comment.commentable_id})" %>
 <% end %>

@@ -41,6 +41,16 @@ $ ->
   window.toggler = (divId) ->
     $(".comment-box-" + divId).toggle()
 
+  if $('.pagination').length
+    $(window).scroll ->
+      url = $('.pagination .next a').attr('href')
+
+      if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
+        $('.pagination').text("Fetching more activities...")
+        $.getScript(url)
+
+    $(window).scroll()
+
 
 # Typehead autocomplete search
 ready = undefined

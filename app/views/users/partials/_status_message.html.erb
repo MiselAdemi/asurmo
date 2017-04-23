@@ -1,5 +1,5 @@
 <div id="<%= activity.id %>" class="panel panel-white post panel-shadow timeline-post">
-  <%= react_component 'StatusHeaderActivity', { activity: activity, user: activity.user, to_user: User.find(activity.to_id), current_user: current_user, item: activity.trackable, :body =>  content_with_emoji(activity.trackable.body) } %>
+  <%= render :partial => "users/partials/timeline_item" %>
 
   <%= render :partial => "users/partials/activity/#{activity.trackable_type.downcase}/#{activity.action}", :locals => {:activity => activity} %>
   <%= sync partial: 'timeline_support_box', resource: activity %>
