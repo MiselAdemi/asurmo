@@ -46,7 +46,7 @@ $ ->
       url = $('.pagination .next a').attr('href')
 
       if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
-        $('.pagination').text("Fetching more activities...")
+        $('.pagination').html("<div class='loader'></div>")
         $.getScript(url)
 
     $(window).scroll()
