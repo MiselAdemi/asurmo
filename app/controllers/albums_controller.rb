@@ -36,7 +36,7 @@ class AlbumsController < ApplicationController
   end
 
   def url_options
-    { :profile_name => params[:profile_name] }.merge(super)
+    { :user_id => params[:user_id] }.merge(super)
   end
 
   private
@@ -58,6 +58,6 @@ class AlbumsController < ApplicationController
   end
 
   def set_user
-    @user = User.friendly.find(params[:profile_name])
+    @user = User.friendly.find(params[:user_id])
   end
 end
