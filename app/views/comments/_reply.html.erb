@@ -2,20 +2,28 @@
   <div class="comment">
     <%= image_tag comment.user.avatar.url %>
     <%= comment.body %>
+    <% if comment.parent_id == nil %>
+      <a onclick="togglerCommentReply(<%= comment.id %>);">
+        <small>
+          <%= comment.children.size %> 
+          <i class="fa fa-reply" aria-hidden="true"></i>
+        </small>
+      </a>
+    <% end %>
+  </div>
+
+  <div class="reply" id="reply-<%= comment.id %>">
+    <%= render partial: "comments/reply", locals: {comments: comment.children, new_comment: new_comment, type: :children} %>
   </div>
 
   <% if type == :root %>
-    <%= form_for new_comment do |f| %>
+    <%= form_for new_comment, :html => { :class => "comment-reply-form", :id => "comment-reply-form-#{comment.id}" } do |f| %>
       <%= f.hidden_field :commentable_id, value: new_comment.commentable_id %>
       <%= f.hidden_field :commentable_type, value: new_comment.commentable_type %>
       <%= f.hidden_field :comment_id, value: comment.id %>
 
-      <%= f.text_area :body, class: "form-control" %>
-      <%= submit_tag "Post Reply", class: "btn btn-primary" %>
+      <%= f.text_area :body, class: "form-control", :placeholder => "Type yout reply...", :onkeypress => "sendCommentReply(#{comment.id})" %>
     <% end %>
   <% end %>
 
-  <div class="reply">
-    <%= render partial: "comments/reply", locals: {comments: comment.children, new_comment: new_comment, type: :children} %>
-  </div>
 <% end %>
