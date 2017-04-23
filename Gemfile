@@ -29,6 +29,7 @@ gem 'thin', require: false
 gem 'render_sync'
 gem 'acts_as_commentable_with_threading'
 gem 'awesome_nested_set'
+gem 'gon'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

@@ -18,16 +18,20 @@ class MessagesController < ApplicationController
         @messages.last.read = true;
       end
     end
-    @message = @conversation.messages.new
+    @new_message = @conversation.messages.new
+
+    gon.current_user = current_user
   end
 
   def new
-    @message = @conversation.messages.new
+    @new_message = @conversation.messages.new
   end
 
   def create
     @message = @conversation.messages.new(message_params)
+
     if @message.save
+      sync_new @message, scope: @conversation
       redirect_to conversation_messages_path(@conversation)
     end
   end

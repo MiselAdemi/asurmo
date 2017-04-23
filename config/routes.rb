@@ -10,27 +10,25 @@ Rails.application.routes.draw do
   root 'home#index'
   get "home/get_cities", :as => "get_cities"
 
-  constraints("conversations") do
-    resources :users, :path => "" do
-      put "update_avatar", :as => "update_avatar"
-      put "upload_cover", :as => "upload_cover"
-      get "about", :as => "about"
+  resources :conversations do
+    resources :messages
+  end
 
-      get "organizations/index", :as => "organizations", :path => "organizations"
+  resources :users, :path => "" do
+    put "update_avatar", :as => "update_avatar"
+    put "upload_cover", :as => "upload_cover"
+    get "about", :as => "about"
 
-      resources :statuses do
-        member do
-          put "support" => "statuses#support"
-        end
+    get "organizations/index", :as => "organizations", :path => "organizations"
+
+    resources :statuses do
+      member do
+        put "support" => "statuses#support"
       end
     end
   end
 
   resources :comments
-
-  resources :conversations do
-    resources :messages
-  end
 
   resources :organizations, :except => [:index] do
     #resources :members
