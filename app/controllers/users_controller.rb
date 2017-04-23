@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, :only => [:show, :destroy, :update, :edit, :about]
   before_action :set_status, :only => [:show]
+  before_action :set_album, :only => [:show]
 
   def index
   end
@@ -89,5 +90,10 @@ class UsersController < ApplicationController
     album = current_user.albums.where(:title => "Profile pictures").first
     picture = album.pictures.create(:user => current_user, :caption => "Profile picture", :picture => user_avatar[:avatar])
     picture.save!
+  end
+
+  def set_album
+    @album = @user.albums.find_or_create_by(title: "Razno")
+    @picture = @album.pictures.new
   end
 end

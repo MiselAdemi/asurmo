@@ -58,7 +58,7 @@ Rails.application.routes.draw do
     resource :users
   end
 
-  scope ":profile_name" do
+  scope ":user_id" do
     resources :albums do
       resources :pictures
     end
