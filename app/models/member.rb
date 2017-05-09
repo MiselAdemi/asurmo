@@ -1,4 +1,4 @@
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   enum role: [:member, :moderator, :admin]
   belongs_to :user
   belongs_to :organization

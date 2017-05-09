@@ -1,4 +1,4 @@
-class Campain < ActiveRecord::Base
+class Campain < ApplicationRecord
   extend FriendlyId
   friendly_id :name, :use => :slugged
 

@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+gem 'rails', '~> 5.0', '>= 5.0.2'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
@@ -15,9 +15,9 @@ gem "twitter-bootstrap-rails"
 gem 'friendly_id', '~> 5.1.0'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'react-rails', '~> 1.9'
-gem 'kaminari', '~> 0.16.3'
+gem 'kaminari', '~> 0.17.0'
 gem 'rails_emoji_picker'
-gem 'client_side_validations'
+gem 'client_side_validations', '~> 9.3', '>= 9.3.1'
 gem 'searchkick'
 gem 'twitter-typeahead-rails'
 gem 'momentjs-rails', '>= 2.9.0'
@@ -51,4 +51,4 @@ gem 'simplecov'
 gem 'simplecov-csv'
 gem 'minitest-reporters'
 
-ruby "2.1.10"
+#ruby "2.3.1"

@@ -1,4 +1,4 @@
-class InterestsList < ActiveRecord::Base
+class InterestsList < ApplicationRecord
   belongs_to :user
   belongs_to :interest
 end

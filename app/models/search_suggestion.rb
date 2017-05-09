@@ -1,4 +1,4 @@
-class SearchSuggestion < ActiveRecord::Base
+class SearchSuggestion < ApplicationRecord
   def self.terms_for(prefix, organization_id)
     suggestions = where("term like ?", "#{prefix}_%")
     suggestions.order("popularity desc").limit(10).pluck(:term)

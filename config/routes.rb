@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     put "upload_cover", :as => "upload_cover"
     get "about", :as => "about"
 
-    get "organizations/index", :as => "organizations", :path => "organizations"
+    resources :organizations, :only => [:index]
 
     resources :statuses do
       member do
@@ -32,15 +32,23 @@ Rails.application.routes.draw do
 
   resources :organizations, :except => [:index] do
     #resources :members
-    post "members/create_admin", :as => "create_admin", :path => "admins"
-    get "members/remove_admin/:user" => "members#remove_admin", :as => "remove_admin", :path => "admins/:user"
+    #post "members/create_admin", :as => "create_admin", :path => "admins"
+    post "create_admin" => "members#create_admin"
 
-    post "members/create_moderator", :as => "create_moderator", :path => "moderators"
-    get "members/remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator", :path => "admins/:user"
+    #get "members/remove_admin/:user" => "members#remove_admin", :as => "remove_admin", :path => "admins/:user"
+    get "remove_admin/:user" => "members#remove_admin", :as => "remove_admin"
 
-    get "organizations/show_admins", :as => "show_admins", :path => "admins"
-    get "organizations/show_moderators", :as => "show_moderators", :path => "moderators"
-    get "organizations/show_members", :as => "show_members", :path => "members"
+    post "create_moderator", :as => "create_moderator", :path => "moderators"
+    #get "members/remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator", :path => "admins/:user"
+    get "remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator"
+
+    get "show_admins"
+    get "show_moderators"
+    get "show_members"
+
+    post "join_member"
+    delete "remove_member"
+
     get :autocomplete
 
     resources :campains do

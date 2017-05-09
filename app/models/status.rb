@@ -1,4 +1,4 @@
-class Status < ActiveRecord::Base
+class Status < ApplicationRecord
   acts_as_votable
   acts_as_commentable
 
