@@ -40,8 +40,8 @@ class User < ApplicationRecord
   # Validation
   validates_presence_of :first_name,
                         :last_name,
-                        :email,
-                        :password
+                        :email
+  #                      :password
 
   validates_uniqueness_of :email
 

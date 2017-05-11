@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :messages
   end
 
+  resources :direct_messages
+
   resources :users, :path => "" do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
