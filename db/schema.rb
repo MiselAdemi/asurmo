@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420154602) do
+ActiveRecord::Schema.define(version: 20170509174549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,18 +25,16 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.integer  "to_id"
     t.string   "to_type"
     t.string   "from_type"
+    t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
   end
-
-  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "albums", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_albums_on_user_id", using: :btree
   end
-
-  add_index "albums", ["user_id"], name: "index_albums_on_user_id", using: :btree
 
   create_table "campains", force: :cascade do |t|
     t.string   "name"
@@ -46,11 +43,25 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.integer  "user_id"
     t.integer  "organization_id"
     t.string   "slug"
+    t.index ["organization_id"], name: "index_campains_on_organization_id", using: :btree
+    t.index ["slug"], name: "index_campains_on_slug", using: :btree
+    t.index ["user_id"], name: "index_campains_on_user_id", using: :btree
   end
 
-  add_index "campains", ["organization_id"], name: "index_campains_on_organization_id", using: :btree
-  add_index "campains", ["slug"], name: "index_campains_on_slug", using: :btree
-  add_index "campains", ["user_id"], name: "index_campains_on_user_id", using: :btree
+  create_table "chatroom_users", force: :cascade do |t|
+    t.integer  "chatroom_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["chatroom_id"], name: "index_chatroom_users_on_chatroom_id", using: :btree
+    t.index ["user_id"], name: "index_chatroom_users_on_user_id", using: :btree
+  end
+
+  create_table "chatrooms", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
@@ -64,10 +75,9 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.integer  "rgt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
-
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -95,10 +105,9 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "description"
+    t.index ["campain_id"], name: "index_events_on_campain_id", using: :btree
+    t.index ["slug"], name: "index_events_on_slug", using: :btree
   end
-
-  add_index "events", ["campain_id"], name: "index_events_on_campain_id", using: :btree
-  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
 
   create_table "interests", force: :cascade do |t|
     t.string   "name"
@@ -111,10 +120,9 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.integer  "interest_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["interest_id"], name: "index_interests_lists_on_interest_id", using: :btree
+    t.index ["user_id"], name: "index_interests_lists_on_user_id", using: :btree
   end
-
-  add_index "interests_lists", ["interest_id"], name: "index_interests_lists_on_interest_id", using: :btree
-  add_index "interests_lists", ["user_id"], name: "index_interests_lists_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "country"
@@ -134,22 +142,19 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "role"
+    t.index ["organization_id"], name: "index_members_on_organization_id", using: :btree
+    t.index ["user_id"], name: "index_members_on_user_id", using: :btree
   end
-
-  add_index "members", ["organization_id"], name: "index_members_on_organization_id", using: :btree
-  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.text     "body"
-    t.integer  "conversation_id"
+    t.integer  "chatroom_id"
     t.integer  "user_id"
-    t.boolean  "read",            default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
-
-  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
@@ -159,10 +164,9 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.string   "slug"
     t.string   "avatar"
     t.string   "description"
+    t.index ["owner_id"], name: "index_organizations_on_owner_id", using: :btree
+    t.index ["slug"], name: "index_organizations_on_slug", using: :btree
   end
-
-  add_index "organizations", ["owner_id"], name: "index_organizations_on_owner_id", using: :btree
-  add_index "organizations", ["slug"], name: "index_organizations_on_slug", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "album_id"
@@ -172,10 +176,9 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "picture"
+    t.index ["album_id"], name: "index_pictures_on_album_id", using: :btree
+    t.index ["user_id"], name: "index_pictures_on_user_id", using: :btree
   end
-
-  add_index "pictures", ["album_id"], name: "index_pictures_on_album_id", using: :btree
-  add_index "pictures", ["user_id"], name: "index_pictures_on_user_id", using: :btree
 
   create_table "search_suggestions", force: :cascade do |t|
     t.string   "term"
@@ -196,16 +199,15 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.integer  "cached_weighted_score",   default: 0
     t.integer  "cached_weighted_total",   default: 0
     t.float    "cached_weighted_average", default: 0.0
+    t.index ["cached_votes_down"], name: "index_statuses_on_cached_votes_down", using: :btree
+    t.index ["cached_votes_score"], name: "index_statuses_on_cached_votes_score", using: :btree
+    t.index ["cached_votes_total"], name: "index_statuses_on_cached_votes_total", using: :btree
+    t.index ["cached_votes_up"], name: "index_statuses_on_cached_votes_up", using: :btree
+    t.index ["cached_weighted_average"], name: "index_statuses_on_cached_weighted_average", using: :btree
+    t.index ["cached_weighted_score"], name: "index_statuses_on_cached_weighted_score", using: :btree
+    t.index ["cached_weighted_total"], name: "index_statuses_on_cached_weighted_total", using: :btree
+    t.index ["user_id"], name: "index_statuses_on_user_id", using: :btree
   end
-
-  add_index "statuses", ["cached_votes_down"], name: "index_statuses_on_cached_votes_down", using: :btree
-  add_index "statuses", ["cached_votes_score"], name: "index_statuses_on_cached_votes_score", using: :btree
-  add_index "statuses", ["cached_votes_total"], name: "index_statuses_on_cached_votes_total", using: :btree
-  add_index "statuses", ["cached_votes_up"], name: "index_statuses_on_cached_votes_up", using: :btree
-  add_index "statuses", ["cached_weighted_average"], name: "index_statuses_on_cached_weighted_average", using: :btree
-  add_index "statuses", ["cached_weighted_score"], name: "index_statuses_on_cached_weighted_score", using: :btree
-  add_index "statuses", ["cached_weighted_total"], name: "index_statuses_on_cached_weighted_total", using: :btree
-  add_index "statuses", ["user_id"], name: "index_statuses_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -238,11 +240,10 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.string   "activity_status"
     t.string   "qualification"
     t.boolean  "admin"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["slug"], name: "index_users_on_slug", using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
@@ -254,20 +255,23 @@ ActiveRecord::Schema.define(version: 20170420154602) do
     t.integer  "vote_weight"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
   end
-
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   add_foreign_key "activities", "users"
   add_foreign_key "albums", "users"
   add_foreign_key "campains", "organizations"
   add_foreign_key "campains", "users"
+  add_foreign_key "chatroom_users", "chatrooms"
+  add_foreign_key "chatroom_users", "users"
   add_foreign_key "events", "campains"
   add_foreign_key "interests_lists", "interests"
   add_foreign_key "interests_lists", "users"
   add_foreign_key "members", "organizations"
   add_foreign_key "members", "users"
+  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "pictures", "albums"
   add_foreign_key "pictures", "users"

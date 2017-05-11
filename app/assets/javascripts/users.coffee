@@ -1,7 +1,8 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-$ ->
+
+document.addEventListener("turbolinks:load", -> 
   $("#phone").mask("(999) 99-999-999")
   $("#datepicker").datepicker()
   $("time.timeago").timeago()
@@ -53,9 +54,7 @@ $ ->
 
 
 # Typehead autocomplete search
-ready = undefined
 
-ready = ->
   url_page = window.location.href.split("/")[5]
 
   engine = new Bloodhound(
@@ -68,15 +67,11 @@ ready = ->
   promise = engine.initialize()
   promise.done(->
     console.log 'success!'
-    return
   ).fail ->
     console.log 'err!'
-    return
   $('.typeahead').typeahead null,
     name: 'engine'
     displayKey: 'email'
     source: engine.ttAdapter()
-  return
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+)
