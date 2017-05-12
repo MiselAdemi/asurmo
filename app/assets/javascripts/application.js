@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-maskedinput
@@ -26,4 +27,5 @@
 //= require react_ujs
 //= require components
 //= require timeago
+//= require turbolinks
 //= require_tree .

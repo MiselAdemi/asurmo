@@ -30,14 +30,18 @@ class User < ApplicationRecord
   has_many :pictures
   has_many :campains
 
+  has_many :chatroom_users
+  has_many :chatrooms, :through => :chatroom_users
+  has_many :messages
+
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
 
   # Validation
   validates_presence_of :first_name,
                         :last_name,
-                        :email,
-                        :password
+                        :email
+  #                      :password
 
   validates_uniqueness_of :email
 
