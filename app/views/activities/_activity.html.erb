@@ -16,7 +16,11 @@
     <a onclick="toggler(<%= activity.id %>);">
     	<small><%= activity.trackable.comment_threads.count %> <i class="fa fa-comments-o" aria-hidden="true"></i></small>
     </a>
-    <%= sync partial: 'timeline_support_box', resource: activity %>
+    
+    <div class="support-box pull-right" id="activity_<%= activity.id %>_likes">
+      <%= render partial: "activities/likes", :locals => { :activity => activity } %>
+    </div>
+
 
     <div class="comment-box comment-box-<%= activity.id %>" >
     <%= render partial: "comments/template", locals: {commentable: activity.trackable, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>

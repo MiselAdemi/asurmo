@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :search_suggestions
-  resources :activities
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   authenticated :user do
@@ -13,6 +12,10 @@ Rails.application.routes.draw do
   #resources :conversations do
   #  resources :messages
   #end
+
+  resources :activities do
+    resource :like, module: :activities
+  end
 
   resources :chatrooms do
     resource :chatroom_users
