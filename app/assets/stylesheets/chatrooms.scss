@@ -29,3 +29,32 @@
   left: 100%;
   margin-left: 15px;
 }
+
+.inbox-sidebar {
+  background: #ffffff !important;
+  position: fixed !important;
+  height: 94% !important;
+  width: 14%;
+}
+
+.inbox-center {
+  background: #ffffff !important;
+  height: 94vh !important;
+  margin-bottom: 0px !important;
+  width: 76%;
+}
+
+.inbox-center {
+  position: relative;
+  padding: 0px !important;
+}
+
+.inbox-center #new_message {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.inbox-center #new_message #message_body {
+  resize: none;
+}

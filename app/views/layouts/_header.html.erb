@@ -5,6 +5,14 @@
     <% end %>
     <%= menu_group pull: :right do %>
       <% if user_signed_in? %>
+        <%= drop_down "<i class='fa fa-bell-o' aria-hidden='true'></i>".html_safe do %>
+          <%= menu_item "Notofication 1", "#", :class => "dropdown-item" %>
+          <%= menu_item "Notofication 1", "#", :class => "dropdown-item" %>
+          <%= menu_item "Notofication 1", "#", :class => "dropdown-item" %>
+        <% end %>
+
+        <%= menu_item "<i class='fa fa-envelope-o' aria-hidden='true'>&nbsp;&nbsp;<span class='label label-danger pull-right'></span></i>".html_safe, chatrooms_path %>
+
         <%= drop_down 'Settings' do %>
           <%= menu_item 'Profile', user_path(current_user), :class => "dropdown-item" %>
           <%= menu_item 'Organizations', user_organizations_path(current_user), :class => "dropdown-item" %>

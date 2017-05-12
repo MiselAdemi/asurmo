@@ -1,0 +1,22 @@
+<div class="well inbox-sidebar">
+	<h1>Inbox</h1>
+
+	<% active_id = -1 %>
+	<% if request.original_url.include?("direct") %>
+		<% active_id = request.original_url.split("/").last %>
+	<% end %>
+
+	<div class="list-group">
+		<% current_user.chatrooms.direct_messages.each do |chatroom| %>
+		<% user = (chatroom.users - [current_user]).first %>
+			<% if user.id == active_id.to_f %>
+				<%= link_to user.full_name, direct_message_path(user.id), data: {behavior: "chatroom-link", chatroom_id: Chatroom.direct_message_for_users([current_user, user]).id }, :class => "list-group-item active" %>
+			<% else %>
+				<%= link_to direct_message_path(user.id), data: {behavior: "chatroom-link", chatroom_id: Chatroom.direct_message_for_users([current_user, user]).id }, :class => "list-group-item" do %>
+					<%= user.full_name %>
+					<span class="label label-danger pull-right"></span>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+</div>
