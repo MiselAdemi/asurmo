@@ -49,6 +49,15 @@ class User < ApplicationRecord
     first_name + " " + last_name
   end
 
+  def likes?(activity)
+    activity.likes.where(user_id: id).any?
+  end
+
+  def avatar_url
+    hash = Digest::MD5.hexdigest(email)
+    "http://www.gravatar.com/avatar/#{hash}"
+  end
+
   # is user admin of organization
   def is_organization_admin?(organization)
     organization.admins.include?(self)
