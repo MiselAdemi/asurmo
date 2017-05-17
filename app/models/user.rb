@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :activities
   has_many :interests_list
   has_many :interests, :through => :interests_list
-  has_many :statuses
+  has_many :statuses, :as => :statusable
   has_many :albums
   has_many :pictures
   has_many :campains

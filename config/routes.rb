@@ -34,12 +34,12 @@ Rails.application.routes.draw do
     end
 
     resources :organizations, :only => [:index]
-
+    
     resources :statuses do
-      member do
-        put "support" => "statuses#support"
-      end
-    end
+			member do
+		  	put "support" => "statuses#support"
+			end
+		end
   end
 
   resources :comments
@@ -72,7 +72,19 @@ Rails.application.routes.draw do
 
       resources :events, :except => [:index]
       get "events/campain_events", :as => "all_events", :path => "events"
+      
+      resources :statuses do
+				member do
+					put "support" => "statuses#support"
+				end
+			end
     end
+    
+    resources :statuses do
+			member do
+		  	put "support" => "statuses#support"
+			end
+		end
   end
 
   namespace :admin do

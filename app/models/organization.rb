@@ -7,6 +7,8 @@ class Organization < ApplicationRecord
   has_many :moderators, -> { where :members => { :role => 1 } }, :through => :members, :source => :user
   has_many :admins, -> { where :members => { :role => 2 } }, :through => :members, :source => :user
   has_many :campains, :dependent => :destroy
+  has_many :statuses, :as => :statusable
+  has_many :activities
 
   accepts_nested_attributes_for :members, :users
 

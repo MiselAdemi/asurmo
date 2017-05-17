@@ -24,9 +24,12 @@ class ApplicationController < ActionController::Base
     end
 
     def determine_type
-      if(params[:organization_id].present?)
+    	if(params[:campain_id].present?)
+      	@to_type = "campain"
+        @to = Campain.friendly.find(params[:campain_id]).id
+      elsif(params[:organization_id].present?)
         @to_type = "organization"
-        @to = params[:organization_id]
+        @to = Organization.friendly.find(params[:organization_id]).id
       elsif
         @to_type = "user"
         @to = User.friendly.find(params[:user_id]).id
