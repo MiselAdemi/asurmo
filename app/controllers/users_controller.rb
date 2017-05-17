@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :set_album, :only => [:show]
 
   def index
+  	@users = User.all
   end
 
   def show

@@ -28,6 +28,10 @@ Rails.application.routes.draw do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
     get "about", :as => "about"
+    
+    collection do
+    	get "index", :path => "users"
+    end
 
     resources :organizations, :only => [:index]
 

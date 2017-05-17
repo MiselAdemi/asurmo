@@ -1,3 +1,3 @@
 <div class="timeline-body">
-  <p><%= activity.trackable.body %></p>
+  <p><%= markdownify linked_users(activity.trackable.body) %></p>
 </div>
