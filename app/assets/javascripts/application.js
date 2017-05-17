@@ -15,13 +15,13 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-maskedinput
+//= require jquery.atwho
 //= require twitter/bootstrap
 //= require sync
 //= require moment
 //= require bootstrap-datetimepicker
 //= require twitter/typeahead
 //= require jquery.infinitescroll
-//= require rails_emoji_picker
 //= require rails.validations
 //= require react
 //= require react_ujs

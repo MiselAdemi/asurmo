@@ -48,6 +48,9 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     ansi (1.5.0)
     arel (7.1.4)
+    auto_html (1.6.4)
+      redcarpet (~> 3.1)
+      rinku (~> 1.5.0)
     autoprefixer-rails (7.0.1)
       execjs
     awesome_nested_set (3.1.3)
@@ -85,6 +88,7 @@ GEM
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     cookiejar (0.3.3)
+    crass (1.0.2)
     daemons (1.2.4)
     debug_inspector (0.0.3)
     devise (4.2.1)
@@ -110,8 +114,6 @@ GEM
       http_parser.rb (>= 0.6.0)
     em-socksify (0.3.1)
       eventmachine (>= 1.0.0.beta.4)
-    emoji (1.0.7)
-      json
     erubis (2.7.0)
     eventmachine (1.2.3)
     execjs (2.7.0)
@@ -130,6 +132,8 @@ GEM
       websocket-driver (>= 0.5.1)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    gemoji (3.0.0)
+    github-markdown (0.6.9)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     gon (6.1.0)
@@ -138,11 +142,15 @@ GEM
       multi_json
       request_store (>= 1.0)
     hashie (3.5.5)
+    html-pipeline (2.5.0)
+      activesupport (>= 2)
+      nokogiri (>= 1.4)
     http_parser.rb (0.6.0)
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
+    jquery-atwho-rails (1.3.2)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -185,6 +193,8 @@ GEM
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
+    nokogumbo (1.4.10)
+      nokogiri
     orm_adapter (0.5.0)
     pg (0.20.0)
     public_suffix (2.0.5)
@@ -223,8 +233,6 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_emoji_picker (0.1.5)
-      emoji
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.5)
     railties (5.0.2)
@@ -241,6 +249,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redcarpet (3.4.0)
     redis (3.3.3)
     regexp_parser (0.4.3)
     render_sync (0.5.0)
@@ -249,7 +258,12 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rinku (1.5.1)
     ruby-progressbar (1.8.1)
+    sanitize (4.4.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.4.4)
+      nokogumbo (~> 1.4.1)
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -320,6 +334,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_commentable_with_threading
   acts_as_votable (~> 0.10.0)
+  auto_html
   awesome_nested_set
   bootstrap-sass (~> 3.3.6)
   bootstrap3-datetimepicker-rails (~> 4.17.47)
@@ -330,8 +345,12 @@ DEPENDENCIES
   devise
   faye
   friendly_id (~> 5.1.0)
+  gemoji
+  github-markdown
   gon
+  html-pipeline
   jbuilder (~> 2.0)
+  jquery-atwho-rails
   jquery-rails (~> 4.3, >= 4.3.1)
   jquery-turbolinks
   kaminari (~> 0.17.0)
@@ -347,10 +366,10 @@ DEPENDENCIES
   rails-assets-jquery-ui!
   rails-assets-timeago!
   rails_12factor
-  rails_emoji_picker
   react-rails (~> 1.9)
   redis
   render_sync
+  sanitize
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   searchkick
