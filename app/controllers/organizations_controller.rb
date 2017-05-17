@@ -5,6 +5,7 @@ class OrganizationsController < ApplicationController
   before_action :set_user
   before_action :set_campains, :only => [:show, :show_admins, :show_moderators, :show_members]
   before_action :set_events, :only => [:show, :show_admins, :show_moderators, :show_members]
+  before_action :set_status, :only => [:show]
   respond_to :html, :json
 
   def index
@@ -24,6 +25,7 @@ class OrganizationsController < ApplicationController
     @campain = @organization.campains.new
     @default_campain = @organization.campains.first
     @event = @default_campain.events.new
+    @activities = Activity.where("to_id = ? AND to_type = ?", @organization.id, "organization").order(:created_at => :desc).page(params[:page]).per(2)
   end
 
   def show_admins
@@ -141,5 +143,9 @@ class OrganizationsController < ApplicationController
 
   def set_events
     @events = @organization.campains.map { |campain| campain.events }.flatten
+  end
+  
+  def set_status
+    @status = @organization.statuses.new
   end
 end

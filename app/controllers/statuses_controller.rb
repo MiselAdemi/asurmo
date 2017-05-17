@@ -1,9 +1,10 @@
 class StatusesController < ApplicationController
   before_action :set_status, :only => [:show, :edit, :update, :support]
+  before_action :load_statusable
   respond_to :js, :json, :html
 
   def index
-    @statuses = current_user.statuses
+    @statuses = @statusable.statuses
     render :json => @statuses.as_json
   end
 
@@ -27,16 +28,18 @@ class StatusesController < ApplicationController
   end
 
   def new
-    @status = current_user.statuses.new
+    @status = @statusable.statuses.new
   end
 
   def create
-    @status = current_user.statuses.build(status_params)
+    @status = @statusable.statuses.new(status_params)
+ 		@status.author_id = current_user.id
+ 		@status.author_type = "User"
 
     if @status.save
       track_activity(@status)
       respond_with(@status) do |format|
-        format.html { redirect_to current_user }
+        format.html { redirect_to :back }
         format.json { render :json => @status.as_json }
       end
     else
@@ -59,7 +62,7 @@ class StatusesController < ApplicationController
   private
 
   def status_params
-    params.require(:status).permit(:body, :user_id, :id)
+    params.require(:status).permit(:body, :user_id)
   end
 
   def status_id
@@ -68,5 +71,10 @@ class StatusesController < ApplicationController
 
   def set_status
     @status = Status.find(status_id)
+  end
+  
+  def load_statusable
+  	klass = [User, Organization].detect { |c| params["#{c.name.underscore}_id"] }
+  	@statusable = klass.friendly.find(params["#{klass.name.underscore}_id"])
   end
 end
