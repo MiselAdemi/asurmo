@@ -3,6 +3,7 @@ class CampainsController < ApplicationController
   before_action :set_organization
   before_action :set_campain, :only => [:show]
   before_action :set_status, :only => [:show]
+  before_action :load_events, :only => [:show]
   respond_to :html, :json
 
   def index
@@ -45,5 +46,9 @@ class CampainsController < ApplicationController
   
   def set_status
     @status = @organization.statuses.new
+  end
+  
+  def load_events
+  	@events = @campain.events
   end
 end
