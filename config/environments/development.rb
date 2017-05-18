@@ -53,3 +53,6 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # config.action_cable.url = "ws://localhost:3000/cable"
 end
+
+STRIPE_SECRET = "sk_test_9x5iNcO8Q5jC8knE7tFUzeHL"
+STRIPE_PUBLIC = "pk_test_h4VCTCSpvOBKxDWkekN1TVLQ"

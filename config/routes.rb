@@ -9,9 +9,8 @@ Rails.application.routes.draw do
   root 'home#index'
   get "home/get_cities", :as => "get_cities"
 
-  #resources :conversations do
-  #  resources :messages
-  #end
+  resources :subscriptions
+  resource :card
 
   resources :activities do
     resource :like, module: :activities

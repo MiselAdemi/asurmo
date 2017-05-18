@@ -82,4 +82,8 @@ class User < ApplicationRecord
   def self.all_organizations_where_user_member(user)
     Organization.joins(:members).where("members.user_id = ? AND members.role = ?", user.id, 0)
   end
+
+  def subscribed?
+    stripe_subscription_id?
+  end
 end

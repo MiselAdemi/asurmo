@@ -24,4 +24,12 @@ module ApplicationHelper
       link_to link_text, link_path
     end
   end
+
+  def current_user_subscribed?
+    user_signed_in? && current_user.subscribed?
+  end
+
+  def card_fields_class
+    "hidden" if current_user.card_last4?
+  end
 end
