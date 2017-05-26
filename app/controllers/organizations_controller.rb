@@ -56,6 +56,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = current_user.organizations.build(organization_params)
     @organization.owner_id = current_user.id
+    authorize @organization
 
     # Confirm organization is valid and save or return error
     if @organization.save

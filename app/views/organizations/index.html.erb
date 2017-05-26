@@ -4,104 +4,104 @@
   <%= render 'users/sidebar_left' %>
 
   <div class="col-lg-6 edit-center organization-center">
-	<div class="panel panel-default">
-  	  <div class="panel-heading clearfix">
-    	    <h4 class="col-lg-6">Owner</h4>
-	    <% if current_user.organizations_quota_full? %>
-	      <a class="btn btn-success pull-right" style="width: 156px;">Upgrade membership</a>
-	    <% else %>
-              <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
-            <% end %>
-        </div>
-        <div class="panel-body">
-    	  <% if @owner_organizations.blank? %>
-            <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
-          <% else %>
-            <div class="organization-list-table table-responsive table-sm col-lg-12">
-              <table class="table table-sm">
-                <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :owner} %>
-              </table>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-    <div class="panel panel-info">
-      <div class="panel-body">
-        <h3>Moderator</h3>
-        <% if @moderate_organizations.blank? %>
-          <p>There is no organization you moderate yet!</p>
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h4 class="col-lg-6">Owner</h4>
+        <% if policy(@organization).create? %>
+          <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
         <% else %>
-          <div class="table-responsive">
-            <table class="table">
-              <tr>
-                <th>Name</th>
-                <th></th>
-              </tr>
-              <%= render :partial => 'organizations/partials/organization_list', :collection => @moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
-            </table>
-          </div>
+          <a class="btn btn-success pull-right" style="width: 156px;">Upgrade membership</a>
         <% end %>
       </div>
-    </div>
-
-    <div class="panel panel-info">
       <div class="panel-body">
-        <h3>Member</h3>
-        <% if @member_organizations.blank? %>
-          <p>There is no organization you are member yet!</p>
-        <% else %>
-          <div class="table-responsive table-sm">
-            <table class="table table-sm">
-              <tr>
-                <th>Name</th>
-                <th></th>
-              </tr>
-              <%= render :partial => 'organizations/partials/organization_list', :collection => @member_organizations, :as => :organization, :locals => {:type => :member} %>
-            </table>
-          </div>
-        <% end %>
+       <% if @owner_organizations.blank? %>
+        <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
+       <% else %>
+       <div class="organization-list-table table-responsive table-sm col-lg-12">
+        <table class="table table-sm">
+          <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :owner} %>
+        </table>
       </div>
-
+      <% end %>
     </div>
+  </div>
 
+  <div class="panel panel-info">
+    <div class="panel-body">
+      <h3>Moderator</h3>
+      <% if @moderate_organizations.blank? %>
+      <p>There is no organization you moderate yet!</p>
+      <% else %>
+      <div class="table-responsive">
+        <table class="table">
+          <tr>
+            <th>Name</th>
+            <th></th>
+          </tr>
+          <%= render :partial => 'organizations/partials/organization_list', :collection => @moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
+        </table>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-body">
+      <h3>Member</h3>
+      <% if @member_organizations.blank? %>
+      <p>There is no organization you are member yet!</p>
+      <% else %>
+      <div class="table-responsive table-sm">
+        <table class="table table-sm">
+          <tr>
+            <th>Name</th>
+            <th></th>
+          </tr>
+          <%= render :partial => 'organizations/partials/organization_list', :collection => @member_organizations, :as => :organization, :locals => {:type => :member} %>
+        </table>
+      </div>
+      <% end %>
+    </div>
 
   </div>
 
-  <div class="sidebar-right col-lg-3">
-    <div class="panel panel-default panel-photo">
-      <div class="panel-heading">
-        <h3 class="panel-title">Photos</h3>
-      </div>
-      <div class="panel-body">
-	 
-	<p>Organization <%= current_user.used_organizations_quota %> / <%= current_user.active_subscription.organizations_quota %></p>
-	<div class="progress">
-	  <div class="progress-bar" role="progressbar" aria-valuenow="70"
-	  aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.organizations_quota %>" style="width: <%= current_user.used_organizations_quota %>%">
-	    <span class="sr-only">70% Complete</span>
-	  </div>
-	</div>
 
-	<p>Campains <%= current_user.used_campains_quota %> / <%= current_user.active_subscription.campains_quota %></p>
-	<div class="progress">
-	  <div class="progress-bar" role="progressbar" aria-valuenow="70"
-	  aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.campains_quota %>" style="width: <%= current_user.used_campains_quota %>%">
-	    <span class="sr-only">70% Complete</span>
-	  </div>
-	</div>
+</div>
 
-	<p>Events <%= current_user.used_events_quota %> / <%= current_user.active_subscription.events_quota %></p>
-	<div class="progress">
-	  <div class="progress-bar" role="progressbar" aria-valuenow="70"
-	  aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.events_quota %>" style="width: <%= current_user.used_events_quota %>%">
-	    <span class="sr-only">70% Complete</span>
-	  </div>
-	</div>
-
-      </div>
+<div class="sidebar-right col-lg-3">
+  <div class="panel panel-default panel-photo">
+    <div class="panel-heading">
+      <h3 class="panel-title">Photos</h3>
     </div>
-  </div>
+    <div class="panel-body">
+
+     <p>Organization <%= current_user.used_organizations_quota / 100 %> / <%= current_user.active_subscription.organizations_quota %></p>
+     <div class="progress">
+       <div class="progress-bar" role="progressbar" aria-valuenow="70"
+       aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.organizations_quota %>" style="width: <%= current_user.used_organizations_quota %>%">
+       <span class="sr-only">70% Complete</span>
+     </div>
+   </div>
+
+   <p>Campains <%= current_user.used_campains_quota / 100 %> / <%= current_user.active_subscription.campains_quota %></p>
+   <div class="progress">
+     <div class="progress-bar" role="progressbar" aria-valuenow="70"
+     aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.campains_quota %>" style="width: <%= current_user.used_campains_quota %>%">
+     <span class="sr-only">70% Complete</span>
+   </div>
+ </div>
+
+ <p>Events <%= current_user.used_events_quota / 100 %> / <%= current_user.active_subscription.events_quota %></p>
+ <div class="progress">
+   <div class="progress-bar" role="progressbar" aria-valuenow="70"
+   aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.events_quota %>" style="width: <%= current_user.used_events_quota %>%">
+   <span class="sr-only">70% Complete</span>
+ </div>
+</div>
+
+</div>
+</div>
+</div>
 </div>
 
 <!-- New Organization Modal -->
@@ -113,25 +113,25 @@
         <h4 class="modal-title" id="myModalLabel">Create new organization</h4>
       </div>
       <%= form_for(@organization, :html => {:multipart => true}) do |f| %>
-        <div class="modal-body clearfix">
+      <div class="modal-body clearfix">
 
-          <div class="field">
-            <%= f.label :name %>
-            <%= f.text_field :name %>
-          </div>
+        <div class="field">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
 
-          <div class="field">
+        <div class="field">
           <%= f.label :avatar, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.file_field :avatar, :class => "form-control" %>
-            </div>
+          <div class="col-md-8 pull-right">
+            <%= f.file_field :avatar, :class => "form-control" %>
           </div>
+        </div>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Create", :class => "btn btn-primary" %>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit "Create", :class => "btn btn-primary" %>
+      </div>
       <% end %>
     </div>
   </div>

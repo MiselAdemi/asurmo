@@ -6,6 +6,10 @@ class OrganizationPolicy
     @organization = model
   end
 
+  def create?
+    !current_user.organizations_quota_full?
+  end
+
   def edit?
     current_user.is_organization_admin?(@organization) || current_user.is_organization_moderator?(@organization)
   end
