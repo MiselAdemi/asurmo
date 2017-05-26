@@ -3,6 +3,6 @@
   <td class="organization-table-cell"><%= link_to organization.name, organization_path(organization) %></td>
   <td class="text-right organization-table-cell">
     <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" if type == :owner || type == :moderator %>
-    <%= link_to "", organization_path(organization), :method => :delete, :class => "fa fa-trash text-danger" if type == :owner %>
+    <%= link_to "<i class='fa fa-trash-o text-danger' aria-hidden='true'></i>".html_safe, organization_path(organization), :method => :delete if type == :owner %>
   </td>
 </tr>
