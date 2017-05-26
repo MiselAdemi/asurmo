@@ -7,7 +7,27 @@
 }
 
 .icon-responsive {
-  width: 100%;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.organization-table-cell {
+  vertical-align: middle !important;
+}
+
+.organization-center .panel-default .panel-heading {
+  padding: 0px !important;
+  padding-right: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.organization-center .panel-default .panel-heading h4 {
+  padding-top: 10px;
+}
+
+.organization-list-table table {
+  border: hidden;
 }
 
 // Left panels and widgets
@@ -81,3 +101,12 @@
 .tt-suggestion p {
   margin: 0;
 }
+
+.organization {
+  .sidebar-right {
+    padding: 0px;
+  }
+}
+
+/* Quota progress bar */
+

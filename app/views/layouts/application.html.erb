@@ -2,12 +2,13 @@
 <html>
 <head>
   <title>Asurmo</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= include_gon %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', 'https://js.stripe.com/v2/', 'data-turbolinks-track' => true %>
   <%= action_cable_meta_tag %>
-  <%= include_sync_config %>
   <%= csrf_meta_tags %>
+
+  <%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC %>
 </head>
 <body>
 
