@@ -29,6 +29,9 @@ class User < ApplicationRecord
   has_many :albums
   has_many :pictures
   has_many :campains
+  
+  has_many :memberships
+  has_many :subscriptions_quotas, :through => :memberships
 
   has_many :chatroom_users
   has_many :chatrooms, :through => :chatroom_users
@@ -85,5 +88,35 @@ class User < ApplicationRecord
 
   def subscribed?
     stripe_subscription_id?
+  end
+
+  def active_subscription
+    if subscribed?
+      subscriptions_quotas.last
+    end
+  end
+
+  def used_organizations_quota
+    (organizations.count * 100) / active_subscription.organizations_quota
+  end
+
+  def used_campains_quota
+    (campains.count * 100) / active_subscription.campains_quota
+  end
+
+  def used_events_quota
+    (Event.joins(campains).count * 100) / active_subscription.events_quota
+  end
+
+  def organizations_quota_full?
+    active_subscription.organizations_quota == organizations.count
+  end
+
+  def campains_quota_full?
+    active_subscription.campains_quota == campains.count
+  end
+
+  def events_quota_full?
+    active_subscription.events_quota == Event.joins(campains).count
   end
 end

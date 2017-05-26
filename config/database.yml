@@ -8,7 +8,7 @@ default: &default
   adapter: postgresql
   pool: 5
   username: admin
-  password: root
+  password: admin
   host: localhost
 
 development:

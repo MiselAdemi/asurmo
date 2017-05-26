@@ -55,7 +55,7 @@ class OrganizationsController < ApplicationController
 
   def create
     @organization = current_user.organizations.build(organization_params)
-    @organization.user_id = current_user.id
+    @organization.owner_id = current_user.id
 
     # Confirm organization is valid and save or return error
     if @organization.save
@@ -63,6 +63,7 @@ class OrganizationsController < ApplicationController
       @organization.campains.create(:name => "Default")
       track_activity(@organization)
       respond_with(@organization) do |format|
+	format.html { redirect_to user_organizations_path }
         format.json { render :json => @organization.as_json }
       end
     else

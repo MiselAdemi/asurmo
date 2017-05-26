@@ -1,31 +1,30 @@
 <%= render 'users/partials/header' %>
 
-<div id="row" data-turbolinks="false">
+<div id="row" data-turbolinks="false" class="organization">
   <%= render 'users/sidebar_left' %>
 
-  <div class="col-lg-6 edit-center">
-    <div class="panel panel-info">
-      <div class="panel-body">
-        <h3 class="col-lg-6">Owner</h3>
-        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
-        <br>
-        <br>
-        <br>
-        <% if @owner_organizations.blank? %>
-          <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
-        <% else %>
-          <div class="table-responsive table-sm">
-            <table class="table table-sm">
-              <tr>
-                <th>Name</th>
-                <th></th>
-              </tr>
-              <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :owner} %>
-            </table>
-          </div>
-        <% end %>
+  <div class="col-lg-6 edit-center organization-center">
+	<div class="panel panel-default">
+  	  <div class="panel-heading clearfix">
+    	    <h4 class="col-lg-6">Owner</h4>
+	    <% if current_user.organizations_quota_full? %>
+	      <a class="btn btn-success pull-right" style="width: 156px;">Upgrade membership</a>
+	    <% else %>
+              <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
+            <% end %>
+        </div>
+        <div class="panel-body">
+    	  <% if @owner_organizations.blank? %>
+            <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
+          <% else %>
+            <div class="organization-list-table table-responsive table-sm col-lg-12">
+              <table class="table table-sm">
+                <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :owner} %>
+              </table>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
 
     <div class="panel panel-info">
       <div class="panel-body">
@@ -63,9 +62,45 @@
           </div>
         <% end %>
       </div>
+
     </div>
 
 
+  </div>
+
+  <div class="sidebar-right col-lg-3">
+    <div class="panel panel-default panel-photo">
+      <div class="panel-heading">
+        <h3 class="panel-title">Photos</h3>
+      </div>
+      <div class="panel-body">
+	 
+	<p>Organization <%= current_user.used_organizations_quota %> / <%= current_user.active_subscription.organizations_quota %></p>
+	<div class="progress">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+	  aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.organizations_quota %>" style="width: <%= current_user.used_organizations_quota %>%">
+	    <span class="sr-only">70% Complete</span>
+	  </div>
+	</div>
+
+	<p>Campains <%= current_user.used_campains_quota %> / <%= current_user.active_subscription.campains_quota %></p>
+	<div class="progress">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+	  aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.campains_quota %>" style="width: <%= current_user.used_campains_quota %>%">
+	    <span class="sr-only">70% Complete</span>
+	  </div>
+	</div>
+
+	<p>Events <%= current_user.used_events_quota %> / <%= current_user.active_subscription.events_quota %></p>
+	<div class="progress">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+	  aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.events_quota %>" style="width: <%= current_user.used_events_quota %>%">
+	    <span class="sr-only">70% Complete</span>
+	  </div>
+	</div>
+
+      </div>
+    </div>
   </div>
 </div>
 

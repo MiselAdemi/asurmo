@@ -21,7 +21,7 @@ class SubscriptionsController < ApplicationController
 								 Stripe::Customer.create(email: current_user.email)
 							 end
 
-		byebug
+		
 		subscription = customer.subscriptions.create(
 			source: params[:stripeToken],
 			plan: params[:plan_name]

@@ -1,6 +1,10 @@
 <li>
   <div class="timeline-badge">
+     <% if activity.user.avatar.url %>
   	<%= image_tag activity.user.avatar.url %>
+     <% else %>
+	<%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg"%>
+     <% end %>
   </div>
   <div class="timeline-panel">
     <div class="timeline-heading">
