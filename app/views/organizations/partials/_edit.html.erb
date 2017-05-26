@@ -22,7 +22,9 @@
     <div class="field clearfix">
       <%= f.label :avatar, :class => "col-md-3 control-label" %>
       <div class="col-md-8">
-        <%= f.file_field :avatar, :class => "form-control" %>
+        <%= f.file_field :avatar, :class => "form-control", :id => "avatar_upload" %>
+        
+        <img class="img-thumbnail img-rounded" id="img_prev" src="#" alt="Organization image preview" />
       </div>
     </div>
 
@@ -31,3 +33,10 @@
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(document).on("turbolinks:load", function() {
+    if($('#avatar_upload')[0].files.length == 0)
+      $('#img_prev').attr('src', $('.avatar img').attr('src'))
+  })
+</script>

@@ -26,8 +26,18 @@
   padding-top: 10px;
 }
 
+.organization-center .panel-default .panel-body p {
+  text-align: center;
+}
+
 .organization-list-table table {
   border: hidden;
+}
+
+/* Edit organization page */
+#img_prev {
+  width: 150px !important;
+  height: 150px !important;
 }
 
 // Left panels and widgets
