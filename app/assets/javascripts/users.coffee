@@ -62,11 +62,11 @@ document.addEventListener("turbolinks:load", ->
       Bloodhound.tokenizers.whitespace d.email
     queryTokenizer: Bloodhound.tokenizers.whitespace
     remote:
-      url: window.location.href.replace(url_page, "") + '/autocomplete?type=' + url_page + '&query=%QUERY'
+      url: window.location.href.replace(url_page, "") + 'autocomplete?type=' + url_page + '&query=%QUERY'
       wildcard: '%QUERY')
   promise = engine.initialize()
   promise.done(->
-    console.log 'success!'
+    #console.log 'success!'
   ).fail ->
     console.log 'err!'
   $('.typeahead').typeahead null,

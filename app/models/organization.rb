@@ -60,4 +60,31 @@ class Organization < ApplicationRecord
   def member?(user)
     members.include?(user)
   end
+
+  def available_campains?
+    owner = admins.where(:id => self.owner_id).first
+    owner.campains_quota_full?
+  end
+
+  def available_events?
+    owner = admins.where(:id => self.owner_id).first
+    owner.events_quota_full?
+  end
+
+  def subscription_plan
+    owner = admins.where(:id => self.owner_id).first
+    owner.active_subscription
+  end
+
+  def owner
+    admins.where(:id => self.owner_id).first
+  end
+
+  def number_of_campains
+    owner.number_of_campains_user_ownes
+  end
+
+  def number_of_events
+    owner.number_of_events_user_ownes
+  end
 end

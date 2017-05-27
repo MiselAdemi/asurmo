@@ -11,6 +11,7 @@ class CampainsController < ApplicationController
 
   def show
   	@activities = Activity.where("to_id = ? AND to_type = ?", @organization.id, "campain").order(:created_at => :desc).page(params[:page]).per(2)
+    @event = @campain.events.new
   end
 
   def new
@@ -37,7 +38,7 @@ class CampainsController < ApplicationController
   end
 
   def campain_params
-    params.require(:campain).permit(:name)
+    params.require(:campain).permit(:name, :avatar)
   end
 
   def set_campain

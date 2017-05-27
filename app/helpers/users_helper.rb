@@ -17,6 +17,14 @@ module UsersHelper
     end
   end
 
+  def is_organization_moderator?(organization)
+    if organization.members.exists?(:user_id => current_user.id, :organization_id => organization.id)
+      organization.members.where(:user_id => current_user).first.role == 'moderator' ? true : false
+    else
+      return false
+    end
+  end
+
   def is_supporting_organization?(organization, user)
     if organization.users.exists?(current_user)
       return true

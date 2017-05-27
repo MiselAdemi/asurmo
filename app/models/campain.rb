@@ -8,4 +8,6 @@ class Campain < ApplicationRecord
   has_many :statuses, :as => :statusable
   has_many :activities
   has_many :events
+
+  mount_uploader :avatar, CampainAvatarUploader
 end

@@ -5,19 +5,19 @@
 
   <div class="col-lg-3 event-left-side">
     <div class="info">
-      <%= image_tag "http://english.tw/wp-content/themes/qaengine/img/default-thumbnail.jpg", :class => "event-avatar" %>
-
-      <h4><%= @event.name %></h4>
+      <%= image_tag @event.avatar.url, :class => "event-avatar" %>
     </div>
+
+    <br>
 
     <div class="events panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Events</h3>
-      </div>
       <div class="panel-body">
-        Event list
+        <label>Event name: </label> <%= @event.name %><br>
+        <label>Campain: </label> <%= link_to @event.campain.name, organization_campain_path(@event.campain.organization, @event.campain) %><br>
+        <label>Organization: </label> <%= link_to @event.campain.organization.name, organization_path(@event.campain.organization) %>
       </div>
     </div>
+
   </div>
 
 </div>
