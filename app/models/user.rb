@@ -101,7 +101,7 @@ class User < ApplicationRecord
   end
 
   def used_campains_quota
-    (campains.count * 100) / active_subscription.campains_quota
+    (Organization.joins(:campains).where(:owner_id => self.id).where("campains.slug != ?", "default").count * 100) / active_subscription.campains_quota
   end
 
   def used_events_quota
@@ -113,10 +113,18 @@ class User < ApplicationRecord
   end
 
   def campains_quota_full?
-    active_subscription.campains_quota == campains.count
+    active_subscription.campains_quota == Organization.joins(:campains).where(:owner_id => self.id).where("campains.slug != ?", "default").count
   end
 
   def events_quota_full?
     active_subscription.events_quota == Event.joins(campains).count
+  end
+
+  def number_of_campains_user_ownes
+    Organization.joins(:campains).where(:owner_id => self.id).where("campains.slug != ?", "default").count
+  end
+
+  def number_of_events_user_ownes
+    Event.joins(campains).count
   end
 end

@@ -3,5 +3,6 @@
   <%= render 'organizations/partials/admin_left' if is_organization_admin?(@organization) %>
   <%= render 'organizations/partials/campain_widget' %>
   <%= render 'organizations/partials/event_widget' %>
+  <%= render 'organizations/partials/moderator_left' if is_organization_moderator?(@organization) %>
 
 </div>

@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     #get "members/remove_admin/:user" => "members#remove_admin", :as => "remove_admin", :path => "admins/:user"
     get "remove_admin/:user" => "members#remove_admin", :as => "remove_admin"
 
-    post "create_moderator", :as => "create_moderator", :path => "moderators"
+    post "create_moderator" => "members#create_moderator", :as => "create_moderator"
     #get "members/remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator", :path => "admins/:user"
     get "remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator"
 

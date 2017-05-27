@@ -108,11 +108,11 @@ class OrganizationsController < ApplicationController
   end
 
   def autocomplete
-    users =  User.search(params[:query], match: :word_start, limit: 10)
+    users =  User.search(params[:query], fields: [:email], match: :word_start, limit: 10)
 
-    if(params[:type] == "admins")
+    if(params[:type] == "show_admins")
       render json: users.select { |user| !user.is_organization_admin?(@organization) }
-    elsif (params[:type] == "moderators")
+    elsif (params[:type] == "show_moderators")
       render json: users.select { |user| !user.is_organization_admin?(@organization) && !user.is_organization_moderator?(@organization) }
     end
   end
