@@ -37,6 +37,8 @@ class User < ApplicationRecord
   has_many :chatrooms, :through => :chatroom_users
   has_many :messages
 
+  has_many :notifications, :as => :recipient
+
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
 

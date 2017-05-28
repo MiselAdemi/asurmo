@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    #@activities = @user.activities.order(:created_at => :desc).page(params[:page]).per(2)
     @activities = Activity.where("user_id = ? OR to_id = ?", @user.id, @user.id).order(:created_at => :desc).page(params[:page]).per(2)
+    @notifications = Notification.where(:recipient => current_user).limit(8)
   end
 
   def about
