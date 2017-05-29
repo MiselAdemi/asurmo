@@ -16,7 +16,6 @@
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require jquery.atwho
-//= require twitter/bootstrap
 //= require sync
 //= require moment
 //= require bootstrap-datetimepicker
