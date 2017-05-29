@@ -4,6 +4,8 @@ lock "3.8.1"
 set :application, "asurmo"
 set :repo_url, "git@github.com:wingman172/asurmo.git"
 
+set :passenger_restart_with_touch, true
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
