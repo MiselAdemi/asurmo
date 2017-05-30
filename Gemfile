@@ -11,6 +11,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sprockets-rails'
 
 gem 'devise'
+gem 'devise_invitable'
 gem 'pundit'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'friendly_id', '~> 5.1.0'
