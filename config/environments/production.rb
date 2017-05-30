@@ -57,6 +57,16 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "asurmo_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "asurmo.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV['mail_username'],
+    password: ENV['mail_password']
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -83,6 +93,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { host: "104.236.62.156" }
 end
 
 STRIPE_SECRET = Rails.application.secrets.STRIPE_SECRET

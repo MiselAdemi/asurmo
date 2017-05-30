@@ -37,11 +37,11 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "example.com",
+    domain: "asurmo.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "ademimisel@gmail.com", # you can use ordinary gmail username here
-    password: "misel1993"   # you can use your gmail password here, but don't push the changes
+    user_name: ENV['mail_username'],
+    password: ENV['mail_password']
   }
 
   # Raise an error on page load if there are pending migrations.
