@@ -34,6 +34,16 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "example.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: "ademimisel@gmail.com", # you can use ordinary gmail username here
+    password: "misel1993"   # you can use your gmail password here, but don't push the changes
+  }
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
@@ -52,6 +62,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # config.action_cable.url = "ws://localhost:3000/cable"
+
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
 end
 
 STRIPE_SECRET = "sk_test_9x5iNcO8Q5jC8knE7tFUzeHL"
