@@ -6,6 +6,7 @@ document.addEventListener("turbolinks:load", ->
   $("#phone").mask("(999) 99-999-999")
   $("#datepicker").datepicker()
   $("time.timeago").timeago()
+  $('.dropdown-toggle').dropdown() 
 
   # Upload avatar preview functionality
 
