@@ -1,5 +1,10 @@
 <div class="well inbox-sidebar">
 	<h1>Inbox</h1>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newDMModal">
+	  New
+	</button>
+
 
 	<% active_id = -1 %>
 	<% if request.original_url.include?("direct") %>
@@ -19,4 +24,32 @@
 			<% end %>
 		<% end %>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newDMModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Start new conversation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="btn-group">
+		      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		        Action <span class="caret"></span>
+		      </button>
+		      <ul class="dropdown-menu" role="menu">
+		      	<% (User.all - [current_user]).each do |user| %>
+		        	<li><%= link_to user.full_name, direct_message_path(user.id), data: {behavior: "chatroom-link", chatroom_id: Chatroom.direct_message_for_users([current_user, user]).id } %></li>
+						<% end %>
+		      </ul>
+		    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Start conversation</button>
+      </div>
+    </div>
+  </div>
 </div>
