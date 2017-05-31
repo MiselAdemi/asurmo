@@ -14,7 +14,6 @@ class Chatroom < ApplicationRecord
 			chatroom
 		else
 			chatroom = new(name: name, direct_message: true)
-			byebug
 			chatroom.users = users
 			chatroom.save
 			chatroom
