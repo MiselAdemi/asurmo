@@ -5,6 +5,8 @@
       <h3>It´s your time to change world!</h3>
     </div>
 
+    <%= image_tag "logo.png" %>
+
   </div>
 
   <div class="col-lg-4">
@@ -13,7 +15,8 @@
     </div>
 
     <div class="row">
-      <%= render "devise/registrations/new" %>
+      <%= render "devise/registrations/new" if false %>
+      <h4>This si pre alpha, you can join just with invitation!</h4>
     </div>
   </div>
 
