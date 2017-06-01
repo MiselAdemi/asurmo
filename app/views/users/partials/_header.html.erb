@@ -5,10 +5,12 @@
     <% else %>
       <%= image_tag "http://lorempixel.com/700/300/nature/2/", :class => "img-cover" %>
     <% end %>
-
-    <div class="upload-cover">
-      <a data-toggle="modal" data-target="#uploadCoverModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
-    </div>
+    
+    <% if @user == current_user %>
+      <div class="upload-cover">
+        <a data-toggle="modal" data-target="#uploadCoverModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+      </div>
+    <% end %>
   </div>
 
 
@@ -20,10 +22,12 @@
 	<%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile img-thumbnail" %>
       <% end %>  
     </div>
-
-    <div class="upload-avatar">
-      <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
-    </div>
+    
+    <% if @user == current_user %>
+      <div class="upload-avatar">
+        <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+      </div>
+    <% end %>
 
     <div class="cover-text">
       <h2><%= @user.full_name %></h2>

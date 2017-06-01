@@ -3,7 +3,6 @@ class PicturesController < ApplicationController
   before_filter :find_user
   before_filter :find_album
   before_filter :find_picture, :only => [ :show, :edit, :update, :destroy ]
-  before_filter :add_breadcrumbs
   respond_to :html, :json
 
   def index
@@ -16,7 +15,7 @@ class PicturesController < ApplicationController
   end
 
   def show
-    add_breadcrumb @picture.caption
+    
   end
 
   def new
@@ -59,12 +58,6 @@ class PicturesController < ApplicationController
   end
 
   private
-
-  def add_breadcrumbs
-    add_breadcrumb @user.first_name, user_path(@user)
-    add_breadcrumb "Albums", albums_path(@user)
-    add_breadcrumb "Pictures", album_pictures_path(@album)
-  end
 
   def find_user
     @user = User.friendly.find(params[:user_id])

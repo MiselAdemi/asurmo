@@ -5,24 +5,11 @@
       <h3 class="panel-title">Photos</h3>
     </div>
     <div class="panel-body">
-      <div class="col-lg-6">
-        <img class="img-responsive" src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg">
-      </div>
-      <div class="col-lg-6">
-        <img class="img-responsive" src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg">
-      </div>
-      <div class="col-lg-6">
-        <img class="img-responsive" src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg">
-      </div>
-      <div class="col-lg-6">
-        <img class="img-responsive" src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg">
-      </div>
-      <div class="col-lg-6">
-        <img class="img-responsive" src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg">
-      </div>
-      <div class="col-lg-6">
-        <img class="img-responsive" src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg">
-      </div>
+      <% @user.pictures.limit(6).each do |picture| %>
+        <div class="col-lg-6">
+          <%= link_to image_tag(picture.picture.url, :class => "img-responsive"), album_picture_path(picture.user, picture.album, picture) %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
