@@ -41,12 +41,12 @@ class SubscriptionsController < ApplicationController
 
 		current_user.update(options)
 
-		subs = current_user.memberships.subscriptions_quotas.create(:organizations_quota => selected_plan.organizations_quota,
+		subs = current_user.subscriptions_quotas.create(:organizations_quota => selected_plan.organizations_quota,
 																	:campains_quota => selected_plan.campains_quota,
-																	:events_quota => selected_plan.events_qouta)
+																	:events_quota => selected_plan.events_quota)
 		subs.save
 		
-		redirect_to root_path
+		redirect_to user_organizations_path(current_user)
 	end
 
 	def destroy

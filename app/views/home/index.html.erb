@@ -15,7 +15,7 @@
     </div>
 
     <div class="row">
-      <%= render "devise/registrations/new" if false %>
+      <%= render "devise/registrations/new" if Rails.env.development? %>
       <h4>This si pre alpha, you can join just with invitation!</h4>
     </div>
   </div>

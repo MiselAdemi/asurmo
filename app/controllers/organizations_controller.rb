@@ -64,7 +64,7 @@ class OrganizationsController < ApplicationController
       @organization.campains.create(:name => "Default")
       track_activity(@organization)
       respond_with(@organization) do |format|
-	format.html { redirect_to user_organizations_path }
+	      format.html { redirect_to user_organizations_path(current_user) }
         format.json { render :json => @organization.as_json }
       end
     else
