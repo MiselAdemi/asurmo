@@ -1,4 +1,7 @@
-jQuery ->
+$(document).on "turbolinks:load", ->
+  $('#payment-form button').on "click", (e)->
+    document.getElementById('payment-loader').style.display = "block";
+
   Stripe.setPublishableKey($("meta[name='stripe-key']").attr("content"))
 
   $('#payment-form').submit (event) ->
@@ -36,7 +39,7 @@ stripeResponseHandler = (status, response) ->
     $form.append $('<input type="hidden" name="card_exp_month" />').val(response.card.exp_month)
     $form.append $('<input type="hidden" name="card_exp_year" />').val(response.card.exp_year)
     $form.append $('<input type="hidden" name="card_brand" />').val(response.card.brand)
-    $form.append $('<input type="hidden" name="plan_name" />').val(getParameterByName('plan'))
+    #$form.append $('<input type="hidden" name="plan_name" />').val(getParameterByName('plan'))
     # and submit
     $form.get(0).submit()
   return

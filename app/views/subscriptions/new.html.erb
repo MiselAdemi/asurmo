@@ -34,7 +34,14 @@
         <input value="123" type="text" size="4" data-stripe="cvc">
       </label>
     </div>
+
+    <input type="hidden" name="plan_name" value="<%= params[:plan] %>" />
   </div>
 
   <button type="submit">Submit Payment</button>
 <% end %>
+
+<div id="payment-loader" style="display: none;">
+  <div class="loader2">Loading...</div>
+  <center><p>The request is processed</p></center>
+</div>

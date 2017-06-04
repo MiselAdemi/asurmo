@@ -17,7 +17,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :members, :class_name => "Member", :foreign_key => "user_id", :dependent => :destroy
-  has_many :organizations, :through => :members
+  has_many :organizations, :through => :members, :dependent => :destroy
   has_many :conversations, :foreign_key => :sender_id
 
   accepts_nested_attributes_for :members, :organizations
@@ -26,7 +26,7 @@ class User < ApplicationRecord
   has_many :interests_list
   has_many :interests, :through => :interests_list
   has_many :statuses, :as => :statusable
-  has_many :albums
+  has_many :albums, :dependent => :destroy
   has_many :pictures
   has_many :campains
   
@@ -120,6 +120,10 @@ class User < ApplicationRecord
 
   def events_quota_full?
     active_subscription.events_quota == Event.joins(campains).count
+  end
+
+  def number_of_organizations_user_ownes
+    organizations.count
   end
 
   def number_of_campains_user_ownes

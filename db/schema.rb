@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530110129) do
+ActiveRecord::Schema.define(version: 20170604125352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,13 @@ ActiveRecord::Schema.define(version: 20170530110129) do
     t.string   "picture"
     t.index ["album_id"], name: "index_pictures_on_album_id", using: :btree
     t.index ["user_id"], name: "index_pictures_on_user_id", using: :btree
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string  "name"
+    t.integer "organizations_quota"
+    t.integer "campains_quota"
+    t.integer "events_quota"
   end
 
   create_table "search_suggestions", force: :cascade do |t|

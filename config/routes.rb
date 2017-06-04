@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   root 'home#index'
   get "home/get_cities", :as => "get_cities"
 
-  resources :subscriptions
+  resources :subscriptions, :except => [:new] do
+    collection do
+      get 'new/:plan', :to => "subscriptions#new", :as => 'new'
+    end
+  end
   resource :card
 
   resources :activities do
