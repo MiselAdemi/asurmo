@@ -11,7 +11,7 @@
           <% if policy(@organization).create? %>
             <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
           <% else %>
-            <a class="btn btn-success pull-right" style="width: 156px;">Upgrade membership</a>
+            <%= link_to "Upgrade membership", subscriptions_path, :class => "btn btn-success pull-right", :style => "width: 156px;" %>
           <% end %>
         <% else %>
           <%= link_to "Upgrade membership", subscriptions_path, :class => "btn btn-success pull-right", :style => "width: 156px;" %>
