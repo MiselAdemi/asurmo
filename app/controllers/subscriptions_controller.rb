@@ -41,6 +41,11 @@ class SubscriptionsController < ApplicationController
 
 		current_user.update(options)
 
+		subs = current_user.memberships.subscriptions_quotas.create(:organizations_quota => selected_plan.organizations_quota,
+																	:campains_quota => selected_plan.campains_quota,
+																	:events_quota => selected_plan.events_qouta)
+		subs.save
+		
 		redirect_to root_path
 	end
 
@@ -53,6 +58,10 @@ class SubscriptionsController < ApplicationController
 	end
 
 	private
+
+	def selected_plan
+		Plan.where(:name => params[:plan_name].split("_")[0]).first
+	end
 
 	def redirect_to_signup
 		if !user_signed_in?
