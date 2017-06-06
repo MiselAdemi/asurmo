@@ -1,3 +1,30 @@
 // Place all the styles related to the statuses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#status-textarea {
+	padding: 10px;
+}
+
+#status-textarea img {
+	width: 50%;
+	display: block;
+	margin: auto;
+	margin-top: 20px;
+}
+
+#status-hidden-textarea {
+	display: none;
+}
+
+.status-image-preview {
+	width: 50%;
+    height: 50%;
+    display: block;
+    margin: auto;
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}

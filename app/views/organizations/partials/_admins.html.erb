@@ -6,8 +6,8 @@
     <table class="table table-bordered">
 
       <%= form_for(@organization, :url => organization_create_admin_path(@organization), :method => "post") do |f| %>
-        <%= f.text_field_tag :query, params[:query], :class => 'form-control typeahead', :id => "search-field" %>
-        <%= f.hidden_field_tag :user_email, params[:user], :class => 'hidden-autocomplete' %>
+        <%= text_field_tag :query, params[:query], :class => 'form-control typeahead', :id => "search-field" %>
+        <%= hidden_field_tag :user_email, params[:user], :class => 'hidden-autocomplete' %>
         <%= f.submit "Add", :class => "btn btn-primary" %>
       <% end %>
 
