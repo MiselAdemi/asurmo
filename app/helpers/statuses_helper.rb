@@ -4,7 +4,7 @@ module StatusesHelper
       pipeline = HTML::Pipeline.new [
         HTML::Pipeline::MarkdownFilter,
         HTML::Pipeline::EmojiFilter,
-        HTML::Pipeline::SanitizationFilter,
+        #HTML::Pipeline::SanitizationFilter,
       ], pipeline_context
       pipeline.call(content)[:output].to_s.html_safe
 	end
@@ -16,6 +16,12 @@ module StatusesHelper
 	end
 
 	def link_preview(string)
-		string.gsub!(URI.extract(string)[0], "<div><img id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
+		if URI.extract(string)[0].include?("youtube")
+			video_id = URI.extract(string)[0].split("v=")[1]
+			frame = "<div><iframe src='https://www.youtube.com/embed/#{video_id}'></iframe></div>"
+			string.gsub!(URI.extract(string)[0], frame)
+		else
+			string.gsub!(URI.extract(string)[0], "<div><img id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
+		end
 	end
 end

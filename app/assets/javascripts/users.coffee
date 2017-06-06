@@ -81,7 +81,10 @@ document.addEventListener("turbolinks:load", ->
     result = URI.withinString($('#status-textarea')[0].innerHTML, (url) ->
       if flag
         flag = false
-        url + '<img src="' + url + '">'
+        if url.indexOf("youtube") != -1
+          url + "<iframe src='https://www.youtube.com/embed/" + url.split("v=")[1] + "'></iframe>"
+        else
+          url + '<img src="' + url + '">'
     )
 
     $('#status-textarea')[0].innerHTML = result
