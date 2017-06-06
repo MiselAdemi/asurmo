@@ -165,8 +165,6 @@ GEM
     html-pipeline (2.5.0)
       activesupport (>= 2)
       nokogiri (>= 1.4)
-    html-pipeline-youtube (0.1.4)
-      html-pipeline (~> 2.0)
     http_parser.rb (0.6.0)
     i18n (0.8.1)
     jbuilder (2.6.3)
@@ -373,7 +371,6 @@ DEPENDENCIES
   github-markdown
   gon
   html-pipeline
-  html-pipeline-youtube
   jbuilder (~> 2.0)
   jquery-atwho-rails
   jquery-rails (~> 4.3, >= 4.3.1)
