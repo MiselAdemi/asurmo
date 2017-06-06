@@ -7,9 +7,8 @@
   <div class="col-lg-6 profile-center">
     <div class="col-lg-12 status-box status-form">
       <%= form_for([@statusable, @status], :url => user_statuses_path(@user)) do |f| %>
-        <p class="">
-        <%= f.text_area :body, :rows => "2", :placeholder => "Say your oppinion...", :data => { behavior: "autocomplete" } %>
-        </p>
+        <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
+        <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
 
         <%= f.submit "Post", :class => "col-md-2 btn btn-info pull-right" %>
       <% end %>

@@ -333,6 +333,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    uri-js-rails (1.15.2)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -403,6 +404,7 @@ DEPENDENCIES
   turbolinks (~> 5.0.0)
   twitter-typeahead-rails
   uglifier (>= 1.3.0)
+  uri-js-rails
   web-console (~> 2.0)
 
 BUNDLED WITH

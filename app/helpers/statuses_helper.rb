@@ -14,4 +14,8 @@ module StatusesHelper
 			link_to match, user_path($1)
 		end.html_safe
 	end
+
+	def link_preview(string)
+		string.gsub!(URI.extract(string)[0], "<div><img id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
+	end
 end

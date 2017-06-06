@@ -41,6 +41,7 @@ gem 'gemoji'
 gem "auto_html"
 gem 'jquery-atwho-rails'
 gem 'stripe'
+gem 'uri-js-rails'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

@@ -75,4 +75,16 @@ document.addEventListener("turbolinks:load", ->
     displayKey: 'email'
     source: engine.ttAdapter()
 
+  $('#status-textarea').on 'input', ->
+    flag = true
+
+    result = URI.withinString($('#status-textarea')[0].innerHTML, (url) ->
+      if flag
+        flag = false
+        url + '<img src="' + url + '">'
+    )
+
+    $('#status-textarea')[0].innerHTML = result
+    $("#status-hidden-textarea").val($("#status-textarea")[0].innerText)
+
 )
