@@ -23,7 +23,7 @@
        <% else %>
        <div class="organization-list-table table-responsive table-sm col-lg-12">
         <table class="table table-sm">
-          <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :owner} %>
+          <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :admin} %>
         </table>
       </div>
       <% end %>

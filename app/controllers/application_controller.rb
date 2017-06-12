@@ -38,9 +38,12 @@ class ApplicationController < ActionController::Base
       elsif(params[:organization_id].present?)
         @to_type = "organization"
         @to = Organization.friendly.find(params[:organization_id]).id
-      else
+      elsif(params[:user_id].present?)
         @to_type = "user"
         @to = User.friendly.find(params[:user_id]).id
+      else
+        @to_type = "user"
+        @to = current_user.id
       end
     end
 end
