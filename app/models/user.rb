@@ -93,6 +93,7 @@ class User < ApplicationRecord
   end
 
   def active_subscription
+    byebug
     if subscribed?
       subscriptions_quotas.last
     end
