@@ -1,6 +1,6 @@
 <div class="col-lg-3 left-sidebar">
 
-  <%= render 'organizations/partials/admin_left' if is_organization_owner?(@organization) %>
+  <%= render 'organizations/partials/admin_left' if is_organization_owner?(@organization, current_user) %>
 
   <div class="panel panel-default panel-photo">
     <div class="panel-heading">

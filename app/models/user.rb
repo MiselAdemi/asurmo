@@ -93,14 +93,13 @@ class User < ApplicationRecord
   end
 
   def active_subscription
-    byebug
     if subscribed?
       subscriptions_quotas.last
     end
   end
 
   def used_organizations_quota
-    (organizations.count * 100) / active_subscription.organizations_quota
+    (organizations.where(:owner_id => id).count * 100) / active_subscription.organizations_quota
   end
 
   def used_campains_quota
@@ -112,7 +111,7 @@ class User < ApplicationRecord
   end
 
   def organizations_quota_full?
-    active_subscription.organizations_quota == organizations.count
+    active_subscription.organizations_quota == organizations.where(:owner_id => id).count
   end
 
   def campains_quota_full?
@@ -124,7 +123,7 @@ class User < ApplicationRecord
   end
 
   def number_of_organizations_user_ownes
-    organizations.count
+    organizations.where(:owner_id => id).count
   end
 
   def number_of_campains_user_ownes

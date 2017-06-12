@@ -9,11 +9,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-<<<<<<< c46b34f6e22a64120937221e30496440975db553
-        <% if current_user.present? %>
-=======
         <% if user_signed_in? %>
->>>>>>> Fixing header
           <%= link_to "ASURMO", user_path(current_user), :class => "navbar-brand" %>
         <% else %>
           <%= link_to "ASURMO", root_path, :class => "navbar-brand" %>

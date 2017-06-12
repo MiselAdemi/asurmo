@@ -57,7 +57,11 @@
 
   <div class="col-lg-3 campain-left-side">
     <div class="info">
-      <%= image_tag @campain.avatar.url, :class => "campain-avatar" %>
+      <% if @campain.avatar.url %>
+        <%= image_tag @campain.avatar.url, :class => "campain-avatar" %>
+      <% else %>
+        <%= image_tag "http://www.colourmebronze.com.au/media/catalog/product/cache/1/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/noImage.jpg", :class => "campain-avatar" %>
+      <% end %>
     </div>
     <br>
     <div class="events panel panel-default">

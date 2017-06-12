@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  include OrganizationsHelper
   before_action :authenticate_user!
   before_action :set_organization, :except => [:create, :new, :index]
   before_action :set_moderators, :except => [:create, :new, :show, :index]
@@ -10,7 +11,7 @@ class OrganizationsController < ApplicationController
 
   def index
     # organizations where user is admin
-    @owner_organizations = User.all_organizations_where_user_admin(@user)
+    @owner_organizations = all_active_organization_from_user(@user)
 
     # organizations where user is moderator
     @moderate_organizations = User.all_organizations_where_user_moderator(@user)
@@ -62,7 +63,7 @@ class OrganizationsController < ApplicationController
     if @organization.save
       @organization.members.create(:user_id => current_user.id, :role => 2)
       @organization.campains.create(:name => "Default")
-      track_activity(@organization)
+      #track_activity(@organization)
       respond_with(@organization) do |format|
 	      format.html { redirect_to user_organizations_path(current_user) }
         format.json { render :json => @organization.as_json }
@@ -102,8 +103,9 @@ class OrganizationsController < ApplicationController
 
   def destroy
     authorize @organization
-    untrack_activity(@organization)
-    @organization.destroy
+    #untrack_activity(@organization)
+    #@organization.destroy
+    @organization.update_attribute(:removed, true)
     redirect_to user_organizations_path(current_user)
   end
 

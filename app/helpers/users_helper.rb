@@ -1,12 +1,8 @@
 module UsersHelper
   include ActionView::Helpers::DateHelper
 
-  def is_organization_owner?(organization)
-    if Member.exists?(:user_id => current_user.id, :organization_id => organization.id)
-      organization.members.where(:user_id => current_user).first.role == 'owner' ? true : false
-    else
-      return false
-    end
+  def is_organization_owner?(organization, user)
+    organization.owner_id == user.id
   end
 
   def is_organization_admin?(organization)
