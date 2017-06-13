@@ -75,6 +75,9 @@ document.addEventListener("turbolinks:load", ->
     displayKey: 'email'
     source: engine.ttAdapter()
 
+  $('[data-behavior="autocomplete"').on 'change', (obj, datum) ->
+    $("#status-hidden-textarea").val($("#status-textarea")[0].innerText)
+
   $('#status-textarea').on 'input', ->
     flag = true
 
