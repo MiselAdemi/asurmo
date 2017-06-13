@@ -16,12 +16,16 @@ module StatusesHelper
 	end
 
 	def link_preview(string)
-		if URI.extract(string)[0].include?("youtube")
-			video_id = URI.extract(string)[0].split("v=")[1]
-			frame = "<div><iframe src='https://www.youtube.com/embed/#{video_id}'></iframe></div>"
-			string.gsub!(URI.extract(string)[0], frame)
+		if(URI.extract(string)[0].present?)
+			if URI.extract(string)[0].include?("youtube")
+				video_id = URI.extract(string)[0].split("v=")[1]
+				frame = "<div><iframe src='https://www.youtube.com/embed/#{video_id}'></iframe></div>"
+				string.gsub!(URI.extract(string)[0], frame)
+			else
+				string.gsub!(URI.extract(string)[0], "<div><img id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
+			end
 		else
-			string.gsub!(URI.extract(string)[0], "<div><img id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
+			string
 		end
 	end
 end

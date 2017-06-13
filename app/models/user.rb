@@ -37,8 +37,6 @@ class User < ApplicationRecord
   has_many :chatrooms, :through => :chatroom_users
   has_many :messages
 
-  has_many :notifications, :as => :recipient
-
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
 
@@ -132,5 +130,13 @@ class User < ApplicationRecord
 
   def number_of_events_user_ownes
     Event.joins(campains).count
+  end
+
+  def notifications
+    Notification.where(:recipient_id => id)
+  end
+
+  def unread_notifications
+    Notification.where(:recipient_id => id).where(:read => false)
   end
 end
