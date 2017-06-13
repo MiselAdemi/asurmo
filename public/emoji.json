@@ -1,0 +1,82 @@
+[
+	{
+		"id": 1,
+		"name": "8ball"
+	},
+	{
+		"id": 2,
+		"name": "accept"
+	},
+	{
+		"id": 3,
+		"name": "angel"
+	},
+	{
+		"id": 4,
+		"name": "anger"
+	},
+	{
+		"id": 5,
+		"name": "angry"
+	},
+	{
+		"id": 6,
+		"name": "baby"
+	},
+	{
+		"id": 7,
+		"name": "black_joker"
+	},
+	{
+		"id": 8,
+		"name": "bread"
+	},
+	{
+		"id": 9,
+		"name": "car"
+	},
+	{
+		"id": 10,
+		"name": "envelope"
+	},
+	{
+		"id": 11,
+		"name": "envelope_with_arrow"
+	},
+	{
+		"id": 12,
+		"name": "heart"
+	},
+	{
+		"id": 13,
+		"name": "heartbeat"
+	},
+	{
+		"id": 14,
+		"name": "kiss"
+	},
+	{
+		"id": 15,
+		"name": "mailbox"
+	},
+	{
+		"id": 16,
+		"name": "massage"
+	},
+	{
+		"id": 17,
+		"name": "notebook"
+	},
+	{
+		"id": 18,
+		"name": "ok_hand"
+	},
+	{
+		"id": 19,
+		"name": "smile"
+	},
+	{
+		"id": 20,
+		"name": "scream"
+	}
+]

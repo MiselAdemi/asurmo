@@ -77,6 +77,22 @@ document.addEventListener("turbolinks:load", ->
 
   $('[data-behavior="autocomplete"').on 'change', (obj, datum) ->
     $("#status-hidden-textarea").val($("#status-textarea")[0].innerText)
+    placeCaretAtEnd(($('#status-textarea').get(0)))
+
+  placeCaretAtEnd = (el) ->
+    el.focus()
+    if typeof window.getSelection != 'undefined' and typeof document.createRange != 'undefined'
+      range = document.createRange()
+      range.selectNodeContents el
+      range.collapse false
+      sel = window.getSelection()
+      sel.removeAllRanges()
+      sel.addRange range
+    else if typeof document.body.createTextRange != 'undefined'
+      textRange = document.body.createTextRange()
+      textRange.moveToElementText el
+      textRange.collapse false
+      textRange.select()
 
   $('#status-textarea').on 'input', ->
     flag = true
@@ -92,5 +108,6 @@ document.addEventListener("turbolinks:load", ->
 
     $('#status-textarea')[0].innerHTML = result
     $("#status-hidden-textarea").val($("#status-textarea")[0].innerText)
+    placeCaretAtEnd(($('#status-textarea').get(0)))
 
 )
