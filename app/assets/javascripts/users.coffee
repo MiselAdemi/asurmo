@@ -48,7 +48,7 @@ document.addEventListener("turbolinks:load", ->
       url = $('.pagination .next a').attr('href')
 
       if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
-        $('.pagination').html("<div class='loader'></div>")
+        $('.pagination').html("<div class='loader2'></div>")
         $.getScript(url)
 
     $(window).scroll()
