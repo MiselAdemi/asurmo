@@ -16,7 +16,7 @@ module StatusesHelper
 	end
 
 	def link_preview(string)
-		if(URI.extract(string)[0].present?)
+		if(URI.extract(string, ["http", "https"])[0].present?)
 			if URI.extract(string)[0].include?("youtube")
 				video_id = URI.extract(string)[0].split("v=")[1]
 				frame = "<div><iframe src='https://www.youtube.com/embed/#{video_id}'></iframe></div>"
