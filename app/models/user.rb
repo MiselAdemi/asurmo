@@ -23,8 +23,6 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :members, :organizations
 
   has_many :activities
-  has_many :interests_list
-  has_many :interests, :through => :interests_list
   has_many :statuses, :as => :statusable
   has_many :albums, :dependent => :destroy
   has_many :pictures
@@ -36,6 +34,9 @@ class User < ApplicationRecord
   has_many :chatroom_users
   has_many :chatrooms, :through => :chatroom_users
   has_many :messages
+
+  has_many :interesttaggings
+  has_many :interests, :through => :interesttaggings
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
@@ -138,5 +139,25 @@ class User < ApplicationRecord
 
   def unread_notifications
     Notification.where(:recipient_id => id).where(:read => false)
+  end
+
+  # Tagging methods
+  def self.interested_in(name)
+    Interest.find_by_name!(name).users
+  end
+
+  def self.interest_count
+    Interest.select("interests.*, count(interesttaggings.interest_id) as count").
+    joins(:interesttaggings).group("interesttaggings.interest_id")
+  end
+
+  def interest_list
+    interests.map(&:name).join(", ")
+  end
+
+  def interest_list=(names)
+    self.interests = names.split(", ").map do |n|
+      Interest.where(:name => n.strip).first_or_create!
+    end
   end
 end

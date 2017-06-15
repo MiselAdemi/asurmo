@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613115356) do
+ActiveRecord::Schema.define(version: 20170615092712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,13 +118,13 @@ ActiveRecord::Schema.define(version: 20170613115356) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "interests_lists", force: :cascade do |t|
-    t.integer  "user_id"
+  create_table "interesttaggings", force: :cascade do |t|
     t.integer  "interest_id"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["interest_id"], name: "index_interests_lists_on_interest_id", using: :btree
-    t.index ["user_id"], name: "index_interests_lists_on_user_id", using: :btree
+    t.index ["interest_id"], name: "index_interesttaggings_on_interest_id", using: :btree
+    t.index ["user_id"], name: "index_interesttaggings_on_user_id", using: :btree
   end
 
   create_table "likes", force: :cascade do |t|
@@ -246,6 +246,24 @@ ActiveRecord::Schema.define(version: 20170613115356) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.string   "taggable_type"
+    t.integer  "taggable_id"
+    t.string   "tagger_type"
+    t.integer  "tagger_id"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -291,6 +309,7 @@ ActiveRecord::Schema.define(version: 20170613115356) do
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
+    t.json     "interests"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -325,8 +344,8 @@ ActiveRecord::Schema.define(version: 20170613115356) do
   add_foreign_key "chatroom_users", "chatrooms"
   add_foreign_key "chatroom_users", "users"
   add_foreign_key "events", "campains"
-  add_foreign_key "interests_lists", "interests"
-  add_foreign_key "interests_lists", "users"
+  add_foreign_key "interesttaggings", "interests"
+  add_foreign_key "interesttaggings", "users"
   add_foreign_key "members", "organizations"
   add_foreign_key "members", "users"
   add_foreign_key "messages", "chatrooms"

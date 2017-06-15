@@ -1,6 +1,10 @@
 <div class="col-lg-3">
   <div class="col-lg-12 sidebar-avatar">
-    <%= image_tag @user.avatar.url, :class => "img-responsive thumbnail" %>
+     <% if @user.avatar.url %>
+      <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
+    <% else %>
+      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile img-thumbnail" %>
+    <% end %> 
     <h3><%= @user.first_name %> <%= @user.last_name %></h3>
   </div>
 
