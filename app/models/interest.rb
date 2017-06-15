@@ -1,4 +1,4 @@
 class Interest < ApplicationRecord
-  has_many :interests_list
-  has_many :users, :through => :interests_list
+	has_many :interesttaggings
+	has_many :users, :through => :interesttaggings
 end
