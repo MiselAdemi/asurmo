@@ -1,0 +1,11 @@
+//= require jquery
+//= require bootstrap-sprockets
+//= require jquery.turbolinks
+//= require jquery_ujs
+//= require jquery-ui
+//= require jquery-maskedinput
+//= require turbolinks
+//= require jquery-knob
+//= require jquery-flot
+//= require theme
+//= require_tree ./admin

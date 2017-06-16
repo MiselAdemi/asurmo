@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    get '/' => "dashboard#index"
+    resources :users
+  end
 
   resources :users, :path => "" do
     put "update_avatar", :as => "update_avatar"
@@ -95,11 +99,6 @@ Rails.application.routes.draw do
 		  	put "support" => "statuses#support"
 			end
 		end
-  end
-
-  namespace :admin do
-    get 'dashboard/index'
-    resource :users
   end
 
   scope ":user_id" do

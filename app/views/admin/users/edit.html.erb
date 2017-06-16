@@ -1,0 +1,70 @@
+<div id="pad-wrapper" class="new-user">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Edit user</h3>
+                </div>  
+            </div>
+
+            <% if flash[:alert] %>
+                <p class="alert alert-success flash-error"><%= flash[:alert] %></p>
+            <% end %>
+
+            <% if flash[:notice] %>
+                <p class="alert alert-success flash-notice"><%= flash[:notice] %></p>
+            <% end %>
+
+            <div class="row form-wrapper">
+                <!-- left column -->
+                <div class="col-md-9 with-sidebar">
+                    <%= form_for @user, as: :user, url: admin_user_path(@user), method: :put, :html => { :class => "form-horizontal", :role => "form" } do |f| %>
+                        <div class="form-group">
+                            <%= f.label :first_name, :class => "col-md-2 control-label" %>
+                            <div class="col-md-8">
+                                <%= f.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <%= f.label :last_name, :class => "col-md-2 control-label" %>
+                            <div class="col-md-8">
+                                <%= f.text_field :last_name, :class => "form-control", :placeholder => "First Name" %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <%= f.label :email, :class => "col-md-2 control-label" %>
+                            <div class="col-md-8">
+                              <%= f.text_field :email, :class => "form-control", :placeholder => "Email" %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <%= f.label :mobile_phone, :class => "col-md-2 control-label" %>
+                            <div class="col-md-8">
+                              <%= f.text_field :mobile_phone, :class => "form-control", :placeholder => "Mobile Phone" %>
+                            </div>
+                        </div>
+                      
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                              <button type="submit" class="btn btn-default">Save changes</button>
+                            </div>
+                        </div>
+                    <% end %>
+                    
+                </div>
+
+                <!-- side right column -->
+                <div class="col-md-3 form-sidebar">
+                    <div class="alert alert-info">
+                        <i class="icon-lightbulb pull-left"></i>
+                        User edit rules
+                    </div>                        
+                    <h6>Editable fields:</h6>
+                    <ul>
+                        <li>First name</li>
+                        <li>Last name</li>
+                        <li>Email</li>
+                        <li>Mobile phone</li>
+                    </ul>
+                    <p>For more editing options contact main administrator</p>
+                </div>
+            </div>
+        </div>

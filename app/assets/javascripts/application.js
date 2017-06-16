@@ -27,7 +27,7 @@
 //= require rails.validations
 //= require react
 //= require react_ujs
-//= require components
+//= require layout/components
 //= require timeago
 //= require turbolinks
-//= require_tree .
+//= require_tree ./layout

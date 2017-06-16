@@ -1,0 +1,123 @@
+<div id="pad-wrapper" class="users-list">
+  <div class="row header">
+    <h3>Users</h3>
+    <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
+      <input type="text" class="col-md-5 search" placeholder="Type a user's name...">
+
+      <!-- custom popup filter -->
+      <!-- styles are located in css/elements.css -->
+      <!-- script that enables this dropdown is located in js/theme.js -->
+      <div class="ui-dropdown">
+        <div class="head" data-toggle="tooltip" title="Click me!">
+          Filter users
+          <i class="arrow-down"></i>
+        </div>  
+        <div class="dialog">
+          <div class="pointer">
+            <div class="arrow"></div>
+            <div class="arrow_border"></div>
+          </div>
+          <div class="body">
+            <p class="title">
+              Show users where:
+            </p>
+            <div class="form">
+              <select>
+                <option>Name</option>
+                <option>Email</option>
+                <option>Number of orders</option>
+                <option>Signed up</option>
+                <option>Last seen</option>
+              </select>
+              <select>
+                <option>is equal to</option>
+                <option>is not equal to</option>
+                <option>is greater than</option>
+                <option>starts with</option>
+                <option>contains</option>
+              </select>
+              <input type="text" class="form-control" />
+              <a class="btn-flat small">Add filter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="new-user.html" class="btn-flat success pull-right">
+        <span>&#43;</span>
+        NEW USER
+      </a>
+    </div>
+  </div>
+
+  <!-- Users table -->
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col-md-3 sortable">
+              Name
+            </th>
+            <th class="col-md-2 sortable">
+              <span class="line"></span>Slug
+            </th>
+            <th class="col-md-2 sortable">
+              <span class="line"></span>Signed up
+            </th>
+            <th class="col-md-1 sortable">
+              <span class="line"></span>Subscription
+            </th>
+            <th class="col-md-2 sortable">
+              <span class="line"></span>Email
+            </th>
+            <th class="col-md-2 sortable align-right">
+              <span class="line"></span>Settings
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- row -->
+          <% @users.each do |user| %>
+            <tr class="first">
+              <td>
+              <% if user.avatar.url.present? %>
+                <%= image_tag user.avatar.url, :alt => "contact", :class => "img-circle users-list-img avatar hidden-phone" %>
+              <% else %>
+                <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :alt => "contact", :class => "img-circle users-list-img avatar hidden-phone" %>
+              <% end %>
+              <%= link_to user.full_name, user_path(user), :class => "name" %>
+              </td>
+              <td>
+                <%= user.slug %>
+              </td>
+              <td>
+                <%= user.created_at.strftime("%d %B %Y") %>
+              </td>
+              <td>
+                <span class="label label-success"><%= user.memberships.last.subscriptions_quota.plan %></span>
+              </td>
+              <td>
+                <a href="#"><%= user.email %></a>
+              </td>
+              <td class="align-right">
+              <%= link_to "Edit", edit_admin_user_path(user), :class => "btn-flat info" %>
+                <%= link_to "Block", "#", :class => "btn-flat danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>                
+  </div>
+  <ul class="pagination pull-right">
+    <li><a href="#">&#8249;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&#8250;</a></li>
+  </ul>
+  <!-- end users table -->
+</div>
