@@ -35,7 +35,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => "dashboard#index"
-    resources :users
+    resources :users do
+      member do
+        get "block" => "users#block"
+        get "unblock" => "users#unblock" 
+      end
+    end
   end
 
   resources :users, :path => "" do

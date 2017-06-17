@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
 	def after_sign_in_path_for(resource)
+    if resource.blocked
+      sign_out resource
+      root_path
+    end
+
 		stored_location_for(resource) || user_path(current_user)
 	end
 

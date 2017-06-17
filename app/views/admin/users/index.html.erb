@@ -2,47 +2,13 @@
   <div class="row header">
     <h3>Users</h3>
     <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-      <input type="text" class="col-md-5 search" placeholder="Type a user's name...">
-
-      <!-- custom popup filter -->
-      <!-- styles are located in css/elements.css -->
-      <!-- script that enables this dropdown is located in js/theme.js -->
-      <div class="ui-dropdown">
-        <div class="head" data-toggle="tooltip" title="Click me!">
-          Filter users
-          <i class="arrow-down"></i>
-        </div>  
-        <div class="dialog">
-          <div class="pointer">
-            <div class="arrow"></div>
-            <div class="arrow_border"></div>
-          </div>
-          <div class="body">
-            <p class="title">
-              Show users where:
-            </p>
-            <div class="form">
-              <select>
-                <option>Name</option>
-                <option>Email</option>
-                <option>Number of orders</option>
-                <option>Signed up</option>
-                <option>Last seen</option>
-              </select>
-              <select>
-                <option>is equal to</option>
-                <option>is not equal to</option>
-                <option>is greater than</option>
-                <option>starts with</option>
-                <option>contains</option>
-              </select>
-              <input type="text" class="form-control" />
-              <a class="btn-flat small">Add filter</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <%= form_tag users_path, :method => 'get' do %>
+        <p>
+          <%= text_field_tag :search, params[:search], :class => "col-md-5 search", :placeholder => "Type a user's name..." %>
+          <%= submit_tag "Search", :name => nil %>
+        </p>
+      <% end %>
+  
       <a href="new-user.html" class="btn-flat success pull-right">
         <span>&#43;</span>
         NEW USER
@@ -101,8 +67,9 @@
                 <a href="#"><%= user.email %></a>
               </td>
               <td class="align-right">
-              <%= link_to "Edit", edit_admin_user_path(user), :class => "btn-flat info" %>
-                <%= link_to "Block", "#", :class => "btn-flat danger" %>
+                <%= link_to "Edit", edit_admin_user_path(user), :class => "btn-flat info" %>
+                <%= link_to "Block", block_admin_user_path(user), :class => "btn-flat danger", data: {confirm: "Are you sure you want to block user #{user.full_name} !"} unless user.blocked %>
+                <%= link_to "Unblock", unblock_admin_user_path(user), :class => "btn-flat danger", data: {confirm: "Are you sure you want to unblock user #{user.full_name} !"} if user.blocked %>
               </td>
             </tr>
           <% end %>

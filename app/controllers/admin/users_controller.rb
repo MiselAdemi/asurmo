@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   before_action :authenticate_admin
-  before_action :set_user, :only => [:destroy, :update, :edit, :about]
+  before_action :set_user, :only => [:destroy, :update, :edit, :about, :block, :unblock]
 
   def index
      @users = User.all.where.not(:id => current_user.id).where.not(:id => 2)
@@ -36,6 +36,18 @@ class Admin::UsersController < Admin::BaseController
     else
       redirect_to user_path(current_user), :alert => "Unable to update avatar"
     end
+  end
+
+  def block
+    @user.blocked = true
+    @user.save
+    redirect_to :back
+  end
+
+  def unblock
+    @user.blocked = false
+    @user.save
+    redirect_to :back
   end
 
   private

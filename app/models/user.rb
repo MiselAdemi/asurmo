@@ -160,4 +160,8 @@ class User < ApplicationRecord
       Interest.where(:name => n.strip).first_or_create!
     end
   end
+
+  def active_for_authentication?
+    super && !self.blocked
+  end
 end
