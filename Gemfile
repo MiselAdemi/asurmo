@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sprockets-rails'
 
+gem 'font-awesome-sass', '~> 4.7'
 gem 'devise'
 gem 'devise_invitable'
 gem 'pundit'
@@ -46,9 +47,10 @@ gem 'activerecord-typedstore'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'
-gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-timeago', source: 'https://rails-assets.org'
 gem 'rails-assets-animate-css', source: 'https://rails-assets.org'
+gem 'rails-assets-jquery-knob', source: 'https://rails-assets.org'
+gem 'rails-assets-jquery-flot', source: 'https://rails-assets.org'
 
 group :development, :test do
   gem 'byebug'

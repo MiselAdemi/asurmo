@@ -1,9 +1,9 @@
 class Admin::UsersController < Admin::BaseController
-	layout "admin_dashboard"
   before_action :authenticate_admin
-  before_action :set_user, :only => [:destroy, :update, :edit, :about]
+  before_action :set_user, :only => [:destroy, :update, :edit, :about, :block, :unblock]
 
   def index
+     @users = User.all.where.not(:id => current_user.id).where.not(:id => 2)
   end
 
   def show
@@ -23,12 +23,10 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    authorize @user
-
     if @user.update_attributes(user_params)
-      redirect_to edit_user_path(@user), :success => "User updated"
+      redirect_to edit_admin_user_path(@user), :notice => "User updated successfully"
     else
-      redirect_to edit_user_path(@user), :alert => "Unable to update user"
+      redirect_to edit_admin_user_path(@user), :alert => "Unable to update user"
     end
   end
 
@@ -38,6 +36,18 @@ class Admin::UsersController < Admin::BaseController
     else
       redirect_to user_path(current_user), :alert => "Unable to update avatar"
     end
+  end
+
+  def block
+    @user.blocked = true
+    @user.save
+    redirect_to :back
+  end
+
+  def unblock
+    @user.blocked = false
+    @user.save
+    redirect_to :back
   end
 
   private
