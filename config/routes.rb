@@ -59,6 +59,8 @@ Rails.application.routes.draw do
 		  	put "support" => "statuses#support"
 			end
 		end
+
+    resources :friendships, only: [:create, :update, :destroy]
   end
 
   resources :comments
