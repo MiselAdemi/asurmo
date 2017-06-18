@@ -1,5 +1,55 @@
 <div class="col-lg-3 left-sidebar">
 
+  <% if @user != current_user %>
+    <div class="panel panel-default panel-photo">
+      <div class="panel-body">
+        <% if  current_user.pending?(@user) %>
+          <p class="label label-info">Request pending ...</p>
+        <% elsif current_user.is_friend?(@user) %>
+          <%= link_to "Remove from friends", user_friendship_path(current_user, :id => @user.id), method: :delete, :class => "label label-danger" %>
+        <% else %>
+          <%= link_to "Add friend", user_friendships_path(current_user, :friend_id => @user.id), :method => :post, :class => "label label-info" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user == @user %>
+  <div class="panel panel-default panel-photo">
+    <div class="panel-heading">
+      <h3 class="panel-title">Friend requests</h3>
+    </div>
+    <div class="panel-body friend-request">
+      <ul>
+        <% current_user.requested_friendships.each do |request| %>
+          <li>
+            <%= request.full_name %>
+            <%= link_to "Accept",  user_friendship_path(current_user, :id => request.id), method: "put", :class => "label label-success" %>
+            <%= link_to "Decline", user_friendship_path(current_user, :id => request.id), method: :delete, :class => "label label-danger" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default panel-photo">
+    <div class="panel-heading">
+      <h3 class="panel-title">Friends</h3>
+    </div>
+    <div class="panel-body friend-request">
+      <ul>
+        <% current_user.friends.each do |friend| %>
+          <li>
+            <%= friend.full_name %>
+            <%= link_to "Remove", user_friendship_path(current_user, :id => friend.id), method: :delete, :class => "label label-danger" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% end %>
+
   <div class="panel panel-default panel-photo">
     <div class="panel-heading">
       <h3 class="panel-title">Photos</h3>
@@ -12,4 +62,5 @@
       <% end %>
     </div>
   </div>
+
 </div>
