@@ -4,5 +4,5 @@ document.addEventListener("turbolinks:load", ->
             source: "/users"
         )
         .data('ui-autocomplete')._renderItem = (ul, item) ->
-            $('<li></li>').data('item.autocomplete', item).append('<a>' + item.label + '</a>').appendTo ul
+            $('<li></li>').data('item.autocomplete', item).append('<a href="/' + item.name + '">' + item.label + '</a>').appendTo ul
 )

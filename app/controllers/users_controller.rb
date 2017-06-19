@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def index
     respond_to do |format|
   	 format.html { @users = User.all }
-     format.json { @users = User.all }
+     format.json { @users = User.search(params[:term]) }
     end
   end
 

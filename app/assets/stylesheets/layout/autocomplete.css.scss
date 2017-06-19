@@ -5,6 +5,7 @@
   margin: 0px;
   padding: 0px;
   position: absolute;
+  cursor: pointer;
 
   li {
     border-top: 1px solid #ddd;
@@ -21,6 +22,7 @@
 
     a.ui-state-hover, a.ui-state-active {
       background: #66afe9;
+      color: #ffffff;
     }
   }
 }
