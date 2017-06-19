@@ -191,4 +191,8 @@ class User < ApplicationRecord
   def is_friend?(user)
     active_friends.where(:id => user.id).first.present?
   end
+
+  def self.search_poeple(term)
+    where('LOWER(first_name) LIKE :term OR LOWER(last_name) LIKE :term', term: "#{term.downcase}%")
+  end
 end
