@@ -5,7 +5,10 @@ class UsersController < ApplicationController
   before_action :set_album, :only => [:show]
 
   def index
-  	@users = User.all
+    respond_to do |format|
+  	 format.html { @users = User.all }
+     format.json { @users = User.all }
+    end
   end
 
   def show

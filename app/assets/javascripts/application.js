@@ -13,8 +13,8 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery.turbolinks
-//= require jquery_ujs
 //= require jquery-ui
+//= require jquery_ujs
 //= require jquery-maskedinput
 //= require jquery.atwho
 //= require URI
@@ -25,8 +25,7 @@
 //= require twitter/typeahead
 //= require jquery.infinitescroll
 //= require rails.validations
-//= require react
-//= require react_ujs
+//= require vue
 //= require layout/components
 //= require timeago
 //= require turbolinks
