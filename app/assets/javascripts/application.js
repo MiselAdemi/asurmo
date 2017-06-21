@@ -17,6 +17,8 @@
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require jquery.atwho
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 //= require URI
 //= require jquery.URI
 //= require sync
@@ -24,7 +26,6 @@
 //= require bootstrap-datetimepicker
 //= require twitter/typeahead
 //= require jquery.infinitescroll
-//= require rails.validations
 //= require react
 //= require react_ujs
 //= require layout/components

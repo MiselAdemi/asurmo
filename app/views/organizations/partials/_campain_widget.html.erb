@@ -26,13 +26,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Start new campain</h4>
       </div>
-      <%= form_for([@organization, @campain], :html => {:multipart => true}) do |f| %>
+      <%= form_for([@organization, @campain], :html => {:multipart => true}, :remote => true) do |f| %>
         <div class="modal-body clearfix">
-
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          
           <div class="field">
             <%= f.label :name, :class => "col-md-3 control-label" %>
             <div class="col-md-8 pull-right">
-              <%= f.text_field :name %>
+              <%= f.text_field :name, :required => true %>
             </div>
           </div>
 
