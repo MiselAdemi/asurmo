@@ -97,7 +97,6 @@ class OrganizationsController < ApplicationController
 
   def remove_member
     @organization.members.where(:user_id => params[:user_id]).first.destroy
-    #Member.find(:user_id => params[:user_id]).destroy
     redirect_to organization_path(@organization)
   end
 

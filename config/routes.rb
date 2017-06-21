@@ -66,23 +66,17 @@ Rails.application.routes.draw do
   resources :comments
 
   resources :organizations, :except => [:index] do
-    #resources :members
-    #post "members/create_admin", :as => "create_admin", :path => "admins"
     post "create_admin" => "members#create_admin"
-
-    #get "members/remove_admin/:user" => "members#remove_admin", :as => "remove_admin", :path => "admins/:user"
     get "remove_admin/:user" => "members#remove_admin", :as => "remove_admin"
-
     post "create_moderator" => "members#create_moderator", :as => "create_moderator"
-    #get "members/remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator", :path => "admins/:user"
     get "remove_moderator/:user" => "members#remove_moderator", :as => "remove_moderator"
 
     get "show_admins"
     get "show_moderators"
     get "show_members"
 
-    post "join_member"
-    delete "remove_member"
+    post "join_member/:user_id" => "organizations#join_member", :as => "join_member"
+    delete "remove_member/:user_id" => "organizations#remove_member", :as => "remove_member"
 
     get :autocomplete
 

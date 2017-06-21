@@ -5,6 +5,8 @@
     <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" if type == :admin || type == :moderator %>
     <% if type == :admin %>
     	<%= link_to "<i class='fa fa-trash-o text-danger' aria-hidden='true'></i>".html_safe, organization_path(organization), :method => :delete if is_organization_owner?(organization, current_user)%>
+    <% elsif type == :member %>
+    	<%= link_to 'Exit', organization_remove_member_path(organization, current_user.id), :method => :delete, :remote => true, :class => "label label-warning" %>
     <% end %>
   </td>
 </tr>
