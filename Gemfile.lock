@@ -187,6 +187,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
+    jquery-validation-rails (1.16.0)
     js_regex (1.2.3)
       regexp_parser (>= 0.3.6, <= 0.5.0)
     json (1.8.6)
@@ -390,6 +391,7 @@ DEPENDENCIES
   jquery-atwho-rails
   jquery-rails (~> 4.3, >= 4.3.1)
   jquery-turbolinks
+  jquery-validation-rails
   kaminari (~> 0.17.0)
   minitest-reporters
   momentjs-rails (>= 2.9.0)
