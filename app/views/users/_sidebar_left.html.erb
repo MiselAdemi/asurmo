@@ -20,7 +20,7 @@
       <h3 class="panel-title">Friend requests</h3>
     </div>
     <div class="panel-body friend-request">
-      <ul>
+      <ul style="list-style: none; margin-left: 0px; padding: 0px;">
         <% current_user.requested_friendships.each do |request| %>
           <li>
             <%= request.full_name %>
@@ -37,7 +37,7 @@
       <h3 class="panel-title">Friends</h3>
     </div>
     <div class="panel-body friend-request">
-      <ul>
+      <ul style="list-style: none; margin-left: 0px; padding: 0px;">
         <% current_user.friends.each do |friend| %>
           <li>
             <%= friend.full_name %>
