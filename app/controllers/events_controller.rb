@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   before_action :set_organization, :only => [:index, :campain_events, :new, :create, :show, :destroy]
   before_action :set_campain, :only => [:new, :create, :show, :destroy]
   before_action :set_event, :only => [:destroy, :show]
+  before_action :set_status, :only => [:show]
   respond_to :html, :json
 
   def index
@@ -23,7 +24,7 @@ class EventsController < ApplicationController
   end
 
   def show
-
+    @activities = Activity.where("to_id = ? AND to_type = ?", @event.id, "event").order(:created_at => :desc).page(params[:page]).per(2)
   end
 
   def new
@@ -68,5 +69,9 @@ class EventsController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_status
+    @status = @organization.statuses.new
   end
 end

@@ -32,17 +32,21 @@
     </div>
   </div>
 
-  <div class="panel panel-default panel-photo">
+  <div class="panel panel-default panel-photo panel-friends">
     <div class="panel-heading">
       <h3 class="panel-title">Friends</h3>
+      <%= link_to "See all", user_friends_path(@user), :class => "panel-button" %>
     </div>
     <div class="panel-body friend-request">
       <ul style="list-style: none; margin-left: 0px; padding: 0px;">
-        <% current_user.friends.each do |friend| %>
-          <li>
-            <%= friend.full_name %>
-            <%= link_to "Remove", user_friendship_path(current_user, :id => friend.id), method: :delete, :class => "label label-danger" %>
-          </li>
+        <% current_user.friends.take(6).each do |friend| %>
+          <div class="col-lg-6">
+            <% if friend.avatar.url %>
+              <%= link_to image_tag(friend.avatar.url, :class => "img-responsive"), user_path(friend) %>
+            <% else %>
+              <%= link_to image_tag("https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-responsive"), user_path(friend) %>
+            <% end %>  
+          </div>
         <% end %>
       </ul>
     </div>

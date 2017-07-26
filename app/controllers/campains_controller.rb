@@ -10,8 +10,8 @@ class CampainsController < ApplicationController
   end
 
   def show
-  	@activities = Activity.where("to_id = ? AND to_type = ?", @organization.id, "campain").order(:created_at => :desc).page(params[:page]).per(2)
     @event = @campain.events.new
+  	@activities = Activity.where("to_id = ? AND to_type = ?", @campain.id, "campain").order(:created_at => :desc).page(params[:page]).per(2)
   end
 
   def new

@@ -37,7 +37,10 @@ class ApplicationController < ActionController::Base
     end
 
     def determine_type
-    	if(params[:campain_id].present?)
+      if(params[:event_id].present?)
+        @to_type = "event"
+        @to = Event.friendly.find(params[:event_id]).id
+    	elsif(params[:campain_id].present?)
       	@to_type = "campain"
         @to = Campain.friendly.find(params[:campain_id]).id
       elsif(params[:organization_id].present?)
