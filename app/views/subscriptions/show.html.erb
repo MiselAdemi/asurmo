@@ -1,0 +1,97 @@
+<div class="col-lg-3">
+  <div class="col-lg-12 sidebar-avatar">
+     <% if @user.avatar.url %>
+      <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
+    <% else %>
+      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile img-thumbnail" %>
+    <% end %> 
+    <h3><%= @user.first_name %> <%= @user.last_name %></h3>
+  </div>
+
+</div>
+
+<div class="col-lg-6 edit-center">
+	<% if current_user.subscribed? %>
+	<div class="well">
+		Current subscription <label class="text-info"><%= current_user.active_subscription.plan %></label>
+
+		<h4>Current plan quotas</h4>
+		<label>Organizations </label> <%= current_user.active_subscription.organizations_quota %> <br>
+		<label>Campaigns </label> <%= current_user.active_subscription.campains_quota %> <br>
+		<label>Events </label> <%= current_user.active_subscription.events_quota %> <br>
+	</div>
+
+	<div class="well">
+		<h4>Upgrade/Downgrade subscription</h4>
+
+		<%= form_tag update_plan_subscriptions_path, :method => "post" do %>
+			<label>Select new subscription plan </label>
+			<span class="col-lg-6 pull-right">
+				<%= select_tag "plan_name", options_from_collection_for_select(Plan.where.not(name: ["free", current_user.active_subscription.plan]), "name", "name"), :class => "form-control" %><br>
+		  </span>
+
+		  <button type="submit" class="btn btn-info">Update</button>
+		<% end %>
+	</div>
+
+	<div class="well">
+		<h4>Cancle subscription</h4>
+		<p>You will be returned to a free account by deactivating the paid subscription</p>
+
+		<%= link_to "Deactivate paid subscription", subscriptions_path, data: { confirm: "Are you sure?" }, :method => :delete, :class => "btn btn-danger deactivate-subscription-btn" %>
+	</div>
+
+	<% else %>
+
+	<div class="well">
+
+		<center>
+			<h3>Choose one plan</h3>
+
+			<div class="panel panel-info plan-info-panel">
+			  <div class="panel-heading"><b>Starter</b> - 10$ / month</div>
+			  <div class="panel-body">
+			    <ul>
+			    	<li>Number of organizations 2</li>
+			    	<li>Number of campaign 4</li>
+			    	<li>Number of events 4</li>
+			    	<li>
+			    		<%= link_to "Select", new_subscriptions_path('starter_monthly'), :class => "btn btn-default" %>
+			    	</li>
+			    </ul>
+			  </div>
+			</div>
+
+			<div class="panel panel-warning plan-info-panel">
+			  <div class="panel-heading"><b>Basic</b> - 20$ / month</div>
+			  <div class="panel-body">
+			    <ul>
+			    	<li>Number of organizations 2</li>
+			    	<li>Number of campaign 4</li>
+			    	<li>Number of events 4</li>
+			    	<li>
+			    		<%= link_to "Select", new_subscriptions_path(:plan => 'basic_monthly'), :class => "btn btn-default" %>
+			    	</li>
+			    </ul>
+			  </div>
+			</div>
+
+			<div class="panel panel-success plan-info-panel">
+			  <div class="panel-heading"><b>Pro</b> - 30$ / month</div>
+			  <div class="panel-body">
+			    <ul>
+			    	<li>Number of organizations 2</li>
+			    	<li>Number of campaign 4</li>
+			    	<li>Number of events 4</li>
+			    	<li>
+			    		<%= link_to "Select", new_subscriptions_path(:plan => 'pro_monthly'), :class => "btn btn-default" %>
+			    	</li>
+			    </ul>
+			  </div>
+			</div>
+
+		</center>
+	</div>
+
+ <% end %>
+</div>

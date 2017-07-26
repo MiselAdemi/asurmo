@@ -101,9 +101,9 @@ class User < ApplicationRecord
   end
 
   def active_subscription
-    if subscribed?
-      subscriptions_quotas.last
-    end
+    #if subscribed?
+    subscriptions_quotas.last
+    #end
   end
 
   def used_organizations_quota
@@ -119,15 +119,15 @@ class User < ApplicationRecord
   end
 
   def organizations_quota_full?
-    active_subscription.organizations_quota == organizations.where(:owner_id => id).count
+    active_subscription.organizations_quota <= organizations.where(:owner_id => id).count
   end
 
   def campains_quota_full?
-    active_subscription.campains_quota == Organization.joins(:campains).where(:owner_id => self.id).where.not("campains.slug LIKE ?", "default%").count
+    active_subscription.campains_quota <= Organization.joins(:campains).where(:owner_id => self.id).where.not("campains.slug LIKE ?", "default%").count
   end
 
   def events_quota_full?
-    active_subscription.events_quota == Event.joins(campains).count
+    active_subscription.events_quota <= Event.joins(campains).count
   end
 
   def number_of_organizations_user_ownes

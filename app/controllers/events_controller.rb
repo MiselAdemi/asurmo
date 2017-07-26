@@ -34,6 +34,8 @@ class EventsController < ApplicationController
   def create
     @event = @campain.events.build(event_params)
 
+    authorize @event
+
     if @event.save
       respond_with(@event) do |format|
         format.html { redirect_to organization_campain_event_path(@organization, @campain, @event) }
