@@ -14,8 +14,8 @@
  *= require animate-css
  *= require jquery.atwho
  *= require bootstrap-datetimepicker
- *= require_tree ./layout
  *= require_self
+ *= require_tree ./layout
  *= stub admin_application
  */
 
@@ -218,4 +218,19 @@ a:hover {
   width: 380px !important;
   border: none;
   background-color: #e8e8e8;
+}
+
+.well {
+  background-color: #ffffff;
+}
+
+.moto {
+  text-align: center;
+  font-style: italic;
+  font-family: sans-serif;
+}
+
+.logo-wrapper {
+  text-align: center;
+  margin-top: 80px;
 }

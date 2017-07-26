@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
     get "about", :as => "about"
+    get "friends", :as => "friends"
     
     collection do
     	get "index", :path => "users"
@@ -85,7 +86,14 @@ Rails.application.routes.draw do
         resources :events, :only => [:index]
       end
 
-      resources :events, :except => [:index]
+      resources :events, :except => [:index] do
+        resources :statuses do
+          member do
+            put "support" => "statuses#support"
+          end
+        end
+      end
+
       get "events/campain_events", :as => "all_events", :path => "events"
       
       resources :statuses do

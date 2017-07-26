@@ -32,7 +32,16 @@
 
   .timeline {
     background: #ffffff;
-    height: 500px;
+  }
+
+  .timeline-body {
+
+    img {
+      width: 50%;
+      margin: auto;
+      display: block;
+    }
+
   }
 
 }

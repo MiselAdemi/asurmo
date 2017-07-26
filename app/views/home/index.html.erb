@@ -5,19 +5,20 @@
       <h3>It´s your time to change world!</h3>
     </div>
 
-    <%= image_tag "logo.png" %>
-
+    <div class="col-lg-12 logo-wrapper">
+      <%= image_tag "logo.png" %>
+    </div>
   </div>
 
   <div class="col-lg-4">
-    <div class="row">
+    <div class="row well">
       <%= render "home/login" %>
     </div>
 
-    <div class="row">
+    <div class="row well">
       <%= render "devise/registrations/new" if Rails.env.development? %>
-      <h4>This si pre alpha, you can join just with invitation!</h4>
     </div>
+    <h4>This si pre alpha, you can join just with invitation!</h4>
   </div>
 
 </div>
