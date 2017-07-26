@@ -7,15 +7,13 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <h4 class="col-lg-6">Owner</h4>
-        <% if current_user.subscribed? %>
-          <% if policy(@organization).create? %>
-            <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
-          <% else %>
-            <%= link_to "Upgrade membership", subscriptions_path, :class => "btn btn-success pull-right", :style => "width: 156px;" %>
-          <% end %>
+
+        <% if policy(@organization).create? %>
+          <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
         <% else %>
           <%= link_to "Upgrade membership", subscriptions_path, :class => "btn btn-success pull-right", :style => "width: 156px;" %>
         <% end %>
+
       </div>
       <div class="panel-body">
        <% if @owner_organizations.blank? %>

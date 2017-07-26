@@ -21,6 +21,8 @@ class CampainsController < ApplicationController
   def create
     @campain = @organization.campains.build(campain_params)
 
+    authorize @campain
+
     if @campain.save
       respond_with(@campain) do |format|
         format.html { redirect_to organization_campain_path(@organization, @campain) }
