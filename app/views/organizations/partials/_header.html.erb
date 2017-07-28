@@ -8,13 +8,15 @@
       <%= image_tag @organization.avatar.url, :class => "img-profile img-thumbnail" %>
     </div>
 
-    <div class="upload-avatar">
-      <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
-    </div>
+    <% if @user.is_organization_admin?(@organization) %>
+      <div class="upload-avatar">
+        <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
+      </div>
+    <% end %>
 
     <div class="cover-text">
       <h2><%= @organization.name %></h2>
-      <p><i class="fa fa-clock-o" aria-hidden="true"></i> 1234 supporters</p>
+      <p><i class="fa fa-clock-o" aria-hidden="true"></i> <%= @organization.members.count %> supporters</p>
       <%= render 'organizations/partials/join_button', :locals => {:organization => @organization} %>
     </div>
   </div>

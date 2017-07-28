@@ -1,0 +1,9 @@
+$('.timeline').append("<%=j render(@activities) %>");
+
+<% if @activities.next_page %>
+	$('.pagination .loader2').remove();
+	$('.pagination').replaceWith('<%= j paginate(@activities) %>');
+<% else %>
+	$('.pagination').remove();
+<% end %>
+<% sleep 1 %>

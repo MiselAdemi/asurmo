@@ -1,7 +1,9 @@
 <div class="panel panel-default latest-campain-widget">
   <div class="panel-heading">
     <h3 class="panel-title">Events</h3>
-    <a data-toggle="modal" data-target="#newEventModal">New event</a>
+    <% if !current_user.events_quota_full? %>
+      <a data-toggle="modal" data-target="#newEventModal">New event</a>
+    <% end %>
   </div>
   <div class="panel-body">
     <% if !@events.any? %>
