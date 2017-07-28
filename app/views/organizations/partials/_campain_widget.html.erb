@@ -1,7 +1,9 @@
 <div class="panel panel-default latest-campain-widget">
   <div class="panel-heading">
     <h3 class="panel-title">Latest campains</h3>
-    <a data-toggle="modal" data-target="#newCampainModal">New campain</a>
+    <% if !current_user.campains_quota_full? %>
+      <a data-toggle="modal" data-target="#newCampainModal">New campain</a>
+    <% end %>
   </div>
   <div class="panel-body">
     <% if !@campains.exists? %>
