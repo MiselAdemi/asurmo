@@ -81,6 +81,7 @@ Rails.application.routes.draw do
     delete "remove_member/:user_id" => "organizations#remove_member", :as => "remove_member"
 
     get :autocomplete
+    get "invite", :to => "home#invite_user"
 
     resources :campains do
       collection do

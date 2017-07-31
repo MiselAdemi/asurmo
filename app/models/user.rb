@@ -195,4 +195,8 @@ class User < ApplicationRecord
   def self.search_poeple(term)
     where('LOWER(first_name) LIKE :term OR LOWER(last_name) LIKE :term', term: "#{term.downcase}%")
   end
+
+  def online?
+    updated_at > 10.minutes.ago
+  end
 end

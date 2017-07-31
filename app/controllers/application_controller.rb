@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  after_action :user_activity
 
 	def after_sign_in_path_for(resource)
     if resource.blocked
@@ -53,5 +54,9 @@ class ApplicationController < ActionController::Base
         @to_type = "user"
         @to = current_user.id
       end
+    end
+
+    def user_activity
+      current_user.try :touch
     end
 end

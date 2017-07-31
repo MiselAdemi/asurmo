@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -40,8 +40,8 @@ Rails.application.configure do
     domain: "asurmo.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV['mail_username'],
-    password: ENV['mail_password']
+    user_name: Rails.application.secrets.MAIL_USERNAME,
+    password: Rails.application.secrets.MAIL_PASSWORD
   }
 
   # Raise an error on page load if there are pending migrations.
