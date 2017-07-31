@@ -63,8 +63,8 @@ Rails.application.configure do
     domain: "asurmo.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV['mail_username'],
-    password: ENV['mail_password']
+    user_name: Rails.application.secrets.MAIL_USERNAME,
+    password: Rails.application.secrets.MAIL_PASSWORD
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

@@ -10,7 +10,7 @@ class HomeController < ApplicationController
 
   def invite_user
   	
-  	UserMailer.invite(params[:invite_email]).deliver
+  	UserMailer.invite(params[:invite_email], current_user).deliver
 
   	redirect_to :back
   end

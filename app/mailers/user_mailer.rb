@@ -1,9 +1,9 @@
 class UserMailer < ApplicationMailer
 	default from: "ademimisel@gmail.com"
 
-  def invite(email)
+  def invite(email, sender)
     @email = email
-    @sender = current_user
+    @sender = sender
 
     mail to: @email
   end
