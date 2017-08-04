@@ -110,6 +110,10 @@ Rails.application.routes.draw do
 		  	put "support" => "statuses#support"
 			end
 		end
+
+    resources :world_members do
+      get "open_info_modal", :to => "world_members#open_info_modal"
+    end
   end
 
   scope ":user_id" do

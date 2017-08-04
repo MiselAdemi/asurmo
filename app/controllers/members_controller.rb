@@ -53,4 +53,8 @@ class MembersController < ApplicationController
   def get_user_by_id
     @organization.members.where(:user_id => params[:user]).first
   end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email)
+  end
 end

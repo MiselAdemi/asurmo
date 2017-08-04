@@ -31,3 +31,23 @@ $(document).on "turbolinks:load", ->
 			return
 			
 		$(".new_organization .btn").attr('disabled', false)
+
+	$('.filterable .btn-filter').click ->
+  	$panel = $(this).parents('.filterable')
+  	$filters = $panel.find('.filters input')
+  	$tbody = $panel.find('.table tbody')
+  	if $filters.prop('disabled') == true
+    	$filters.prop 'disabled', false
+    	$filters.first().focus()
+  	else
+    	$filters.val('').prop 'disabled', true
+    	$tbody.find('.no-result').remove()
+    	$tbody.find('tr').show()
+
+  otable = $('#members-table').DataTable();
+
+  otable.columns().every ->
+  	that = this
+  	$('input', @header()).on 'keyup change', ->
+    	if that.search() != @value
+      	that.search(@value).draw()

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618132112) do
+ActiveRecord::Schema.define(version: 20170804201201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20170618132112) do
     t.string   "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "country_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -196,13 +197,14 @@ ActiveRecord::Schema.define(version: 20170618132112) do
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "owner_id"
     t.string   "slug"
     t.string   "avatar"
     t.string   "description"
-    t.boolean  "removed",     default: false
+    t.boolean  "removed",         default: false
+    t.integer  "world_member_id"
     t.index ["owner_id"], name: "index_organizations_on_owner_id", using: :btree
     t.index ["slug"], name: "index_organizations_on_slug", using: :btree
   end
@@ -344,6 +346,19 @@ ActiveRecord::Schema.define(version: 20170618132112) do
     t.datetime "updated_at"
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
     t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
+  end
+
+  create_table "world_members", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "country_code"
+    t.integer  "city_id"
+    t.string   "street"
+    t.string   "zip_code"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "organization_id"
   end
 
   add_foreign_key "activities", "users"

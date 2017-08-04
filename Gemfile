@@ -45,6 +45,7 @@ gem 'stripe'
 gem 'uri-js-rails'
 gem 'activerecord-typedstore'
 gem 'jquery-validation-rails'
+gem 'jquery-datatables'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

@@ -14,6 +14,7 @@
 //= require bootstrap-sprockets
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require datatables
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require jquery.atwho
