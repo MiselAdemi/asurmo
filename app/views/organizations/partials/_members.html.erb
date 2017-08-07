@@ -33,7 +33,9 @@
                   <% end %>
                   
                   <% if !member.is_platform_member? %>
-                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <%= link_to organization_world_member_path(@organization, member), remote: true, method: :delete, data: { confirm: "Are you sure?" } do %>
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    <% end %>
                   <% end %>
                 </td>
               </tr>
