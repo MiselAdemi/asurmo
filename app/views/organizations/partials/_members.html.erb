@@ -1,32 +1,91 @@
-<div class="col-lg-6 panel panel-default">
+<div class="col-lg-9 panel panel-info filterable">
   <div class="panel-heading">
     <h3 class="panel-title">Members list</h3>
+    <div class="pull-right">
+      <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#newMember"><span class="glyphicon glyphicon-plus"></span> New Member</button>
+      <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+    </div>
   </div>
   <div class="panel-body">
-    <table class="table table-bordered">
+    <table id="members-table" class="table table-bordered">
 
-      <% if @members.empty? %>
+      <% if @organization.world_members.empty? %>
         <p>There is no member yet</p>
       <% else %>
         <thead>
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Role</th>
+          <tr class="filters">
+            <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
+            <th><input type="text" class="form-control" placeholder="Email" disabled></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <% @members.each do |member| %>
-            <tr>
-              <td><%= member.user.first_name %></td>
-              <td><%= member.user.last_name %></td>
-              <td><%= member.user.email %></td>
-              <td><%= member.role %></td>
-            </tr>
+          <% @organization.world_members.each do |member| %>
+            <% if member.id != @organization.owner_id %>
+              <tr>
+                <td><%= member.first_name %></td>
+                <td><%= member.last_name %></td>
+                <td><%= member.email %></td>
+                <td class="col-lg-1 text-right">
+                  <%= link_to organization_world_member_open_info_modal_path(@organization, member), remote: true do %>
+                    <i class="fa fa-info text-primary" aria-hidden="true"></i>
+                  <% end %>
+                  
+                  <% if !member.is_platform_member? %>
+                    <%= link_to organization_world_member_path(@organization, member), remote: true, method: :delete, data: { confirm: "Are you sure?" } do %>
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
     </table>
   <% end %>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="newMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add New Member</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for([@organization, @organization.world_members.build]) do |f| %>
+          <div class="field clearfix">
+            <%= f.label :first_name, :class => "col-md-3 control-label" %>
+            <div class="col-md-9 pull-right">
+              <%= f.text_field :first_name, :class => "form-control new-organization-form-field", :placeholder => "First Name" %>
+            </div>
+          </div>
+
+          <div class="field clearfix">
+            <%= f.label :last_name, :class => "col-md-3 control-label" %>
+            <div class="col-md-9 pull-right">
+              <%= f.text_field :last_name, :class => "form-control new-organization-form-field", :placeholder => "Last Name" %>
+            </div>
+          </div>
+
+          <div class="field clearfix">
+            <%= f.label :email, :class => "col-md-3 control-label" %>
+            <div class="col-md-9 pull-right">
+              <%= f.text_field :email, :class => "form-control new-organization-form-field", :placeholder => "Email" %>
+            </div>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Add", :class =>"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>

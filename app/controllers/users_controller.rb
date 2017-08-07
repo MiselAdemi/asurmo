@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include WorldMembersHelper
   before_action :authenticate_user!
   before_action :set_user, :only => [:show, :destroy, :update, :edit, :about, :friends]
   before_action :set_status, :only => [:show]
@@ -28,12 +29,14 @@ class UsersController < ApplicationController
 
   def edit
     authorize @user
+    @countries = Country.all
   end
 
   def update
     authorize @user
 
     if @user.update_attributes(user_params)
+      update_world_member(user_params, @user)
       redirect_to edit_user_path(@user), :success => "User updated"
     else
       redirect_to edit_user_path(@user), :alert => "Unable to update user"
@@ -67,7 +70,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :gender, :mobile_phone, :street, :zip_code, :dob, :employee_status, :activity_status, :qualification, :interest_list)
+    params.require(:user).permit(:first_name, :last_name, :gender, :mobile_phone, :street, :zip_code, :dob, :employee_status, :activity_status, :qualification, :interest_list, :country_code, :city_id)
   end
 
   def user_avatar

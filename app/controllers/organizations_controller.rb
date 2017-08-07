@@ -44,10 +44,12 @@ class OrganizationsController < ApplicationController
   end
 
   def show_members
+    update_world_members(@organization)
     @campain = @organization.campains.new
     @default_campain = @organization.campains.first
     @event = @default_campain.events.new
     @members = @organization.members.select { |member| member.user.id != current_user.id }
+    @user_to_invite = User.new
   end
 
   def new
