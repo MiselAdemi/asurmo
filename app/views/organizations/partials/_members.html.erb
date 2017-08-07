@@ -22,7 +22,7 @@
         </thead>
         <tbody>
           <% @organization.world_members.each do |member| %>
-            <% if member.id != @organization.owner_id %>
+            <% if !member.is_organization_owner?(@organization.owner_id) %>
               <tr>
                 <td><%= member.first_name %></td>
                 <td><%= member.last_name %></td>
