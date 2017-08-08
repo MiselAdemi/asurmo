@@ -1,7 +1,9 @@
 <div class="col-lg-9 panel panel-info filterable">
   <div class="panel-heading">
     <h3 class="panel-title">Members list</h3>
+
     <div class="pull-right">
+      <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#emailAll"><span class="glyphicon glyphicon-envelope"></span> Send mail to all</button>
       <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#newMember"><span class="glyphicon glyphicon-plus"></span> New Member</button>
       <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
     </div>
@@ -31,7 +33,7 @@
                   <%= link_to organization_world_member_open_info_modal_path(@organization, member), remote: true do %>
                     <i class="fa fa-info text-primary" aria-hidden="true"></i>
                   <% end %>
-                  
+
                   <% if !member.is_platform_member? %>
                     <%= link_to organization_world_member_path(@organization, member), remote: true, method: :delete, data: { confirm: "Are you sure?" } do %>
                       <i class="fa fa-trash" aria-hidden="true"></i>
@@ -77,11 +79,45 @@
               <%= f.text_field :email, :class => "form-control new-organization-form-field", :placeholder => "Email" %>
             </div>
           </div>
-        
+
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <%= f.submit "Add", :class =>"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Email all Modal -->
+<div class="modal fade" id="emailAll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Send message to all users</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for([@organization, @user], url: organization_send_to_all_path, method: :get) do |f| %>
+          <div class="field clearfix">
+            <label class="col-md-3 control-label">Recipients:</label>
+            <div class="col-md-9 pull-right">
+              <%= text_area_tag :recipients, nil, :class => "form-control new-organization-form-field", :placeholder => "User emails..." %>
+            </div>
+          </div>
+
+          <div class="field clearfix">
+            <label class="col-md-3 control-label">Message: </label>
+            <div class="col-md-9 pull-right">
+              <%= text_area_tag :message_body, nil, :class => "form-control new-organization-form-field", :placeholder => "Write message to all users..." %>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Send", :class =>"btn btn-primary" %>
         </div>
       <% end %>
     </div>

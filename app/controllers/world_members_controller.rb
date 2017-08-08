@@ -4,7 +4,6 @@ class WorldMembersController < ApplicationController
 	before_action :find_member, :only => [:destroy]
 
 	def new
-		
 	end
 
 	def create
@@ -29,6 +28,12 @@ class WorldMembersController < ApplicationController
 	  respond_to do |format|
 	    format.js
 	  end
+	end
+
+	def send_to_all
+		UserMailer.send_multiple(params[:recipients], current_user, params[:message_body]).deliver
+
+  	redirect_to :back
 	end
 
 	private

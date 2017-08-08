@@ -7,4 +7,12 @@ class UserMailer < ApplicationMailer
 
     mail to: @email
   end
+
+	def send_multiple(emails, sender, message)
+		@emails = emails.split(',')
+		@sender = sender
+		@message = message
+
+		mail to: @emails, subject: "[Asurmo] #{@sender.full_name} notice"
+	end
 end

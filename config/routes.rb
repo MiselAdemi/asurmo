@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     resources :users do
       member do
         get "block" => "users#block"
-        get "unblock" => "users#unblock" 
+        get "unblock" => "users#unblock"
       end
     end
   end
@@ -49,13 +49,13 @@ Rails.application.routes.draw do
     put "upload_cover", :as => "upload_cover"
     get "about", :as => "about"
     get "friends", :as => "friends"
-    
+
     collection do
     	get "index", :path => "users"
     end
 
     resources :organizations, :only => [:index]
-    
+
     resources :statuses do
 			member do
 		  	put "support" => "statuses#support"
@@ -82,6 +82,7 @@ Rails.application.routes.draw do
 
     get :autocomplete
     get "invite", :to => "home#invite_user"
+    get "send_to_all", :to => "world_members#send_to_all"
 
     resources :campains do
       collection do
@@ -97,14 +98,14 @@ Rails.application.routes.draw do
       end
 
       get "events/campain_events", :as => "all_events", :path => "events"
-      
+
       resources :statuses do
 				member do
 					put "support" => "statuses#support"
 				end
 			end
     end
-    
+
     resources :statuses do
 			member do
 		  	put "support" => "statuses#support"
