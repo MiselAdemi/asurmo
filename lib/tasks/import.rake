@@ -17,7 +17,9 @@ namespace :import do
 		counter = 0
 
 		CSV.foreach("worldcitiespop.csv", headers: true, :encoding => 'windows-1251:utf-8') do |row|
-			city = Location.create(country: row["country"], city: row["city"], accentcity: row["accentcity"], region: row["region"], population: row["population"], latitude: row["latitude"], longitude: row["longitude"])
+			country = Country.find_by(code: row["country"].upcase)
+			city = Location.create(country_id: country.id, city: row["city"], accentcity: row["accentcity"], region: row["region"], population: row["population"], latitude: row["latitude"], longitude: row["longitude"])
+
 			counter += 1 if city.persisted?
 		end
 

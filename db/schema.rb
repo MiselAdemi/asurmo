@@ -241,8 +241,22 @@ ActiveRecord::Schema.define(version: 20170804201201) do
     t.string   "author_type"
     t.string   "statusable_type"
     t.integer  "statusable_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "cached_votes_total",      default: 0
+    t.integer  "cached_votes_score",      default: 0
+    t.integer  "cached_votes_up",         default: 0
+    t.integer  "cached_votes_down",       default: 0
+    t.integer  "cached_weighted_score",   default: 0
+    t.integer  "cached_weighted_total",   default: 0
+    t.float    "cached_weighted_average", default: 0.0
+    t.index ["cached_votes_down"], name: "index_statuses_on_cached_votes_down", using: :btree
+    t.index ["cached_votes_score"], name: "index_statuses_on_cached_votes_score", using: :btree
+    t.index ["cached_votes_total"], name: "index_statuses_on_cached_votes_total", using: :btree
+    t.index ["cached_votes_up"], name: "index_statuses_on_cached_votes_up", using: :btree
+    t.index ["cached_weighted_average"], name: "index_statuses_on_cached_weighted_average", using: :btree
+    t.index ["cached_weighted_score"], name: "index_statuses_on_cached_weighted_score", using: :btree
+    t.index ["cached_weighted_total"], name: "index_statuses_on_cached_weighted_total", using: :btree
     t.index ["statusable_id", "statusable_type"], name: "index_statuses_on_statusable_id_and_statusable_type", using: :btree
     t.index ["statusable_type", "statusable_id"], name: "index_statuses_on_statusable_type_and_statusable_id", using: :btree
   end
@@ -254,24 +268,6 @@ ActiveRecord::Schema.define(version: 20170804201201) do
     t.integer  "events_quota"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-  end
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.string   "taggable_type"
-    t.integer  "taggable_id"
-    t.string   "tagger_type"
-    t.integer  "tagger_id"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -335,10 +331,10 @@ ActiveRecord::Schema.define(version: 20170804201201) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "votable_id"
     t.string   "votable_type"
-    t.integer  "voter_id"
+    t.integer  "votable_id"
     t.string   "voter_type"
+    t.integer  "voter_id"
     t.boolean  "vote_flag"
     t.string   "vote_scope"
     t.integer  "vote_weight"

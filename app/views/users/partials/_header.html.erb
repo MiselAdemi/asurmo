@@ -5,7 +5,7 @@
     <% else %>
       <%= image_tag "http://lorempixel.com/700/300/nature/2/", :class => "img-cover" %>
     <% end %>
-    
+
     <% if @user == current_user %>
       <div class="upload-cover">
         <a data-toggle="modal" data-target="#uploadCoverModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
@@ -20,9 +20,9 @@
     	  <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
       <% else %>
 	      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile img-thumbnail" %>
-      <% end %>  
+      <% end %>
     </div>
-    
+
     <% if @user == current_user %>
       <div class="upload-avatar">
         <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
@@ -33,7 +33,7 @@
       <h2><%= @user.full_name %></h2>
 
       <% if @user.online? %>
-        <p id="online-dot"><%= image_tag "Online_dot.png" %> online</p>
+        <p id="online-dot"><%= image_tag "https://upload.wikimedia.org/wikipedia/commons/1/1d/Online_dot.png" %> online</p>
       <% else %>
         <p><i class="fa fa-clock-o" aria-hidden="true"></i> Last active <%= last_time_active(@user) %></p>
       <% end %>
@@ -98,4 +98,3 @@
     </div>
   </div>
 </div>
-

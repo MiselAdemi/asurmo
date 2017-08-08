@@ -28,7 +28,7 @@
 
         <div>
           <label>City</label>
-          <%= Location.find(member.city_id).city.split.map(&:capitalize).join(' ') %>
+          <%= Location.find(member.city_id).city.split.map(&:capitalize).join(' ') if member.city_id %>
         </div>
 
         <div>
