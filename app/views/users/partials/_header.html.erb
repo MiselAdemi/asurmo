@@ -17,9 +17,9 @@
   <div class="user clearfix">
     <div class="avatar">
       <% if @user.avatar.url %>
-    	  <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
+    	  <%= image_tag @user.avatar.url, :class => "img-profile" %>
       <% else %>
-	      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile img-thumbnail" %>
+	      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile" %>
       <% end %>
     </div>
 

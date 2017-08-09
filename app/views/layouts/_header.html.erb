@@ -9,11 +9,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <% if user_signed_in? %>
-          <%= link_to "ASURMO", user_path(current_user), :class => "navbar-brand" %>
-        <% else %>
-          <%= link_to "ASURMO", root_path, :class => "navbar-brand" %>
-        <% end %>
+        <%= link_to "ASURMO", root_path, :class => "navbar-brand" %>
       </div>
 
       <% if user_signed_in? %>
