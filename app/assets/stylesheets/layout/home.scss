@@ -69,13 +69,14 @@ a.panel-button:hover {
 
 .single-status {
   list-style: none;
-  border: 1px solid #d8d8d8;
-  border-radius: 4px;
   margin-top: 30px;
   padding: 0px;
 
   .panel {
     margin-bottom: 0px;
+    margin-bottom: 10px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
 
     .panel-heading {
       position: relative;

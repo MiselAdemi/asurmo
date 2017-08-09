@@ -1,4 +1,4 @@
-$('.timeline').append("<%=j render(@activities) %>");
+$('.single-status').append("<%=j render(@activities) %>");
 
 <% if @activities.next_page %>
 	$('.pagination .loader2').remove();
