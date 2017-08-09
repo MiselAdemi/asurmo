@@ -88,6 +88,7 @@ a.panel-button:hover {
         img {
           width: 10%;
           border-radius: 2px;
+          max-height: 56px;
         }
       }
 
@@ -105,6 +106,12 @@ a.panel-button:hover {
 
     .panel-body {
       color: #b0959c;
+    }
+
+    .panel-footer {
+      a:hover {
+        cursor: pointer;
+      }
     }
   }
 }

@@ -1,15 +1,25 @@
 <% comments.each do |comment| %>
-  <div class="comment">
-    <%= image_tag comment.user.avatar.url %>
-    <%= comment.body %>
-    <% if comment.parent_id == nil %>
-      <a onclick="togglerCommentReply(<%= comment.id %>);">
-        <small>
-          <%= comment.children.size %> 
-          <i class="fa fa-reply" aria-hidden="true"></i>
-        </small>
-      </a>
-    <% end %>
+  <div class="panel single-comment">
+    <div class="panel-heading">
+      <%= image_tag comment.user.avatar.url if comment.user.avatar.url %>
+      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg" unless comment.user.avatar.url %>
+      <h3 class="panel-title">
+        <%= link_to comment.user.full_name, user_path(comment.user) %>
+        <p>
+          <small class="text-muted" ><i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(comment.created_at) %> ago</small>
+        </p>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <%= comment.body %>
+    </div>
+    <div class="panel-footer">
+      <% if comment.parent_id == nil %>
+        <a onclick="togglerCommentReply(<%= comment.id %>);">
+          <small><%= comment.children.size %> Reply</small>
+        </a>
+      <% end %>
+    </div>
   </div>
 
   <div class="reply" id="reply-<%= comment.id %>">
