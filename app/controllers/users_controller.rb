@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
   def update
     authorize @user
-    
+
     if @user.update_attributes(user_params)
       update_world_member(user_params, @user)
       redirect_to edit_user_path(@user), :success => "User updated"

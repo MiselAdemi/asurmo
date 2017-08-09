@@ -1,24 +1,56 @@
 <div class="row">
-  <div class="col-lg-8">
-    <div class="moto">
-      <h2>Be active, be alive</h2>
-      <h3>It´s your time to change world!</h3>
+  <% if user_signed_in? %>
+    <div class="col-lg-3">
+
     </div>
 
-    <div class="col-lg-12 logo-wrapper">
-      <%= image_tag "logo.png" %>
-    </div>
-  </div>
+    <div class="col-lg-6 profile-center">
+      <div class="col-lg-12 timeline-status-frame">
+        <%= form_for([@statusable, @status], :url => user_statuses_path(current_user)) do |f| %>
+          <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
+          <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
 
-  <div class="col-lg-4">
-    <div class="row well">
-      <%= render "home/login" %>
+          <%= button_tag(type: 'submit', class: "btn btn-send pull-right") do %>
+            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+          <% end %>
+        <% end %>
+
+        <div class="status-actions pull-left">
+          <a data-toggle="modal" data-target="#uploadPictureModal"><i class="fa fa-picture-o" aria-hidden="true"></i> Upload image</a>
+        </div>
+      </div>
+
+      <div class="col-lg-12 status-box">
+        <ul class="single-status">
+          <%= render @activities %>
+        </ul>
+
+        <%= paginate @activities %>
+
+      </div>
+
+    </div>
+  <% else %>
+    <div class="col-lg-8">
+      <div class="moto">
+        <h2>Be active, be alive</h2>
+        <h3>It´s your time to change world!</h3>
+      </div>
+
+      <div class="col-lg-12 logo-wrapper">
+        <%= image_tag "logo.png" %>
+      </div>
     </div>
 
-    <div class="row well">
-      <%= render "devise/registrations/new" if Rails.env.development? %>
-    </div>
-    <h4>This si pre alpha, you can join just with invitation!</h4>
-  </div>
+    <div class="col-lg-4">
+      <div class="row well">
+        <%= render "home/login" %>
+      </div>
 
+      <div class="row well">
+        <%= render "devise/registrations/new" if Rails.env.development? %>
+      </div>
+      <h4>This si pre alpha, you can join just with invitation!</h4>
+    </div>
+  <% end %>
 </div>
