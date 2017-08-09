@@ -1,35 +1,37 @@
 <li>
-  <div class="timeline-badge">
-     <% if activity.user.avatar.url %>
-  	   <%= image_tag activity.user.avatar.url %>
-     <% else %>
-	     <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg"%>
-     <% end %>
-  </div>
-  <div class="timeline-panel">
-    <div class="timeline-heading">
-      <h4 class="timeline-title"><%= link_to activity.user.full_name, user_path(activity.user) %></h4>
-      <p>
-        <small class="text-muted" ><i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(activity.created_at) %> ago</small>
-      </p>
+  <div class="panel">
+    <div class="panel-heading">
+      <div class="user-image">
+         <% if activity.user.avatar.url %>
+      	   <%= image_tag activity.user.avatar.url %>
+         <% else %>
+    	     <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg"%>
+         <% end %>
+      </div>
+      <h4 class="username">
+        <%= link_to activity.user.full_name, user_path(activity.user) %>
+        <p>
+          <small class="text-muted" ><i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(activity.created_at) %> ago</small>
+        </p>
+      </h4>
+    </div>
+    <div class="panel-body">
+      <%= render :partial => "activities/partials/#{ activity.trackable_type.downcase }", :locals => { :activity => activity } %>
     </div>
 
-    <hr>
-   
-    <%= render :partial => "activities/partials/#{ activity.trackable_type.downcase }", :locals => { :activity => activity } %>
+    <div class="panel-footer">
+      <a onclick="toggler(<%= activity.id %>);">
+        <small><%= activity.trackable.comment_threads.count %> <i class="fa fa-comments-o" aria-hidden="true"></i></small>
+      </a>
 
-    <hr>
-    <a onclick="toggler(<%= activity.id %>);">
-    	<small><%= activity.trackable.comment_threads.count %> <i class="fa fa-comments-o" aria-hidden="true"></i></small>
-    </a>
-    
-    <div class="support-box pull-right" id="activity_<%= activity.id %>_likes">
-      <%= render partial: "activities/likes", :locals => { :activity => activity } %>
+      <div class="support-box pull-right" id="activity_<%= activity.id %>_likes">
+        <%= render partial: "activities/likes", :locals => { :activity => activity } %>
+      </div>
+
+
+      <div class="comment-box comment-box-<%= activity.id %>" >
+      <%= render partial: "comments/template", locals: {commentable: activity.trackable, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>
+      </div>
     </div>
-
-
-    <div class="comment-box comment-box-<%= activity.id %>" >
-    <%= render partial: "comments/template", locals: {commentable: activity.trackable, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>
-  	</div>
   </div>
 </li>

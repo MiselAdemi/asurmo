@@ -17,3 +17,93 @@ a.panel-button:hover {
   color: #000000;
   text-decoration: none;
 }
+
+.timeline-status-frame {
+  padding: 0px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+
+  #status-textarea {
+    background-color: #ffffff;
+    height: 80px;
+    color: #929292;
+    border-radius: 4px;
+    overflow-y: scroll;
+  }
+
+  #status-textarea:focus {
+    outline-color: #d8d8d8;
+  }
+
+  .btn-send {
+    border: none;
+    background: transparent;
+    color: #008ffb;
+    font-size: 18px;
+  }
+
+  .btn-send:hover {
+    color: #022e4e;
+  }
+
+  .status-actions {
+    height: 100%;
+    padding: 9px;
+  }
+
+  .status-actions a {
+    font-size: 10px;
+    display: block;
+    padding-left: 12px;
+    text-decoration: none;
+
+    i {
+      font-size: 18px;
+    }
+  }
+
+  .status-actions a:hover {
+    cursor: pointer;
+  }
+}
+
+.single-status {
+  list-style: none;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  margin-top: 30px;
+  padding: 0px;
+
+  .panel {
+    margin-bottom: 0px;
+
+    .panel-heading {
+      position: relative;
+      border-bottom: 1px solid #f1f1f1;
+
+      .user-image {
+        display: inline;
+
+        img {
+          width: 10%;
+          border-radius: 2px;
+        }
+      }
+
+      .username {
+        display: inline;
+        position: absolute;
+        top: 0;
+        padding-left: 8px;
+
+        a {
+          color: #b0959c;
+        }
+      }
+    }
+
+    .panel-body {
+      color: #b0959c;
+    }
+  }
+}

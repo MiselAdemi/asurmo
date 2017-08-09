@@ -2,12 +2,14 @@
 
   <div class="col-lg-9">
     <% if current_user.is_organization_admin?(@organization) %>
-        <div class="col-lg-12 status-box status-form well">
+        <div class="col-lg-12 timeline-status-frame well">
           <%= form_for([@statusable, @status], :url => organization_campain_event_statuses_path(@organization, @campain, @event)) do |f| %>
             <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
             <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
 
-            <%= f.submit "Post", :class => "col-md-2 btn btn-info pull-right" %>
+            <%= button_tag(type: 'submit', class: "btn btn-send pull-right") do %>
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            <% end %>
           <% end %>
 
         </div>
@@ -17,7 +19,7 @@
         <% if @activities.empty? %>
           <p> There is no post on campain timeline yet! </p>
         <% else %>
-          <ul class="timeline well">
+          <ul class="single-status well">
             <%= render @activities %>
           </ul>
 
