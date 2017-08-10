@@ -18,9 +18,11 @@ module ActivitiesHelper
     elsif model == "organization"
       organization_path(id)
     elsif model == "campain"
-      organization_campain_path(id)
+      campain = Campain.find(id)
+      organization_campain_path(campain.organization, id)
     elsif model == "event"
-      organization_campain_event_path(id)
+      event = Event.find(id)
+      organization_campain_event_path(event.campain.organization, event.campain, id)
     end
   end
 end
