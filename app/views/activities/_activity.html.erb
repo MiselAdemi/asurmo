@@ -9,7 +9,10 @@
          <% end %>
       </div>
       <h4 class="username">
-        <%= link_to activity.user.full_name, user_path(activity.user) %>
+        <%= link_to activity.user.full_name, user_path(activity.user) if activity.user_id == activity.to_id %>
+        <% if activity.user_id != activity.to_id %>
+          <%= link_to activity.user.full_name, user_path(activity.user) %> > <%= link_to find_to_whom(activity.to_id, activity.to_type), find_to_whom_path(activity.to_id, activity.to_type) %>
+        <% end %>
         <p>
           <small class="text-muted" ><i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(activity.created_at) %> ago</small>
         </p>
