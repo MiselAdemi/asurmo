@@ -1,0 +1,12 @@
+<div id="row">
+
+  <div class="col-lg-6 col-lg-offset-3">
+    <h2>All your notifications</h2>
+
+    <% @notifications.each do |notification| %>
+      <ul>
+        <%= notification.user.full_name %> <%= notification.action %>
+      </ul>
+    <% end %>
+  </div>
+</div>

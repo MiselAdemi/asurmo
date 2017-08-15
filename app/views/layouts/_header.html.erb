@@ -36,16 +36,8 @@
                 <!-- notify content -->
                 <div class="drop-content" id="notifications">
                   <% if current_user.notifications.present? %>
-                    <% current_user.notifications.limit(6).each do |notification| %>
-                      <li>
-                        <% if notification.user.avatar.url %>
-                          <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><%= image_tag notification.user.avatar.url %></div></div>
-                        <% else %>
-                          <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg" %></div></div>
-                        <% end %>
-                        <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href=""><%= notification.user.full_name %></a> <%= notification.action %> you!
-                        </div>
-                      </li>
+                    <% current_user.notifications.limit(6).reverse.each do |notification| %>
+                      <%= render partial: "notifications/users/#{ notification.action }", locals: { notification: notification } %>
                     <% end %>
                   <% end %>
                 </div>
