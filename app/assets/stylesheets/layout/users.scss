@@ -487,3 +487,51 @@
 body {
   height: 1200px;
 }
+
+@media only screen and (max-device-width: 480px) {
+  .profile {
+    .image {
+      height: 360px;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .user {
+      .avatar {
+        img {
+          margin-left: 334%;
+        }
+      }
+
+      .cover-text {
+        text-align: center;
+
+        h2 {
+          width: 94%;
+          margin-top: 20px;
+          font-size: 30px;
+        }
+
+        p {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .left-sidebar {
+    display: none;
+  }
+
+  .profile-center {
+    .new_status {
+      #status-textarea {
+        height: 126px;
+        font-size: 32px;
+        line-height: 40px;
+      }
+    }
+  }
+}
