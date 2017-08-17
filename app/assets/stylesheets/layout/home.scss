@@ -115,3 +115,40 @@ a.panel-button:hover {
     }
   }
 }
+
+/* Mobile view */
+
+@media only screen and (max-device-width: 480px) {
+  .container {
+      width: 100%;
+  }
+
+  .logo-wrapper {
+    display: none;
+  }
+
+  .sign-up-wrapper {
+    display: none;
+  }
+
+  .login-wrapper {
+    input[type="text"], input[type='password'], input[type='submit'] {
+      height: 70px;
+      line-height: 40px;
+      font-size: 32px;
+    }
+
+    input[type="checkbox"] {
+      -ms-transform: scale(2); /* IE */
+      -moz-transform: scale(2); /* FF */
+      -webkit-transform: scale(2); /* Safari and Chrome */
+      -o-transform: scale(2); /* Opera */
+      padding: 10px;
+    }
+
+    label[for="user_remember_me"] {
+      font-size: 32px;
+      margin-left: 10px;
+    }
+  }
+}

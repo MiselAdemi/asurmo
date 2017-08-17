@@ -43,11 +43,11 @@
     </div>
 
     <div class="col-lg-4">
-      <div class="row well">
+      <div class="row well login-wrapper">
         <%= render "home/login" %>
       </div>
 
-      <div class="row well">
+      <div class="row well sign-up-wrapper">
         <%= render "devise/registrations/new" if Rails.env.development? %>
       </div>
       <h4>This si pre alpha, you can join just with invitation!</h4>
