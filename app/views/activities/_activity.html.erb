@@ -1,5 +1,27 @@
-<li>
-  <div class="panel">
+<div class="shadow bg-white my-6 p-2 rounded-lg relative">
+  <%= image_tag avatar(activity.user), class: "rounded-lg w-16 h-16" %>
+
+  <%= link_to activity.user.full_name, user_path(activity.user), class: "no-underline text-grey-darker absolute ml-2" if activity.user_id == activity.to_id %>
+  <% if activity.user_id != activity.to_id %>
+    <%= link_to activity.user.full_name, user_path(activity.user) %> > <%= link_to find_to_whom(activity.to_id, activity.to_type), find_to_whom_path(activity.to_id, activity.to_type) %>
+  <% end %>
+  <small class="text-muted absolute mt-6 ml-2" >
+    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-7.59V4h2v5.59l3.95 3.95-1.41 1.41L9 10.41z"/></svg>
+    <%= time_ago_in_words(activity.created_at) %> ago
+  </small>
+
+  <div class="content p-4 bg-grey-lightest overflow-hidden">
+    <%= render :partial => "activities/partials/#{ activity.trackable_type.downcase }", :locals => { :activity => activity } %>
+  </div>
+
+  <p class="comment-toggle mt-2 inline-block"><small><%= activity.trackable.comment_threads.count %> comments</small></p>
+  <%= render partial: "activities/likes", :locals => { :activity => activity } %>
+
+  <div class="comments-container bg-grey-lightest h-24">
+
+  </div>
+</div>
+  <!-- <div class="panel">
     <div class="panel-heading">
       <div class="user-image">
          <% if activity.user.avatar.url %>
@@ -36,5 +58,4 @@
       <%= render partial: "comments/template", locals: {commentable: activity.trackable, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>
       </div>
     </div>
-  </div>
-</li>
+  </div> -->

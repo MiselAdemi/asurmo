@@ -1,39 +1,30 @@
 <%= render 'users/partials/header' %>
 
-<div id="row">
-  <%= render 'sidebar_left' %>
+<div class="container flex w-full mx-auto item-centered">
+    <%= render 'sidebar_left' %>
 
+    <div class="w-1/2 mt-6 mx-4">
+      <div class="w-full shadow overflow-hidden">
+        <%= form_for([@statusable, @status], :url => user_statuses_path(@user)) do |f| %>
+          <div style="height: auto;" class="bg-white animation h-24 appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
+          <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
 
-  <div class="col-lg-6 profile-center">
-    <div class="col-lg-12 timeline-status-frame">
-      <%= form_for([@statusable, @status], :url => user_statuses_path(@user)) do |f| %>
-        <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
-        <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
-
-        <%= button_tag(type: 'submit', class: "btn btn-send pull-right") do %>
-          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+          <svg class="ml-2 w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path class="text-grey" d="M0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11 9l-3-3-6 6h16l-5-5-2 2zm4-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          <%= button_tag(type: 'submit', class: "bg-transparent animation float-right hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded") do %>
+            Send
+          <% end %>
         <% end %>
-      <% end %>
-
-      <div class="status-actions pull-left">
-        <a data-toggle="modal" data-target="#uploadPictureModal"><i class="fa fa-picture-o" aria-hidden="true"></i> Upload image</a>
       </div>
-    </div>
 
-    <div class="col-lg-12 status-box">
-      <ul class="single-status">
+      <div class="single-status">
         <%= render @activities %>
-      </ul>
+      </div>
 
       <%= paginate @activities %>
-
     </div>
-  </div>
-
 </div>
 
-<!-- Upload Picture Modal -->
-<div class="modal animated zoomIn" id="uploadPictureModal" tabindex="-1" role="dialog" aria-labelledby="upload{ictureModalLabel">
+<!-- <div class="modal animated zoomIn" id="uploadPictureModal" tabindex="-1" role="dialog" aria-labelledby="upload{ictureModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,4 +45,4 @@
       <% end %>
     </div>
   </div>
-</div>
+</div> -->

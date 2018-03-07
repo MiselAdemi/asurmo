@@ -1,7 +1,9 @@
-<% if user_signed_in? && current_user.likes?(activity) %>
-	<%= link_to "<span class='text-danger'>Support</span>".html_safe, activity_like_path(activity), method: :delete, remote: true %>
-<% else %>
-	<%= link_to "<span>Support</span>".html_safe, activity_like_path(activity), method: :post, remote: true %>
-<% end %>
+<div class="float-right mt-2">
+	<% if user_signed_in? && current_user.likes?(activity) %>
+		<%= link_to "<span class='text-danger'>Support</span>".html_safe, activity_like_path(activity), method: :delete, remote: true %>
+	<% else %>
+		<%= link_to "<span>Support</span>".html_safe, activity_like_path(activity), method: :post, remote: true %>
+	<% end %>
 
-<%= activity.likes.count %>
+	<%= activity.likes.count %>
+</div>

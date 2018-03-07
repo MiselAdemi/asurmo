@@ -1,20 +1,24 @@
 source 'https://rubygems.org'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
 
-gem 'rails', '~> 5.0', '>= 5.0.2'
+gem 'rails', '~> 5.1'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sprockets-rails'
 
+gem 'webpacker', '~> 3.2'
 gem 'font-awesome-sass', '~> 4.7'
 gem 'devise'
 gem 'devise_invitable'
 gem 'pundit'
-gem 'bootstrap-sass', '~> 3.3.6'
 gem 'friendly_id', '~> 5.1.0'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'react-rails', '~> 1.9'

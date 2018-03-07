@@ -1,109 +1,89 @@
 <%= render 'users/partials/header' %>
 
-<div id="row" data-turbolinks="false" class="organization">
+<div class="container flex w-full mx-auto item-centered">
   <%= render 'users/sidebar_left' %>
 
-  <div class="col-lg-6 edit-center organization-center">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <h4 class="col-lg-6">Owner</h4>
+  <div class="w-1/2 mt-6 mx-4">
+    <div id="modal" class="w-full shadow overflow-hidden">
+      <p class="w-1/2 p-4 inline-block">Your organizations</p>
+      <% if policy(@organization).create? %>
+        <a class="bg-transparent hover:bg-blue text-blue-dark no-underline float-right mt-1 mr-2 font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" @click="toggleModal">New</a>
+      <% else %>
+        <%= link_to "Upgrade membership", subscriptions_path, :class => "bg-transparent hover:bg-blue text-blue-dark no-underline float-right mt-1 mr-2 font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
+      <% end %>
 
-        <% if policy(@organization).create? %>
-          <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOrganizationModal">New</a>
+      <div class="content bg-white p-4">
+        <% if @owner_organizations.blank? %>
+         <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
         <% else %>
-          <%= link_to "Upgrade membership", subscriptions_path, :class => "btn btn-success pull-right", :style => "width: 156px;" %>
+          <div class="w-full">
+             <table class="w-full">
+               <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :admin} %>
+             </table>
+           </div>
+         <% end %>
+      </div>
+
+      <div v-if="modal" @click.self="toggleModal" class="animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+        <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
+          <h2 class="text-4xl text-center font-hairline md:leading-loose text-grey md:mt-8 mb-4">Create new organization</h2>
+
+          <%= form_for(@organization, :html => {:multipart => true}) do |f| %>
+            <%= f.text_field :name, :class => "bg-white animation appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker", :placeholder => "Name" %>
+            <%= f.file_field :avatar, :class => "w-full my-4" %>
+
+            <div class="inline-flex justify-center w-full">
+              <%= f.submit "Create", :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded", '@click': "toggleModal" %>
+              <a @click="toggleModal" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
+                Cancle
+              </a>
+            </div>
+          <% end %>
+          <span @click="toggleModal" class="absolute pin-t pin-r pt-4 px-4">
+            <svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full shadow overflow-hidden my-6">
+      <p class="w-3/4 p-4 inline-block">Organizations you moderate</p>
+
+      <div class="content bg-white p-4">
+        <% if @moderate_organizations.blank? %>
+          <p>There is no organization you moderate yet!</p>
+        <% else %>
+          <div class="organization-list-table table-responsive">
+            <table class="table">
+              <%= render :partial => 'organizations/partials/organization_list', :collection => @moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
+            </table>
+          </div>
         <% end %>
+      </div>
+    </div>
 
+    <div class="w-full shadow overflow-hidden my-6">
+      <p class="w-3/4 p-4 inline-block">Organizations you subscribed</p>
+
+      <div class="content bg-white p-4">
+        <% if @member_organizations.blank? %>
+          <p>There is no organization you are member yet!</p>
+        <% else %>
+          <div class="table-responsive table-sm">
+            <table class="table table-sm">
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+              <%= render :partial => 'organizations/partials/organization_list', :collection => @member_organizations, :as => :organization, :locals => {:type => :member} %>
+            </table>
+          </div>
+        <% end %>
       </div>
-      <div class="panel-body">
-       <% if @owner_organizations.blank? %>
-        <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
-       <% else %>
-       <div class="organization-list-table table-responsive table-sm col-lg-12">
-        <table class="table table-sm">
-          <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :admin} %>
-        </table>
-      </div>
-      <% end %>
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix">
-      <h4 class="col-lg-6">Moderator</h4>
-    </div>
-    <div class="panel-body">
-      <% if @moderate_organizations.blank? %>
-      <p>There is no organization you moderate yet!</p>
-      <% else %>
-      <div class="organization-list-table table-responsive">
-        <table class="table">
-          <%= render :partial => 'organizations/partials/organization_list', :collection => @moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
-        </table>
-      </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="panel panel-info">
-    <div class="panel-body">
-      <h3>Member</h3>
-      <% if @member_organizations.blank? %>
-      <p>There is no organization you are member yet!</p>
-      <% else %>
-      <div class="table-responsive table-sm">
-        <table class="table table-sm">
-          <tr>
-            <th>Name</th>
-            <th></th>
-          </tr>
-          <%= render :partial => 'organizations/partials/organization_list', :collection => @member_organizations, :as => :organization, :locals => {:type => :member} %>
-        </table>
-      </div>
-      <% end %>
-    </div>
-
-  </div>
-
-
-</div>
-
-  <div class="sidebar-right col-lg-3">
+  <div class="w-1/4 mt-6 mx-4">
     <%= render :partial => 'subscriptions/partials/quotas' %>
-  </div>
-</div>
-
-<!-- New Organization Modal -->
-<div class="modal animated zoomIn" id="newOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="newOrganizationModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Create new organization</h4>
-      </div>
-      <%= form_for(@organization, :html => {:multipart => true}) do |f| %>
-      <div class="modal-body clearfix">
-
-          <div class="field clearfix">
-            <%= f.label :name, :class => "col-md-2 control-label" %>
-            <div class="col-md-10 pull-right">
-              <%= f.text_field :name, :class => "form-control new-organization-form-field", :placeholder => "Name" %>
-            </div>
-          </div>
-
-          <div class="field clearfix">
-            <%= f.label :avatar, :class => "col-md-2 control-label" %>
-            <div class="col-md-10 pull-right">
-              <%= f.file_field :avatar, :class => "form-control" %>
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Create", :class => "btn btn-primary", :disabled => "true" %>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>
