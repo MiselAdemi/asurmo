@@ -1,0 +1,34 @@
+<div class="w-full bg-white rounded-lg border-2 relative">
+  <p class="p-4 border-b shadow">Campaigns</p>
+  <%= link_to "New", new_administrator_organization_campaign_path(@organization), :class => "absolute pin-t pin-r mr-4 mt-2 bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
+
+  <div class="flex content p-4">
+    <div class="flex-initial w-full">
+      <table class="w-full">
+        <tr class="header">
+          <th class="p-2">Name</th>
+          <th>Events #</th>
+          <th>Created at</th>
+          <th>Actions</th>
+        </tr>
+
+        <% @organization.campains.each do |campaign| %>
+          <tr class="hover:bg-grey-lightest row">
+            <td class="p-2">
+              <%= image_tag campaign_avatar(campaign), class: "w-10 h-10 float-left" %>
+              <p class="ml-2 float-left"><%= campaign.name %></p>
+            </td>
+            <td><%= campaign.events.count %></td>
+            <td><%= campaign.created_at.strftime("%F") %></td>
+            <td>
+              <% if campaign.name != "Default" %>
+                <%= link_to '<svg class="w-4 h-4 text-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/></svg>'.html_safe, edit_administrator_organization_campaign_path(@organization, campaign), class: "" %>
+                <%= link_to '<svg class="w-4 h-4 text-red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"/></svg>'.html_safe, "#", class: "" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

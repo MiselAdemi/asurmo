@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <%= stylesheet_link_tag    'administrator', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'administrator', 'data-turbolinks-track' => true %>
+    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'application' %>
+
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="bg-grey-lightest">
+
+    <div class="flex-full">
+      <div class="fixed w-1/6 pin-t pin-l h-full bg-blue-darker">
+        <div class="organization-info relative w-full border-b h-24 p-4">
+          <%= image_tag @organization.avatar.url, class: 'w-16 h-16 rounded border-2' %>
+          <p class="inline-block absolute pin-t p-6 text-grey w-auto"><%= @organization.name %></p>
+        </div>
+
+        <div class="side-nav">
+          <ul class="list-reset">
+            <li><a class="text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" href="#">Overview</a></li>
+            <li><%= link_to "Settings", edit_administrator_organization_path(@organization), class: "text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" %></li>
+            <li><%= link_to "Campaigns", administrator_organization_campaigns_path(@organization), class: "text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="w-4/5 overflow-hidden float-right mr-8 mt-8">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

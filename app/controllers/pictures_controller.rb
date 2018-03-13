@@ -1,8 +1,8 @@
 class PicturesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_user
-  before_filter :find_album
-  before_filter :find_picture, :only => [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!
+  before_action :find_user
+  before_action :find_album
+  before_action :find_picture, :only => [ :show, :edit, :update, :destroy ]
   respond_to :html, :json
 
   def index
@@ -15,7 +15,7 @@ class PicturesController < ApplicationController
   end
 
   def show
-    
+
   end
 
   def new

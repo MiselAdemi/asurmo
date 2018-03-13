@@ -30,6 +30,7 @@
 //= require react_ujs
 //= require layout/components
 //= require timeago
+//= require magnific-popup
 //= require turbolinks
 //= require_tree ./layout
 
@@ -56,5 +57,5 @@ window.onclick = function(event) {
 }
 
 $(document).on("click", ".comment-toggle", function(){
- $($(this).next()[0]).slideToggle();
+ $($(this).closest('div').find('.comments-container')[0]).slideToggle();
 });

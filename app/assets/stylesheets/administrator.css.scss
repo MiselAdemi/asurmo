@@ -1,0 +1,22 @@
+/*
+ *= require jquery-ui
+ *= require_tree ./administrator
+ *= require_self
+ */
+
+table {
+  border-collapse: collapse;
+}
+
+table .header {
+  border-bottom: 1px solid black;
+  text-align: left;
+}
+
+table {
+  .row {
+    p {
+      line-height: 2.5;
+    }
+  }
+}

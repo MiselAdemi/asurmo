@@ -22,7 +22,7 @@ module UsersHelper
   end
 
   def is_supporting_organization?(organization, user)
-    if organization.users.exists?(current_user)
+    if organization.users.exists?(user.id)
       return true
     else
       return false

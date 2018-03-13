@@ -107,7 +107,7 @@ class UsersController < ApplicationController
   end
 
   def set_album
-    @album = @user.albums.find_or_create_by(title: "Razno")
+    @album = @user.albums.find_or_create_by(title: "Uncategorized")
     @picture = @album.pictures.new
   end
 end

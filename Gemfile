@@ -50,6 +50,7 @@ gem 'uri-js-rails'
 gem 'activerecord-typedstore'
 gem 'jquery-validation-rails'
 gem 'jquery-datatables'
+gem 'magnific-popup-rails', '~> 1.1.0'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

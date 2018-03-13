@@ -1,27 +1,25 @@
 <%= render 'organizations/partials/header' %>
 
-<div id="row">
+<div class="container flex w-full mx-auto item-centered">
   <%= render 'organizations/partials/sidebar_left' %>
 
-  <div class="col-lg-6 profile-center">
-    <div class="col-lg-12 timeline-status-frame">
+  <div class="w-1/2 mt-6 mx-4">
+    <div class="w-full shadow overflow-hidden">
       <%= form_for([@statusable, @status], :url => organization_statuses_path(@organization)) do |f| %>
-        <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
+        <div style="height: auto;" class="bg-white animation h-24 appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
         <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
 
-        <%= button_tag(type: 'submit', class: "btn btn-send pull-right") do %>
-          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+        <%= button_tag(type: 'submit', class: "bg-transparent animation float-right hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded") do %>
+          Send
         <% end %>
       <% end %>
-    </div>
-
-    <div class="col-lg-12 status-box">
-      <ul class="single-status">
-        <%= render @activities %>
-      </ul>
-
-      <%= paginate @activities %>
 
     </div>
+
+    <div class="single-status">
+      <%= render @activities %>
+    </div>
+
+    <%= paginate @activities %>
   </div>
 </div>

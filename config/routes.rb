@@ -44,6 +44,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :administrator do
+    get '/:id' => "pages#dashboard"
+
+    resources "organizations", only: [ :edit, :update ] do
+      resources :campaigns do
+        resources :events
+      end
+    end
+  end
+
   resources :users, :path => "" do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
