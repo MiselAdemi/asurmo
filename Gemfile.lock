@@ -184,7 +184,6 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-validation-rails (1.16.0)
     js_regex (1.2.3)
       regexp_parser (>= 0.3.6, <= 0.5.0)
     json (1.8.6)
@@ -389,7 +388,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.2)
   capistrano-rbenv (~> 2.1)
   carrierwave (>= 1.0.0.rc, < 2.0)
-  client_side_validations (~> 9.3, >= 9.3.1)
+  client_side_validations
   coffee-rails (~> 4.2, >= 4.2.2)
   devise
   devise_invitable
@@ -405,7 +404,6 @@ DEPENDENCIES
   jquery-datatables
   jquery-rails (~> 4.3, >= 4.3.1)
   jquery-turbolinks
-  jquery-validation-rails
   kaminari (~> 0.17.0)
   magnific-popup-rails (~> 1.1.0)
   minitest-reporters

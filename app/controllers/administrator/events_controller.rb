@@ -41,7 +41,7 @@ class Administrator::EventsController < Administrator::BaseController
 
   def destroy
     @event.destroy
-    redirect_to administrator_organization_campaigns_path(@organization)
+    redirect_to edit_administrator_organization_campaign_path(@organization, @campaign)
   end
 
   private

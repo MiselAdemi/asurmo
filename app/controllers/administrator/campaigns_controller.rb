@@ -1,9 +1,11 @@
 class Administrator::CampaignsController < Administrator::BaseController
   before_action :authenticate_admin
-  before_action :set_campaign, only: [ :edit, :update ]
+  before_action :set_campaign, only: [ :show, :edit, :update ]
 
   def index
+  end
 
+  def show
   end
 
   def new

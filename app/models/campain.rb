@@ -8,7 +8,7 @@ class Campain < ApplicationRecord
 
   has_many :statuses, :as => :statusable
   has_many :activities
-  has_many :events
+  has_many :events, dependent: :destroy
 
   accepts_nested_attributes_for :events
 

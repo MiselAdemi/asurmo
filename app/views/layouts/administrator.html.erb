@@ -8,6 +8,9 @@
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'application' %>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
     <%= csrf_meta_tags %>
   </head>
   <body class="bg-grey-lightest">
@@ -17,6 +20,7 @@
         <div class="organization-info relative w-full border-b h-24 p-4">
           <%= image_tag @organization.avatar.url, class: 'w-16 h-16 rounded border-2' %>
           <p class="inline-block absolute pin-t p-6 text-grey w-auto"><%= @organization.name %></p>
+          <%= link_to "Back to front", root_path, class: "text-orange no-underline pl-6 hover:text-orange-dark" %>
         </div>
 
         <div class="side-nav">

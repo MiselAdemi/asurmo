@@ -14,18 +14,16 @@ import TurbolinksAdapter from 'vue-turbolinks'
 Vue.use(TurbolinksAdapter);
 
 document.addEventListener('turbolinks:load', () => {
+
   var el = document.querySelector("#modal")
 
   var app = new Vue({
     el: el,
     data: {
-      modal: false
+
     },
     methods: {
-      toggleModal() {
-        console.log("Toggle")
-        this.modal = !this.modal
-      }
+      
     }
   })
 })

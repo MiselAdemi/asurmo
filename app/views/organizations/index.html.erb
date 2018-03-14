@@ -4,27 +4,27 @@
   <%= render 'users/sidebar_left' %>
 
   <div class="w-1/2 mt-6 mx-4">
-    <div id="modal" class="w-full shadow overflow-hidden">
+    <div class="w-full shadow overflow-hidden">
       <p class="w-1/2 p-4 inline-block">Your organizations</p>
       <% if policy(@organization).create? %>
-        <a class="bg-transparent hover:bg-blue text-blue-dark no-underline float-right mt-1 mr-2 font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" @click="toggleModal">New</a>
+        <a onclick="showModal('newOrganizationModal')" class="bg-transparent hover:bg-blue text-blue-dark no-underline float-right mt-1 mr-2 font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded">New</a>
       <% else %>
         <%= link_to "Upgrade membership", subscriptions_path, :class => "bg-transparent hover:bg-blue text-blue-dark no-underline float-right mt-1 mr-2 font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
       <% end %>
 
       <div class="content bg-white p-4">
-        <% if @owner_organizations.blank? %>
+        <% if current_user.admin_organizations.blank? %>
          <p class="col-lg-12">There is no organization you owne yet! Create one now</p>
         <% else %>
           <div class="w-full">
              <table class="w-full">
-               <%= render :partial => 'organizations/partials/organization_list', :collection => @owner_organizations, :as => :organization, :locals => {:type => :admin} %>
+               <%= render :partial => 'organizations/partials/organization_list', :collection => current_user.admin_organizations, :as => :organization, :locals => {:type => :admin} %>
              </table>
            </div>
          <% end %>
       </div>
 
-      <div v-if="modal" @click.self="toggleModal" class="animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+      <div id="newOrganizationModal" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
         <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
           <h2 class="text-4xl text-center font-hairline md:leading-loose text-grey md:mt-8 mb-4">Create new organization</h2>
 
@@ -34,13 +34,13 @@
 
             <div class="inline-flex justify-center w-full">
               <%= f.submit "Create", :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded", '@click': "toggleModal" %>
-              <a @click="toggleModal" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
+              <a href="#newOrganizationModal" rel="modal:close" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
                 Cancle
               </a>
             </div>
           <% end %>
-          <span @click="toggleModal" class="absolute pin-t pin-r pt-4 px-4">
-            <svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          <span class="absolute pin-t pin-r pt-4 px-4">
+            <a href="#newOrganizationModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
           </span>
         </div>
       </div>
@@ -50,12 +50,12 @@
       <p class="w-3/4 p-4 inline-block">Organizations you moderate</p>
 
       <div class="content bg-white p-4">
-        <% if @moderate_organizations.blank? %>
+        <% if current_user.moderate_organizations.blank? %>
           <p>There is no organization you moderate yet!</p>
         <% else %>
           <div class="organization-list-table table-responsive">
             <table class="table">
-              <%= render :partial => 'organizations/partials/organization_list', :collection => @moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
+              <%= render :partial => 'organizations/partials/organization_list', :collection => current_user.moderate_organizations, :as => :organization, :locals => {:type => :moderator} %>
             </table>
           </div>
         <% end %>
@@ -66,7 +66,7 @@
       <p class="w-3/4 p-4 inline-block">Organizations you subscribed</p>
 
       <div class="content bg-white p-4">
-        <% if @member_organizations.blank? %>
+        <% if current_user.member_organizations.blank? %>
           <p>There is no organization you are member yet!</p>
         <% else %>
           <div class="table-responsive table-sm">
@@ -75,7 +75,7 @@
                 <th>Name</th>
                 <th></th>
               </tr>
-              <%= render :partial => 'organizations/partials/organization_list', :collection => @member_organizations, :as => :organization, :locals => {:type => :member} %>
+              <%= render :partial => 'organizations/partials/organization_list', :collection => current_user.member_organizations, :as => :organization, :locals => {:type => :member} %>
             </table>
           </div>
         <% end %>

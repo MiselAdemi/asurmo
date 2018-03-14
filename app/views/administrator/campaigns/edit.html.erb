@@ -3,7 +3,7 @@
 
   <%= form_for(@campaign, :url => administrator_organization_campaign_path(@organization, @campaign), :method => :put, :html => {class: 'w-full'}) do |f| %>
     <div class="form-buttons absolute pin-t pin-r mt-2 mr-4">
-      <%= link_to "Cancle", administrator_organization_campaigns_path(@organization), class: "bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+      <%= link_to "Back", administrator_organization_campaigns_path(@organization), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
       <%= f.submit "Update", :class => "bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
     </div>
 
@@ -37,7 +37,7 @@
 </div>
 
 <div class="w-full bg-white rounded-lg border-2 relative my-6" id="modal">
-  <p class="p-4 border-b shadow">Events <button class="float-right bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded -mt-2" @click="toggleModal">Add event</button></p>
+  <p class="p-4 border-b shadow">Events <a onclick="showModal('newEventModal')" class="float-right bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded -mt-2">Add event</a></p>
 
   <div class="content p-4 w-full">
     <div class="flex-initial w-full">
@@ -47,7 +47,8 @@
       <table class="w-full">
         <tr class="header">
           <th class="p-2">Name</th>
-          <th>Created at</th>
+          <th>Start date</th>
+          <th>End date</th>
           <th>Actions</th>
         </tr>
 
@@ -57,7 +58,8 @@
               <%= image_tag event_avatar(event), class: "w-10 h-10 float-left" %>
               <p class="ml-2 float-left"><%= event.name %></p>
             </td>
-            <td><%= event.created_at.strftime("%F") %></td>
+            <td><%= event.start_date.strftime("%F") %></td>
+            <td><%= event.end_date.strftime("%F") %></td>
             <td>
               <%= link_to '<svg class="w-4 h-4 text-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/></svg>'.html_safe, edit_administrator_organization_campaign_event_path(@organization, @campaign, event), class: "" %>
               <%= link_to '<svg class="w-4 h-4 text-red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"/></svg>'.html_safe, administrator_organization_campaign_event_path(@organization, @campaign, event), method: :delete, class: "" %>
@@ -67,11 +69,11 @@
       </table>
       <% end %>
 
-      <div v-if="modal" @click.self="toggleModal" class="animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+      <div id="newEventModal" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
         <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
           <h2 class="text-4xl text-center font-hairline md:leading-loose text-grey md:mt-8 mb-4">Add event</h2>
 
-          <%= form_for(@campaign.events.new, :url => administrator_organization_campaign_events_path(@organization, @campaign), :method => :post, :html => {class: 'w-full'}) do |f| %>
+          <%= form_for(@campaign.events.new, :url => administrator_organization_campaign_events_path(@organization, @campaign), :method => :post, :html => {class: 'w-full'}, validate: true) do |f| %>
             <div class="flex items-center mb-6">
               <div class="w-1/3">
                 <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
@@ -79,7 +81,7 @@
                 </label>
               </div>
               <div class="w-2/3">
-                <%= f.text_field :name, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker" %>
+                <%= f.text_field :name, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
               </div>
             </div>
 
@@ -90,7 +92,18 @@
                 </label>
               </div>
               <div class="w-2/3">
-                <%= f.text_area :description, :class => "shadow appearance-none border h-24 border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker" %>
+                <%= f.text_area :description, :class => "shadow appearance-none border h-24 border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
+              </div>
+            </div>
+
+            <div class="flex items-center mb-6">
+              <div class="w-1/3">
+                <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                  Avatar
+                </label>
+              </div>
+              <div class="w-2/3">
+                <%= f.file_field :avatar, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
               </div>
             </div>
 
@@ -101,7 +114,7 @@
                 </label>
               </div>
               <div class="w-2/3">
-                <%= f.datetime_field :start_date, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker" %>
+                <%= f.datetime_field :start_date, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
               </div>
             </div>
 
@@ -112,19 +125,19 @@
                 </label>
               </div>
               <div class="w-2/3">
-                <%= f.datetime_field :end_date, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker" %>
+                <%= f.datetime_field :end_date, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
               </div>
             </div>
 
             <div class="inline-flex justify-center w-full">
-              <%= f.submit "Upload", :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded", '@click': "toggleModal" %>
-              <a @click="toggleModal" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
+              <%= f.submit "Upload", :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded", 'onclick': "showModal('newEventModal')" %>
+              <a href="#newEventModal" rel="modal:close" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
                 Cancle
               </a>
             </div>
           <% end %>
-          <span @click="toggleModal" class="absolute pin-t pin-r pt-4 px-4">
-            <svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          <span class="absolute pin-t pin-r pt-4 px-4">
+            <a href="#newEventModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
           </span>
         </div>
       </div>

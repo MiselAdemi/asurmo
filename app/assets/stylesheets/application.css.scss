@@ -14,7 +14,7 @@
  *= require animate-css
  *= require jquery.atwho
  *= require bootstrap-datetimepicker
-  *= require magnific-popup
+ *= require magnific-popup
  *= require_self
  *= require_tree ./layout
  *= stub admin_application
@@ -241,37 +241,7 @@ nav .dropdown-menu.notify-drop .notify-drop-footer a {
   color: #777;
   text-decoration: none;
 }
-//
-// .drop-content img {
-//   width: 50px;
-//   height: 50px;
-// }
-//
-// .header-search {
-//   margin-left: 24%;
-// }
-//
-// .header-search input {
-//   width: 380px !important;
-//   border: none;
-//   background-color: #e8e8e8;
-// }
-//
-// .well {
-//   background-color: #ffffff;
-// }
-//
-// .moto {
-//   text-align: center;
-//   font-style: italic;
-//   font-family: sans-serif;
-// }
-//
-// .logo-wrapper {
-//   text-align: center;
-//   margin-top: 80px;
-// }
-//
-// #online-dot img {
-//   width: 4%;
-// }
+
+.modal {
+  background: transparent !important;
+}

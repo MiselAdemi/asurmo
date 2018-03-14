@@ -20,3 +20,15 @@ table {
     }
   }
 }
+ .modal {
+   background: transparent !important;
+   padding: 0px !important;
+ }
+
+.field_with_errors {
+  .message {
+    color: #d60000;
+    display: block;
+    margin-top: 10px;
+  }
+}

@@ -20,6 +20,10 @@ class User < ApplicationRecord
   has_many :organizations, :through => :members, :dependent => :destroy
   has_many :conversations, :foreign_key => :sender_id
 
+  has_many :admin_organizations, ->{ where(members: {role: 2}) }, :through => :members, source: :organization
+  has_many :moderate_organizations, ->{ where(members: {role: 1}) }, :through => :members, source: :organization
+  has_many :member_organizations, ->{ where(members: {role: 0}) }, :through => :members, source: :organization
+
   accepts_nested_attributes_for :members, :organizations
 
   has_many :activities
@@ -27,7 +31,7 @@ class User < ApplicationRecord
   has_many :albums, :dependent => :destroy
   has_many :pictures
   has_many :campains
-  
+
   has_many :memberships
   has_many :subscriptions_quotas, :through => :memberships
 
@@ -40,12 +44,12 @@ class User < ApplicationRecord
 
   has_many :friendships
   has_many :received_friendships, class_name: "Friendship", foreign_key: "friend_id"
- 
+
   has_many :active_friends, -> { where(friendships: { accepted: true}) }, through: :friendships, source: :friend
   has_many :received_friends, -> { where(friendships: { accepted: true}) }, through: :received_friendships, source: :user
   has_many :pending_friends, -> { where(friendships: { accepted: false}) }, through: :friendships, source: :friend
   has_many :requested_friendships, -> { where(friendships: { accepted: false}) }, through: :received_friendships, source: :user
- 
+
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader

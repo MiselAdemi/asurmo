@@ -17,8 +17,6 @@
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require jquery.atwho
-//= require jquery.validate
-//= require jquery.validate.additional-methods
 //= require URI
 //= require jquery.URI
 //= require sync
@@ -32,6 +30,7 @@
 //= require timeago
 //= require magnific-popup
 //= require turbolinks
+//= require rails.validations
 //= require_tree ./layout
 
 
@@ -59,3 +58,11 @@ window.onclick = function(event) {
 $(document).on("click", ".comment-toggle", function(){
  $($(this).closest('div').find('.comments-container')[0]).slideToggle();
 });
+
+function showModal(modalName) {
+  $('#' + modalName).modal({
+    showClose: false,
+    fadeDuration: 1,
+    fadeDelay: 1.0
+  });
+}
