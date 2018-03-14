@@ -1,3 +1,3 @@
 <div class="timeline-body">
-  <%= link_to image_tag(activity.trackable.picture.url), album_picture_path(activity.trackable.user, activity.trackable.album, activity.trackable) %>
+  <%= link_to image_tag(activity.trackable.picture.url), activity.trackable.picture.url, class: "image-link" %>
 </div>

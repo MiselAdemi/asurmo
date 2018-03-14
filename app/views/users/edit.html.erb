@@ -1,41 +1,27 @@
-<div class="col-lg-3">
-  <div class="col-lg-12 sidebar-avatar">
-     <% if @user.avatar.url %>
-      <%= image_tag @user.avatar.url, :class => "img-profile img-thumbnail" %>
-    <% else %>
-      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-profile img-thumbnail" %>
-    <% end %> 
-    <h3><%= @user.first_name %> <%= @user.last_name %></h3>
-  </div>
+<%= render 'users/partials/header' %>
 
-  <%= render "sidebar_menu" %>
-</div>
-
-<div class="col-lg-6 edit-center">
+<div class="container flex-wrap w-full mx-auto mt-6">
   <%= render "edit" %>
 
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title">Change password</h3>
-    </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label class="col-md-4 control-label">Current Password</label>
-        <div class="col-md-7">
-          <input class="form-control" type="text">
-        </div>
-      </div>
+  <div class="shadow w-full mb-6">
+    <p class="p-4">Change password</p>
 
-      <div class="form-group">
-        <label class="col-md-4 control-label">New password</label>
-        <div class="col-md-7">
-          <input class="form-control" type="text">
+    <div class="content bg-white p-4">
+      <%= form_for(@user) do |f| %>
+        <div class="w-full flex my-2">
+          <label class="text-grey-darkest w-2/5 pt-2">Current Password</label>
+          <input class="bg-white w-1/2 animation appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" type="text">
         </div>
-      </div>
 
-      <div class="form-group">
-        <input class="form-control btn btn-info" type="submit" value="Change">
-      </div>
+        <div class="w-full flex my-2">
+          <label class="text-grey-darkest w-2/5 pt-2">New Password</label>
+          <input class="bg-white w-1/2 animation appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" type="text">
+        </div>
+
+        <div class="mt-6">
+          <%= f.submit 'Update password', :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

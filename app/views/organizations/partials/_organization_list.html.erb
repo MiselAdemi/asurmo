@@ -1,11 +1,9 @@
-<tr>
-  <td class="organization-table-cell" width="10%" height="50px"><%= image_tag organization.avatar.url, :class => "icon-responsive" %></td>
-  <td class="organization-table-cell"><%= link_to organization.name, organization_path(organization) %></td>
-  <td class="text-right organization-table-cell">
-    <%= link_to "", edit_organization_path(organization), :class => "fa fa-pencil text-warning" if type == :admin || type == :moderator %>
-    <% if type == :admin %>
-    	<%= link_to "<i class='fa fa-trash-o text-danger' aria-hidden='true'></i>".html_safe, organization_path(organization), :method => :delete if is_organization_owner?(organization, current_user)%>
-    <% elsif type == :member %>
+<tr class="w-full">
+  <td class="w-1/6"><%= image_tag organization.avatar.url, :class => "w-10 h-10 rounded-lg" %></td>
+  <td class="w-3/5"><%= link_to organization.name, organization_path(organization), class: 'no-underline text-grey-darker ml-2' %></td>
+  <td class="text-right w-1/6">
+    <%= link_to "Dashboard", administrator_path(organization), class: "bg-transparent hover:bg-teal text-teal-dark no-underline float-right mt-1 mr-2 font-semibold hover:text-white py-2 px-4 border border-teal hover:border-transparent rounded" if type == :admin || type == :moderator %>
+    <% if type == :member %>
     	<%= link_to 'Exit', organization_remove_member_path(organization, current_user.id), :method => :delete, :remote => true, :class => "label label-warning" %>
     <% end %>
   </td>

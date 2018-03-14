@@ -1,11 +1,7 @@
-<div class="panel panel-default latest-campain-widget">
-  <div class="panel-heading">
-    <h3 class="panel-title">Latest campains</h3>
-    <% if !current_user.campains_quota_full? %>
-      <a data-toggle="modal" data-target="#newCampainModal">New campain</a>
-    <% end %>
-  </div>
-  <div class="panel-body">
+<div class="shadow w-full flex-wrap my-6 bg-white">
+  <p class="p-4 border-b border-grey text-grey-darker">Latest campains</p>
+
+  <div class="content p-4">
     <% if !@campains.exists? %>
       <p>Create first campain for this organization</p>
     <% else %>
@@ -19,40 +15,3 @@
     <% end %>
   </div>
 </div>
-
-<!-- New Campain Modal -->
-<div class="modal animated zoomIn" id="newCampainModal" tabindex="-1" role="dialog" aria-labelledby="newCampainModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Start new campain</h4>
-      </div>
-      <%= form_for([@organization, @campain], :html => {:multipart => true}, :remote => true) do |f| %>
-        <div class="modal-body clearfix">
-          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-          
-          <div class="field">
-            <%= f.label :name, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.text_field :name, :required => true %>
-            </div>
-          </div>
-
-          <div class="field">
-            <%= f.label :avatar, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.file_field :avatar, :class => "form-control" %>
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Create", :class => "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-

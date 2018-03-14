@@ -9,3 +9,5 @@ jQuery ->
 		insertTpl: ":${name}:",
 		'data': "https://raw.githubusercontent.com/wingman172/asurmo/master/public/emoji.json"
 	)
+
+	$('.image-link').magnificPopup({type:'image'})

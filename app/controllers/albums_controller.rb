@@ -1,8 +1,8 @@
 class AlbumsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :get_albums, :only => [ :index ]
-  before_filter :get_album, :only => [ :show, :destroy ]
-  before_filter :set_user
+  before_action :authenticate_user!
+  before_action :get_albums, :only => [ :index ]
+  before_action :get_album, :only => [ :show, :destroy ]
+  before_action :set_user
   respond_to :json, :html
 
   def index

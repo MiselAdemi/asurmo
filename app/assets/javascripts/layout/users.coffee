@@ -2,11 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-document.addEventListener("turbolinks:load", -> 
+document.addEventListener("turbolinks:load", ->
   $("#phone").mask("(999) 99-999-999")
   $("#datepicker").datepicker()
   $("time.timeago").timeago()
-  $('.dropdown-toggle').dropdown() 
+  # $('.dropdown-toggle').dropdown() 
 
   # Upload avatar preview functionality
 

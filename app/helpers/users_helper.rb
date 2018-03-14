@@ -22,7 +22,7 @@ module UsersHelper
   end
 
   def is_supporting_organization?(organization, user)
-    if organization.users.exists?(current_user)
+    if organization.users.exists?(user.id)
       return true
     else
       return false
@@ -41,5 +41,13 @@ module UsersHelper
   def last_time_active(user)
     time = Time.now.to_i - user.current_sign_in_at.to_time.to_i
     distance_of_time_in_words(user.current_sign_in_at.to_time, Time.now)
+  end
+
+  def cover_image(user)
+    user.cover_image.present?? user.cover_image.url : 'cover.jpg'
+  end
+
+  def avatar(user)
+    user.avatar.present?? user.avatar.url : 'avatar.jpg'
   end
 end

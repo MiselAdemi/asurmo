@@ -5,18 +5,26 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= include_gon %>
   <%= javascript_include_tag 'application', 'https://js.stripe.com/v2/', 'data-turbolinks-track' => true %>
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
   <%= action_cable_meta_tag %>
   <%= csrf_meta_tags %>
 
   <%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC %>
 </head>
-<body>
+<body class="bg-grey-lightest">
 
-  <div class="container">
-    <%= render 'layouts/header' %>
-
-    <%= yield %>
+  <div class="flex-full bg-grey-lightest fixed pin-l pin-r pin-t z-50 shadow">
+    <div class="container bg-grey-lightest mx-auto flex items-center">
+      <%= render 'layouts/header' %>
+    </div>
   </div>
+
+  <%= yield %>
 
 </body>
 </html>

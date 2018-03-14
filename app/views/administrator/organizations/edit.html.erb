@@ -1,0 +1,42 @@
+<div class="w-full bg-white rounded-lg border-2">
+  <p class="p-4 border-b shadow">Avatar and cover image</p>
+
+  <div class="flex content p-4">
+    <div class="flex-initial">
+      <%= image_tag @organization.avatar.url, class: "w-64 h-64 rounded-lg" %>
+
+      <%= form_for(@organization, :url => administrator_organization_path(@organization), :method => :put, :html => {:multipart => true}) do |f| %>
+        <%= f.file_field :avatar, :class => "my-4" %>
+        <%= f.submit "Upload", :class => "bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
+      <% end %>
+    </div>
+
+    <div class="flex-initial">
+      <%= image_tag "http://colorfully.eu/wp-content/uploads/2012/10/empty-road-highway-with-fog-facebook-cover.jpg", class: "w-full h-64 rounded-lg" %>
+      <input type="file" name="" value="">
+    </div>
+
+  </div>
+</div>
+
+<div class="w-full bg-white rounded-lg border-2 my-6">
+  <p class="p-4 border-b shadow">About</p>
+
+  <div class="flex content p-4">
+    <%= form_for(@organization, :url => administrator_organization_path(@organization), :method => :put, :html => {class: 'w-full max-w-xs'}) do |f| %>
+
+      <div class="md:flex md:items-center mb-6">
+        <div class="md:w-1/3">
+          <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+            Name
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <%= f.text_field :name, :class => "my-4 shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker" %>
+        </div>
+      </div>
+
+      <%= f.submit "Save", :class => "bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
+    <% end %>
+  </div>
+</div>

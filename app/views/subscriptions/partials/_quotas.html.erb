@@ -1,33 +1,20 @@
+<div class="w-full shadow overflow-hidden">
+  <p class="p-4">Available units</p>
 
-  <div class="panel panel-default panel-photo">
-    <div class="panel-heading">
-      <h3 class="panel-title">Available units</h3>
-    </div>
-    <div class="panel-body">
+  <div class="content bg-white p-4">
+    <p>Organization <%= current_user.number_of_organizations_user_ownes %> / <%= current_user.active_subscription.organizations_quota %></p>
+    <div class="shadow w-full bg-grey-light">
+      <div class="bg-blue text-xs leading-none py-1 text-center text-white" style="width: <%= current_user.used_organizations_quota %>%"></div>
+    </div><br>
 
-      <p>Organization <%= current_user.number_of_organizations_user_ownes %> / <%= current_user.active_subscription.organizations_quota %></p>
-      <div class="progress" style="height: 14px !important">
-        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-        aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.organizations_quota %>" style="width: <%= current_user.used_organizations_quota %>%">
-          <span class="sr-only">70% Complete</span>
-        </div>
-      </div>
+    <p>Campains <%= current_user.number_of_campains_user_ownes %> / <%= current_user.active_subscription.campains_quota %></p>
+    <div class="shadow w-full bg-grey-light">
+      <div class="bg-blue text-xs leading-none py-1 text-center text-white" style="width: <%= current_user.used_campains_quota %>%"></div>
+    </div><br>
 
-      <p>Campains <%= current_user.number_of_campains_user_ownes %> / <%= current_user.active_subscription.campains_quota %></p>
-      <div class="progress" style="height: 14px !important">
-        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-        aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.campains_quota %>" style="width: <%= current_user.used_campains_quota %>%">
-          <span class="sr-only">70% Complete</span>
-        </div>
-      </div>
-
-      <p>Events <%= current_user.number_of_events_user_ownes %> / <%= current_user.active_subscription.events_quota %></p>
-      <div class="progress" style="height: 14px !important">
-        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-        aria-valuemin="0" aria-valuemax="<%= current_user.active_subscription.events_quota %>" style="width: <%= current_user.used_events_quota %>%">
-          <span class="sr-only">70% Complete</span>
-        </div>
-      </div>
-
+    <p>Events <%= current_user.number_of_events_user_ownes %> / <%= current_user.active_subscription.events_quota %></p>
+    <div class="shadow w-full bg-grey-light">
+      <div class="bg-blue text-xs leading-none py-1 text-center text-white" style="width: <%= current_user.used_events_quota %>%"></div>
     </div>
   </div>
+</div>

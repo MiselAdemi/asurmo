@@ -1,0 +1,32 @@
+<div class="w-full bg-white rounded-lg border-2 relative">
+  <p class="p-4 border-b shadow"><%= @campaign.name %></p>
+
+    <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
+      <%= link_to "Back", administrator_organization_campaigns_path(@organization), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+    </div>
+
+    <div class="flex content p-4">
+      <div class="inline-flex">
+        <div class="w-1/6">
+          <%= image_tag @campaign.avatar.url, class: "w-full h-64 rounded-lg" %>
+        </div>
+
+        <div class="w-5/6 p-6">
+          <h3 class="text-blue-dark flex-wrap border-b-2 pb-2 mb-2">Events</h3>
+
+          <div class="p-4">
+            <table class="w-full">
+              <% @campaign.events.each do |event| %>
+                <tr class="hover:bg-grey-lightest row">
+                  <td class="p-2">
+                    <%= image_tag event_avatar(event), class: "w-10 h-10 float-left rounded-lg" %>
+                    <%= link_to event.name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

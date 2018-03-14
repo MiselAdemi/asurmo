@@ -1,48 +1,31 @@
-<div id="row" class="profile">
-  <div class="image">
-    <%= image_tag "http://lorempixel.com/700/300/nature/2/", :class => "img-cover" %>
-  </div>
+<div class="flex profile-cover h-112 mt-16">
 
-  <div class="user clearfix">
-    <div class="avatar">
-      <%= image_tag @organization.avatar.url, :class => "img-profile img-thumbnail" %>
+</div>
+
+<div class="item-centered flex bg-white shadow">
+  <div class="container mx-auto flex relative h-12">
+    <div class="w-auto">
+      <%= image_tag @organization.avatar.url, alt: "", class: "rounded-lg w-32 h-32 absolute pin-b border-2 -m-b-1" %>
     </div>
 
-    <% if @user.is_organization_admin?(@organization) %>
-      <div class="upload-avatar">
-        <a data-toggle="modal" data-target="#uploadAvatarModal"><i class="fa fa-camera-retro" aria-hidden="true"></i></a>
-      </div>
-    <% end %>
+    <div class="w-3/6" style="padding-top: 10px; padding-left: 138px;">
+      <p class="text-2xl"><%= @organization.name %></p>
+    </div>
 
-    <div class="cover-text">
-      <h2><%= @organization.name %></h2>
-      <p><i class="fa fa-clock-o" aria-hidden="true"></i> <%= @organization.members.count %> supporters</p>
+    <div class="w-1/2" style="padding-top: 10px; padding-left: 100px;">
+      <p class="text-2xl"><i class="fa fa-users" aria-hidden="true"></i> <%= @organization.members.count %></p>
+    </div>
+
+    <div class="w-3/6 absolute pin-r" style="padding-top: 10px; padding-left: 100px;">
       <%= render 'organizations/partials/join_button', :locals => {:organization => @organization} %>
     </div>
   </div>
 </div>
 
-<!-- Upload Avatar Modal -->
-<div class="modal animated zoomIn" id="uploadAvatarModal" tabindex="-1" role="dialog" aria-labelledby="uploadAvatarModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Upload Profile Picture</h4>
-      </div>
-      <%= form_for(@user, :url => user_update_avatar_path(@user), :method => :put, :html => {:multipart => true}) do |f| %>
-        <div class="modal-body clearfix">
-          <%= f.label :avatar, :class => "col-md-3 control-label" %>
-          <div class="col-md-8">
-            <%= f.file_field :avatar, :class => "form-control" %>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Upload", :class => "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
+<style media="screen">
+  .profile-cover {
+    background: url("http://lorempixel.com/700/300/nature/2/");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+</style>

@@ -1,41 +1,10 @@
-<div class="panel panel-default panel-photo">
-  <div class="panel-heading">
-    <h3 class="panel-title">Settings</h3>
-  </div>
-  <div class="panel-body">
-    <ul>
-      <li><%= link_to "Manage admins", organization_show_admins_path(@organization), :method => :get %></li>
-      <li><%= link_to "Manage moderators", organization_show_moderators_path(@organization), :method => :get %></li>
-      <li><%= link_to "Manage members", organization_show_members_path(@organization), :method => :get %></li>
-      <li data-toggle="modal" data-target="#inviteModal">Invite new user</li>
-    </ul>
+<div class="shadow w-full flex-wrap my-6 bg-white">
+  <p class="p-4 border-b border-grey text-grey-darker">Admin</p>
+
+  <div class="content p-4 text-center">
+    <p>You are admin, go to dashboard</p>
+    <p><%= link_to 'Dashboard', '#', class: "no-underline" %></p>
   </div>
 </div>
 
 <%= render :partial => 'subscriptions/partials/quotas' %>
-
-<!-- Modal -->
-<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Intive new user</h4>
-      </div>
-      <%= form_for(@user, :url => organization_invite_path(@organization), :method => :get) do |f| %>
-        <div class="modal-body clearfix">
-
-        <div class="form-group">
-          <label>User email</label>
-          <%= email_field_tag :invite_email %>
-        </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Invite", :class => "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>

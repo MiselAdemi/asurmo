@@ -44,6 +44,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :administrator do
+    get '/:id' => "pages#dashboard"
+
+    resources "organizations", only: [ :edit, :update ] do
+      resources :campaigns do
+        resources :events
+      end
+    end
+  end
+
   resources :users, :path => "" do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
@@ -51,7 +61,7 @@ Rails.application.routes.draw do
     get "friends", :as => "friends"
 
     collection do
-    	get "index", :path => "users"
+    	get "index", :to => "users"
     end
 
     resources :organizations, :only => [:index]
@@ -97,7 +107,7 @@ Rails.application.routes.draw do
         end
       end
 
-      get "events/campain_events", :as => "all_events", :path => "events"
+      get "events/campain_events" => 'events#campain_events', :as => "all_events"
 
       resources :statuses do
 				member do

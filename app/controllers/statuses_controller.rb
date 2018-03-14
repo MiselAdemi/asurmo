@@ -39,7 +39,7 @@ class StatusesController < ApplicationController
     if @status.save
       track_activity(@status)
       respond_with(@status) do |format|
-        format.html { redirect_to :back }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :json => @status.as_json }
       end
     else
@@ -72,7 +72,7 @@ class StatusesController < ApplicationController
   def set_status
     @status = Status.find(status_id)
   end
-  
+
   def load_statusable
   	klass = [User, Organization].detect { |c| params["#{c.name.underscore}_id"] }
   	@statusable = klass.friendly.find(params["#{klass.name.underscore}_id"])

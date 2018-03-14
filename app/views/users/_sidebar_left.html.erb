@@ -1,6 +1,23 @@
-<div class="col-lg-3 left-sidebar">
+<div class="w-1/4">
 
-  <% if @user != current_user %>
+  <div class="shadow w-full flex-wrap my-6 bg-white">
+    <p class="p-4 border-b border-grey text-grey-darker">Photos</p>
+
+    <div class="content">
+      <% if @user.pictures.blank? %>
+        <p class="p-4">There is no images!</p>
+      <% else %>
+        <% @user.pictures.limit(6).each do |picture| %>
+          <div class="col-lg-6">
+            <%= link_to image_tag(picture.picture.url, :class => "img-responsive"), album_picture_path(picture.user, picture.album, picture) %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+  <!-- <% if @user != current_user %>
     <div class="panel panel-default panel-photo">
       <div class="panel-body">
         <% if  current_user.pending?(@user) %>
@@ -45,7 +62,7 @@
               <%= link_to image_tag(friend.avatar.url, :class => "img-responsive"), user_path(friend) %>
             <% else %>
               <%= link_to image_tag("https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-responsive"), user_path(friend) %>
-            <% end %>  
+            <% end %>
           </div>
         <% end %>
       </ul>
@@ -67,4 +84,4 @@
     </div>
   </div>
 
-</div>
+</div> -->
