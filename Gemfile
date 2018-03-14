@@ -31,7 +31,6 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'faye'
 gem 'thin', require: false
-gem 'render_sync'
 gem 'acts_as_commentable_with_threading'
 gem 'awesome_nested_set'
 gem 'gon'

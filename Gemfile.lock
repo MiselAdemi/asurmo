@@ -285,8 +285,6 @@ GEM
     redcarpet (3.4.0)
     redis (4.0.1)
     regexp_parser (0.4.11)
-    render_sync (0.5.0)
-      em-http-request
     request_store (1.4.0)
       rack (>= 1.4)
     responders (2.4.0)
@@ -421,7 +419,6 @@ DEPENDENCIES
   rails_12factor
   react-rails (~> 1.9)
   redis
-  render_sync
   sanitize
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
