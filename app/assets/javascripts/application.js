@@ -19,7 +19,6 @@
 //= require jquery.atwho
 //= require URI
 //= require jquery.URI
-//= require sync
 //= require moment
 //= require bootstrap-datetimepicker
 //= require twitter/typeahead
