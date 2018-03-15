@@ -2,58 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* Comments */
-.comment-box {
-  display: none;
-}
-
 .new_comment {
-  margin: 10px 10px;
-
-  #comment_body {
-    border: 1px solid #000000;
+  textarea {
+    outline: none;
+    height: 42px;
   }
-}
-
-.comments-container {
-  margin: 10px 10px;
-
-  .single-comment {
-
-    .panel-heading {
-      position: relative;
-
-      img {
-        width: 54px;
-        height: 54px;
-        display: inline;
-        border-radius: 4px;
-      }
-
-      h3 {
-        display: inline;
-        position: absolute;
-        top: 10px;
-        margin-left: 10px;
-      }
-    }
-
-  }
-
-  .reply {
-    margin: 10px 20px;
-    display: none;
-  }
-
-  .comment-reply-form {
-  	display: none;
-  }
-
-}
-
-#comment_body {
-	height: 36px;
-	overflow: hidden;
-	padding-top: 5px;
-  text-align: justify;
 }

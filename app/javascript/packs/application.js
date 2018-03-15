@@ -9,21 +9,27 @@
 
 import "../css/application.css"
 import Vue from 'vue/dist/vue.js'
-import TurbolinksAdapter from 'vue-turbolinks'
+import App from '../app.vue'
+// import TurbolinksAdapter from 'vue-turbolinks'
+import VueResource from 'vue-resource'
 
-Vue.use(TurbolinksAdapter);
+Vue.use(VueResource)
+// Vue.use(TurbolinksAdapter);
 
 document.addEventListener('turbolinks:load', () => {
+  Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
-  var el = document.querySelector("#modal")
-
-  var app = new Vue({
-    el: el,
-    data: {
-
-    },
-    methods: {
-      
-    }
-  })
+  var element = document.querySelector("#comments")
+  if(element != undefined) {
+    const app = new Vue({
+      el: element,
+      data: {
+        comments: JSON.parse(element.dataset.comments),
+        status_id: JSON.parse(element.dataset.statusId),
+        status_type: JSON.parse(element.dataset.statusType)
+      },
+      template: "<App :original_comments='comments' :status_id='status_id' :status_type='status_type' />",
+      components: { App }
+    })
+  }
 })

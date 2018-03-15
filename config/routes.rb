@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root 'home#index', as: :authenticated_root
+    post :auth, to: "authentication#create"
   end
 
   root 'home#index'
@@ -54,6 +55,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :comments
+
   resources :users, :path => "" do
     put "update_avatar", :as => "update_avatar"
     put "upload_cover", :as => "upload_cover"
@@ -74,8 +77,6 @@ Rails.application.routes.draw do
 
     resources :friendships, only: [:create, :update, :destroy]
   end
-
-  resources :comments
 
   resources :organizations, :except => [:index] do
     post "create_admin" => "members#create_admin"

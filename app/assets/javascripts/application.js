@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require datatables
+//= require rails-ujs
 //= require jquery-ui
 //= require jquery-maskedinput
 //= require jquery.atwho
@@ -32,36 +33,39 @@
 //= require rails.validations
 //= require_tree ./layout
 
+document.addEventListener('turbolinks:load', function() {
+  function myFunction(elem) {
+    $(elem).next()[0].classList.toggle("show");
+  }
 
-function myFunction(elem) {
-  console.log($(elem).next()[0].classList)
-  $(elem).next()[0].classList.toggle("show");
-  console.log($(elem).next()[0].classList)
-}
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-box");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+      var dropdowns = document.getElementsByClassName("dropdown-box");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
       }
     }
   }
-}
 
-$(document).on("click", ".comment-toggle", function(){
- $($(this).closest('div').find('.comments-container')[0]).slideToggle();
-});
+  // $(document).on("click", ".comment-toggle", function(){
+  //  $($(this).closest('div').find('.comments-container')[0]).slideToggle();
+  // });
 
-function showModal(modalName) {
-  $('#' + modalName).modal({
-    showClose: false,
-    fadeDuration: 1,
-    fadeDelay: 1.0
+  function showModal(modalName) {
+    $('#' + modalName).modal({
+      showClose: false,
+      fadeDuration: 1,
+      fadeDelay: 1.0
+    });
+  }
+
+  $.post('/auth', function(data) {
+    localStorage.setItem("user_token", data.user_token);
   });
-}
+});

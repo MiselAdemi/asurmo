@@ -1,39 +1,15 @@
-<% comments.each do |comment| %>
-  <div class="panel single-comment">
-    <div class="panel-heading">
-      <%= image_tag comment.user.avatar.url if comment.user.avatar.url %>
-      <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg" unless comment.user.avatar.url %>
-      <h3 class="panel-title">
-        <%= link_to comment.user.full_name, user_path(comment.user) %>
-        <p>
-          <small class="text-muted" ><i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(comment.created_at) %> ago</small>
-        </p>
-      </h3>
+<% comments.reverse_order.limit(2).each do |comment| %>
+  <div class="w-full inline-flex my-2 comment" data-id="<%= comment.id %>">
+    <div class="w-10 pt-1">
+      <%= image_tag avatar(comment.user), class: "w-full h-10 rounded-lg" %>
     </div>
-    <div class="panel-body">
-      <%= comment.body %>
-    </div>
-    <div class="panel-footer">
-      <% if comment.parent_id == nil %>
-        <a onclick="togglerCommentReply(<%= comment.id %>);">
-          <small><%= comment.children.size %> Reply</small>
-        </a>
-      <% end %>
+
+    <div class="w-5/6 mx-auto">
+      <div class="w-full border rounded-lg mx-auto pt-4 pl-4 pb-3">
+        <%= link_to comment.user.full_name, user_path(comment.user), class: "no-underline text-blue-darker hover:text-blue" %>
+        <span class="text-grey-dark ml-2"><%= comment.body %></span>
+      </div>
+      <p class="pl-2 pt-2"><small>Reply</small></p>
     </div>
   </div>
-
-  <div class="reply" id="reply-<%= comment.id %>">
-    <%= render partial: "comments/reply", locals: {comments: comment.children, new_comment: new_comment, type: :children} %>
-  </div>
-
-  <% if type == :root %>
-    <%= form_for new_comment, :html => { :class => "comment-reply-form", :id => "comment-reply-form-#{comment.id}" } do |f| %>
-      <%= f.hidden_field :commentable_id, value: new_comment.commentable_id %>
-      <%= f.hidden_field :commentable_type, value: new_comment.commentable_type %>
-      <%= f.hidden_field :comment_id, value: comment.id %>
-
-      <%= f.text_area :body, class: "form-control", :placeholder => "Type yout reply...", :onkeypress => "sendCommentReply(#{comment.id})" %>
-    <% end %>
-  <% end %>
-
 <% end %>

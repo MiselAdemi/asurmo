@@ -14,52 +14,14 @@
     <%= time_ago_in_words(activity.created_at) %> ago
   </small>
 
-  <div class="content p-4 bg-grey-lightest overflow-hidden">
+  <div class="content p-4 border mt-2 overflow-hidden">
     <%= render :partial => "activities/partials/#{ activity.trackable_type.downcase }", :locals => { :activity => activity } %>
   </div>
 
   <p class="comment-toggle mt-2 inline-block"><small><%= activity.trackable.comment_threads.count %> comments</small></p>
   <%= render partial: "activities/likes", :locals => { :activity => activity } %>
 
-  <div class="comments-container bg-grey-lightest h-24">
-
+  <div class="comments-container" data-behavior="comments">
+    <%= render partial: "comments/template", locals: {commentable: activity, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>
   </div>
 </div>
-  <!-- <div class="panel">
-    <div class="panel-heading">
-      <div class="user-image">
-         <% if activity.user.avatar.url %>
-      	   <%= image_tag activity.user.avatar.url %>
-         <% else %>
-    	     <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg"%>
-         <% end %>
-      </div>
-      <h4 class="username">
-        <%= link_to activity.user.full_name, user_path(activity.user) if activity.user_id == activity.to_id %>
-        <% if activity.user_id != activity.to_id %>
-          <%= link_to activity.user.full_name, user_path(activity.user) %> > <%= link_to find_to_whom(activity.to_id, activity.to_type), find_to_whom_path(activity.to_id, activity.to_type) %>
-        <% end %>
-        <p>
-          <small class="text-muted" ><i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(activity.created_at) %> ago</small>
-        </p>
-      </h4>
-    </div>
-    <div class="panel-body">
-      <%= render :partial => "activities/partials/#{ activity.trackable_type.downcase }", :locals => { :activity => activity } %>
-    </div>
-
-    <div class="panel-footer">
-      <a onclick="toggler(<%= activity.id %>);">
-        <small><%= activity.trackable.comment_threads.count %> comments</small>
-      </a>
-
-      <div class="support-box pull-right" id="activity_<%= activity.id %>_likes">
-        <%= render partial: "activities/likes", :locals => { :activity => activity } %>
-      </div>
-
-
-      <div class="comment-box comment-box-<%= activity.id %>" >
-      <%= render partial: "comments/template", locals: {commentable: activity.trackable, new_comment: Comment.build_from(activity.trackable, current_user.id, "") } %>
-      </div>
-    </div>
-  </div> -->

@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, :with => :user_not_authorized
   protect_from_forgery with: :exception
 
+  skip_before_action :verify_authenticity_token
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :user_activity
 

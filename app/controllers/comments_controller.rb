@@ -1,17 +1,28 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    # byebug
+    if params[:id]
+      @comments = Activity.find(params[:activity_id]).trackable.root_comments.where('id < ?', params[:id]).limit(2)
+      # @comments = Activity.find(11).trackable.root_comments.limit(2)
+    else
+      @comments = Activity.find(params[:activity_id]).trackable.root_comments.limit(2)
+      # @comments = Activity.find(11).trackable.root_comments.limit(2)
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def create
     commentable = commentable_type.constantize.find(commentable_id)
     @comment = Comment.build_from(commentable, current_user.id, body)
 
-    respond_to do |format|
-      if @comment.save
-        make_child_comment
-        format.html { redirect_to(:back, :notice => 'Comment was successfully added.') }
-      else
-        format.html { render :action => "new" }
-      end
+    if @comment.save
+      make_child_comment
     end
   end
 

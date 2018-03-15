@@ -187,6 +187,7 @@ GEM
     js_regex (1.2.3)
       regexp_parser (>= 0.3.6, <= 0.5.0)
     json (1.8.6)
+    jwt (2.1.0)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -402,6 +403,7 @@ DEPENDENCIES
   jquery-datatables
   jquery-rails (~> 4.3, >= 4.3.1)
   jquery-turbolinks
+  jwt
   kaminari (~> 0.17.0)
   magnific-popup-rails (~> 1.1.0)
   minitest-reporters
