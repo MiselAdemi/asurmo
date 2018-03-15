@@ -33,39 +33,38 @@
 //= require rails.validations
 //= require_tree ./layout
 
-document.addEventListener('turbolinks:load', function() {
-  function myFunction(elem) {
-    $(elem).next()[0].classList.toggle("show");
-  }
 
-  // Close the dropdown menu if the user clicks outside of it
-  window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
+function myFunction(elem) {
+  $(elem).next()[0].classList.toggle("show");
+}
 
-      var dropdowns = document.getElementsByClassName("dropdown-box");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-box");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
       }
     }
   }
+}
 
-  // $(document).on("click", ".comment-toggle", function(){
-  //  $($(this).closest('div').find('.comments-container')[0]).slideToggle();
-  // });
+// $(document).on("click", ".comment-toggle", function(){
+//  $($(this).closest('div').find('.comments-container')[0]).slideToggle();
+// });
 
-  function showModal(modalName) {
-    $('#' + modalName).modal({
-      showClose: false,
-      fadeDuration: 1,
-      fadeDelay: 1.0
-    });
-  }
-
-  $.post('/auth', function(data) {
-    localStorage.setItem("user_token", data.user_token);
+function showModal(modalName) {
+  $('#' + modalName).modal({
+    showClose: false,
+    fadeDuration: 1,
+    fadeDelay: 1.0
   });
+}
+
+$.post('/auth', function(data) {
+  localStorage.setItem("user_token", data.user_token);
 });
