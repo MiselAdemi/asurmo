@@ -53,10 +53,6 @@ window.onclick = function(event) {
   }
 }
 
-// $(document).on("click", ".comment-toggle", function(){
-//  $($(this).closest('div').find('.comments-container')[0]).slideToggle();
-// });
-
 function showModal(modalName) {
   $('#' + modalName).modal({
     showClose: false,
