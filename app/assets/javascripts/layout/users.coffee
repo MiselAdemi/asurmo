@@ -6,7 +6,7 @@ document.addEventListener("turbolinks:load", ->
   $("#phone").mask("(999) 99-999-999")
   $("#datepicker").datepicker()
   $("time.timeago").timeago()
-  # $('.dropdown-toggle').dropdown() 
+  # $('.dropdown-toggle').dropdown()
 
   # Upload avatar preview functionality
 
@@ -93,21 +93,5 @@ document.addEventListener("turbolinks:load", ->
       textRange.moveToElementText el
       textRange.collapse false
       textRange.select()
-
-  $('#status-textarea').on 'input', ->
-    flag = true
-
-    result = URI.withinString($('#status-textarea')[0].innerHTML, (url) ->
-      if flag
-        flag = false
-        if url.indexOf("youtube") != -1
-          url + "<iframe src='https://www.youtube.com/embed/" + url.split("v=")[1] + "'></iframe>"
-        else
-          url + '<img src="' + url + '">'
-    )
-
-    $('#status-textarea')[0].innerHTML = result
-    $("#status-hidden-textarea").val($("#status-textarea")[0].innerText)
-    placeCaretAtEnd(($('#status-textarea').get(0)))
 
 )

@@ -10,26 +10,63 @@
 import "../css/application.css"
 import Vue from 'vue/dist/vue.js'
 import App from '../app.vue'
-// import TurbolinksAdapter from 'vue-turbolinks'
+import TurbolinksAdapter from 'vue-turbolinks'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
-// Vue.use(TurbolinksAdapter);
+Vue.use(TurbolinksAdapter);
 
 document.addEventListener('turbolinks:load', () => {
-  Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  Vue.component('editable',{
+    template:'<div contenteditable="true" @input="update"></div>',
+    props:['content'],
+    mounted:function(){
+      this.$el.innerText = this.content;
+    },
+    methods:{
+      update:function(event){
+        this.$emit('update',event.target.innerText);
+      }
+    }
+  })
 
-  var element = document.querySelector("#comments")
-  if(element != undefined) {
+  var status_element = document.querySelector("#new_status")
+  if(status_element != undefined) {
     const app = new Vue({
-      el: element,
+      el: status_element,
       data: {
-        comments: JSON.parse(element.dataset.comments),
-        status_id: JSON.parse(element.dataset.statusId),
-        status_type: JSON.parse(element.dataset.statusType)
+        original_text: '',
+        textarea_text: '',
+        preview_text: '',
       },
-      template: "<App :original_comments='comments' :status_id='status_id' :status_type='status_type' />",
-      components: { App }
+      methods: {
+        generatePreviewText: function(event){
+          // console.log($(event.target).html().trim())
+          this.textarea_text = $(event.target).html().trim()
+
+          // Check if original text has url
+          // var temp_text = URI.withinString(this.textarea_text, function(url) {
+          //   console.log(url)
+          // })
+
+          this.urlify(this.textarea_text)
+
+        },
+        urlify: function(text) {
+          var urlRegex = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
+          var urls = text.match(urlRegex)
+          if (urls[0] != undefined) {
+            console.log(urls[0].toString())
+            if (urls[0].indexOf("youtube") != -1) {
+              this.preview_text = "<iframe src='https://www.youtube.com/embed/" + urls[0].split("v=")[1] + "'></iframe>"
+            } else if (urls[0].indexOf("vimeo") != -1) {
+              this.preview_text = "<iframe src='https://player.vimeo.com/video/" + urls[0].split(".com/")[1] + "'></iframe>"
+            } else if ((urls[0].indexOf(".jpg") != -1) || (urls[0].indexOf(".png") != -1) || (urls[0].indexOf(".gif") != -1) || (urls[0].indexOf(".jpeg") != -1)) {
+              this.preview_text = '<img src="' + urls[0] + '">'
+            }
+          }
+        }
+      }
     })
   }
 })

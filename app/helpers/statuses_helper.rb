@@ -21,6 +21,10 @@ module StatusesHelper
 				video_id = URI.extract(string)[0].split("v=")[1]
 				frame = "<div><iframe width='100%' height='310px' src='https://www.youtube.com/embed/#{video_id}'></iframe></div>"
 				string.gsub!(URI.extract(string)[0], frame)
+			elsif URI.extract(string)[0].include?("vimeo")
+				video_id = URI.extract(string)[0].split(".com/")[1]
+				frame = "<div><iframe width='100%' height='310px' src='https://player.vimeo.com/video/#{video_id}'></iframe></div>"
+				string.gsub!(URI.extract(string)[0], frame)
 			else
 				string.gsub!(URI.extract(string)[0], "<div><img class='image-link' id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
 			end

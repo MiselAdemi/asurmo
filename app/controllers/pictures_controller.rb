@@ -29,7 +29,7 @@ class PicturesController < ApplicationController
     if @picture.save
       track_activity(@picture)
       respond_with(@picture) do |format|
-        format.html { redirect_to album_pictures_path(@album) }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :json => @picture.as_json }
       end
     else

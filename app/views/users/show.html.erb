@@ -6,8 +6,11 @@
     <div class="w-1/2 mt-6 mx-4">
       <div class="w-full shadow overflow-hidden">
         <%= form_for([@statusable, @status], :url => user_statuses_path(@user)) do |f| %>
-          <div style="height: auto;" class="bg-white animation h-24 appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
-          <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
+          <div v-on:keyup="generatePreviewText" style="height: auto;" class="bg-white animation h-24 appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete">{{ original_text }}</div>
+          <!-- <editable v-on:keyup="generatePreviewText" :content="original_text" @update="original_text = $event" style="height: auto;" class="bg-white animation h-24 appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" id="status-textarea" placeholder="Say your oppinion..." data-behavior="autocomplete"></editable> -->
+          <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion...", 'v-model': 'textarea_text' %>
+
+          <div id="status-preview" class="mt-2 p-6 text-center" v-html="preview_text"></div>
 
           <a onclick="showModal('image-upload')"><svg class="ml-2 w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path class="text-grey" d="M0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11 9l-3-3-6 6h16l-5-5-2 2zm4-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></a>
           <%= button_tag(type: 'submit', class: "bg-transparent animation float-right hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded") do %>
