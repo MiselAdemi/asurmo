@@ -8,8 +8,8 @@
         <p class="p-4">There is no images!</p>
       <% else %>
         <% @user.pictures.limit(6).each do |picture| %>
-          <div class="col-lg-6">
-            <%= link_to image_tag(picture.picture.url, :class => "img-responsive"), album_picture_path(picture.user, picture.album, picture) %>
+          <div class="inline-flex sidebar-image h-32">
+            <%= link_to image_tag(picture.picture.url, :class => "h-full"), album_picture_path(picture.user, picture.album, picture) %>
           </div>
         <% end %>
       <% end %>
