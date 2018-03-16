@@ -26,7 +26,7 @@ module StatusesHelper
 				frame = "<div><iframe width='100%' height='310px' src='https://player.vimeo.com/video/#{video_id}'></iframe></div>"
 				string.gsub!(URI.extract(string)[0], frame)
 			else
-				string.gsub!(URI.extract(string)[0], "<div><img class='image-link' id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
+				string.gsub!(URI.extract(string)[0], "<a class='image-link' href='#{URI.extract(string)[0]}'><img class='image-link' style='width: 100%; height: auto;' id='status-image-preview' src='" + URI.extract(string)[0] + "'></div>")
 			end
 		else
 			string
