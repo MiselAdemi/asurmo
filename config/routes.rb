@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     get "friends", :as => "friends"
 
     collection do
-    	get "index", :to => "users"
+    	get "users" => "users#index"
     end
 
     resources :organizations, :only => [:index]

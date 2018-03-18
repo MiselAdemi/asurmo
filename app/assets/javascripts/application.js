@@ -36,6 +36,9 @@
 
 function myFunction(elem) {
   $(elem).next()[0].classList.toggle("show");
+  if ($(elem).parent().is(".notification-icon")) {
+    $(elem).parent().children('span').css('display', 'none')
+  }
 }
 
 // Close the dropdown menu if the user clicks outside of it

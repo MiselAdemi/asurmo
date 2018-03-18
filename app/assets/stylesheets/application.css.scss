@@ -176,3 +176,14 @@ nav .dropdown-menu.notify-drop .notify-drop-footer a {
 .modal {
   background: transparent !important;
 }
+
+.notification-icon {
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 0;
+    left: 43px;
+    display: none;
+  }
+}

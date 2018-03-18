@@ -26,9 +26,9 @@ App.notifications = App.cable.subscriptions.create("NotificationsChannel", {
         });
 
         if (count > 0) {
-          $(".notification-btn span").text(count);
+          $(".notification-icon span").css('display', 'block');
         } else {
-          $(".notification-btn span").text("");
+          $(".notification-icon span").css('display', 'none');
         }
       }
     })

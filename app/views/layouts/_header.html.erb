@@ -15,7 +15,8 @@
   <% if user_signed_in? %>
     <div class="w-2/5 block flex lg:flex lg:items-center lg:w-auto content-end">
 
-      <div class="dropdown">
+      <div class="dropdown notification-icon">
+        <span class="bg-red-light border w-2 h-2 rounded-full"></span>
         <svg onclick="myFunction(this)" class="dropbtn text-grey-darker w-6 h-6 mx-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6 8v7h8V8a4 4 0 1 0-8 0zm2.03-5.67a2 2 0 1 1 3.95 0A6 6 0 0 1 16 8v6l3 2v1H1v-1l3-2V8a6 6 0 0 1 4.03-5.67zM12 18a2 2 0 1 1-4 0h4z"/></svg>
 
         <ul id="myDropdown" class="dropdown-menu notify-drop dropdown-box">
