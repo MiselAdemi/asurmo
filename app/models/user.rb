@@ -50,6 +50,11 @@ class User < ApplicationRecord
   has_many :pending_friends, -> { where(friendships: { accepted: false}) }, through: :friendships, source: :friend
   has_many :requested_friendships, -> { where(friendships: { accepted: false}) }, through: :received_friendships, source: :user
 
+  has_many :teamables, :dependent => :destroy
+  has_many :teams, through: :teamables
+
+  has_many :participants, dependent: :destroy
+  has_many :viewable_campaigns, through: :participants, source: :campain, :dependent => :delete_all
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader

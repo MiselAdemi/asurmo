@@ -6,7 +6,7 @@ class Event < ApplicationRecord
 
   mount_uploader :avatar, EventAvatarUploader
 
-  validates :name, presence: true, length: { maximum: 2 }
-  validates :description, presence: true, length: { maximum: 10 }
+  validates :name, presence: true, length: { minimum: 2 }
+  validates :description, presence: true, length: { minimum: 10 }
   validates :start_date, :end_date, presence: true
 end

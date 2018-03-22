@@ -1,15 +1,13 @@
 <div class="shadow w-full flex-wrap my-6 bg-white">
   <p class="p-4 border-b border-grey text-grey-darker">Latest campains</p>
 
-  <div class="content p-4">
+  <div class="content p">
     <% if !@campains.exists? %>
       <p>Create first campain for this organization</p>
     <% else %>
       <div class="list-group">
-        <% @campains.each do |campain| %>
-          <% if(campain.id != nil) %>
-            <%= link_to campain.name, organization_campain_path(@organization, campain), :class => "list-group-item list-group-item-action" %>
-          <% end %>
+        <% UsersHelper.viewable_campaigns(@campains, current_user).each do |campaign| %>
+          <%= link_to campaign.name, organization_campain_path(@organization, campaign), :class => "block no-underline hover:bg-grey-lightest border-b p-4 text-grey-darker" %>
         <% end %>
       </div>
     <% end %>

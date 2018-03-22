@@ -1,0 +1,21 @@
+<div class="my-4 py-4">
+  <h3>Add user to team</h3>
+  <div class="border-b my-4 pb-4">
+    <% if not_teams_of_user(@organization, user).empty? %>
+      <p>User is member of all teams</p>
+    <% else %>
+      <%= form_for(@organization.teams.new, :url => join_administrator_organization_teams_path(@organization, user), :method => :post, :html => {class: 'w-full'}, validate: true) do |f| %>
+        <%= select_tag :team_id, options_from_collection_for_select(not_teams_of_user(@organization, user), "id", "name"), class: 'border p-2 bg-white' %>
+        <%= f.submit "Add to team", :class => "no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded", 'onclick': "showModal('manageTeamModal')" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h3>Remove user from team</h3>
+  <div class="border-b my-4">
+    <%= form_for(@organization.teams.new, :url => exit_administrator_organization_teams_path(@organization, user), :method => :post, :html => {class: 'w-full'}, validate: true) do |f| %>
+      <%= select_tag :team_id, options_from_collection_for_select(teams_of_user(@organization, user), "id", "name"), class: 'border p-2 bg-white' %>
+      <%= f.submit "Remove from team", :class => "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded", 'onclick': "showModal('manageTeamModal')" %>
+    <% end %>
+  </div>
+</div>

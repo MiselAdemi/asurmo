@@ -1,0 +1,65 @@
+<div class="w-full bg-white rounded-lg border-2 relative">
+  <p class="p-4 border-b shadow">Users</p>
+
+    <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
+      <%= link_to "Invite user", "#", class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+      <a onclick="showModal('newTeamModal')" class="no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded">Create team</a>
+    </div>
+
+    <div class="flex content p-4">
+      <div class="w-full">
+        <table class="w-full">
+          <% @users.each do |user| %>
+            <tr class="hover:bg-grey-lightest row">
+              <td class="p-2">
+                <%= image_tag avatar(user), class: "w-10 h-10 float-left rounded-lg" %>
+                <%= link_to user.full_name, user_path(user), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+              </td>
+              <td>
+                <a onclick="showModal('manageTeamModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded">Manage teams</a>
+              </td>
+            </tr>
+
+
+            <div id="manageTeamModal<%= user.id %>" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+              <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
+                <%= render partial: "administrator/users/partials/team", :locals => {:user => user} %>
+                <span class="absolute pin-t pin-r pt-4 px-4">
+                  <a href="#manageTeamModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
+                </span>
+              </div>
+            </div>
+          <% end %>
+        </table>
+      </div>
+    </div>
+</div>
+
+<div id="newTeamModal" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+  <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
+    <h2 class="text-4xl text-center font-hairline md:leading-loose text-grey md:mt-8 mb-4">Create new team</h2>
+
+    <%= form_for(@organization.teams.new, :url => administrator_organization_teams_path(@organization), :method => :post, :html => {class: 'w-full'}, validate: true) do |f| %>
+      <div class="flex items-center mb-6">
+        <div class="w-1/3">
+          <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+            Name
+          </label>
+        </div>
+        <div class="w-2/3">
+          <%= f.text_field :name, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
+        </div>
+      </div>
+
+      <div class="inline-flex justify-center w-full">
+        <%= f.submit "Add", :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded", 'onclick': "showModal('newTeamModal')" %>
+        <a href="#newTeamModal" rel="modal:close" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
+          Cancle
+        </a>
+      </div>
+    <% end %>
+    <span class="absolute pin-t pin-r pt-4 px-4">
+      <a href="#newTeamModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
+    </span>
+  </div>
+</div>

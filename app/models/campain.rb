@@ -9,6 +9,12 @@ class Campain < ApplicationRecord
   has_many :statuses, :as => :statusable
   has_many :activities
   has_many :events, dependent: :destroy
+  has_many :tasks, dependent: :destroy
+
+  has_many :participants
+  has_many :participant_users, through: :participants, source: :user, :dependent => :delete_all
+
+  has_and_belongs_to_many :teams
 
   accepts_nested_attributes_for :events
 

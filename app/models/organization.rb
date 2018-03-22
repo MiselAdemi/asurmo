@@ -10,6 +10,7 @@ class Organization < ApplicationRecord
   has_many :statuses, :as => :statusable
   has_many :activities
   has_many :world_members
+  has_many :teams
 
   accepts_nested_attributes_for :members, :users
 

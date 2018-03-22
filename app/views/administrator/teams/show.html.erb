@@ -1,0 +1,21 @@
+<div class="w-full bg-white rounded-lg border-2 relative">
+  <p class="p-4 border-b shadow"><%= @team.name %> team</p>
+
+    <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
+      <%= link_to "Back", administrator_organization_teams_path(@organization), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+    </div>
+
+    <div class="flex content p-4">
+      <div class="w-full">
+        <table class="w-full">
+          <% @team.users.each do |user| %>
+            <tr class="hover:bg-grey-lightest row">
+              <td class="p-2">
+                <%= link_to user.full_name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+</div>

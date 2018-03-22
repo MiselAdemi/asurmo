@@ -8,6 +8,7 @@
         <tr class="header">
           <th class="p-2">Name</th>
           <th>Events #</th>
+          <th>Tasks #</th>
           <th>Created at</th>
           <th>Actions</th>
         </tr>
@@ -19,6 +20,7 @@
               <%= link_to campaign.name, administrator_organization_campaign_path(@organization, campaign), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
             </td>
             <td><%= campaign.events.count %></td>
+            <td><%= campaign.tasks.count %></td>
             <td><%= campaign.created_at.strftime("%F") %></td>
             <td>
               <% if campaign.name != "Default" %>

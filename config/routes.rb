@@ -51,6 +51,15 @@ Rails.application.routes.draw do
     resources "organizations", only: [ :edit, :update ] do
       resources :campaigns do
         resources :events
+        resources :tasks
+      end
+
+      resources :users
+      resources :teams do
+        collection do
+          post "join/:user_id" => 'teams#join', as: 'join'
+          post "exit/:user_id" => 'teams#exit', as: 'exit'
+        end
       end
     end
   end

@@ -1,10 +1,12 @@
 class Administrator::EventsController < Administrator::BaseController
   before_action :authenticate_admin
-  before_action :set_campaign, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :set_event, only: [ :edit, :update, :destroy ]
+  before_action :set_campaign, only: [ :show, :new, :create, :edit, :update, :destroy ]
+  before_action :set_event, only: [ :show, :edit, :update, :destroy ]
 
   def index
+  end
 
+  def show
   end
 
   def new

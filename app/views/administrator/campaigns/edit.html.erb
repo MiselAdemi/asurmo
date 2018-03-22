@@ -31,6 +31,32 @@
               <%= f.file_field :avatar, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker" %>
             </div>
           </div>
+
+          <div class="flex items-center mb-6">
+            <div class="w-1/3">
+              <label class="block text-grey font-bold mb-1 md:mb-0 pr-4" for="inline-full-name">
+                Visibility by team <br>
+                <small>Choose which team has access to this campaign or leave blank.</small>
+              </label>
+            </div>
+            <div class="w-2/5">
+              <%= select_tag :team_id, options_from_collection_for_select(@organization.teams, "id", "name", @campaign.teams.first.present?? @campaign.teams.first.id : '' ), {:prompt => 'Select Team', class: 'shadow bg-white appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 mb-6 text-grey-darker' } %>
+              <a onclick="showModal('teamUsersModal')" class="float-right bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded -mt-2">View users in team</a>
+            </div>
+          </div>
+
+          <div class="flex items-center mb-6">
+            <div class="w-1/3">
+              <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                Visibility by users <br>
+                <small>Choose which team has access to this campaign or leave blank.</small>
+              </label>
+            </div>
+            <div class="w-2/5">
+              <%= text_field_tag :users_id, CampainsHelper.users_outside_team(@campaign), class: 'shadow bg-white appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker' %>
+            </div>
+          </div>
+
       </div>
     </div>
   <% end %>
@@ -142,5 +168,22 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div id="teamUsersModal" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+  <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
+    <table>
+      <% @campaign.teams.first.users.each do |user| %>
+        <tr>
+          <td><%= user.full_name %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <span class="absolute pin-t pin-r pt-4 px-4">
+      <a href="#teamUsersModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
+    </span>
   </div>
 </div>
