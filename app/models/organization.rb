@@ -10,42 +10,11 @@ class Organization < ApplicationRecord
   has_many :statuses, :as => :statusable
   has_many :activities
   has_many :world_members
+  has_many :teams
 
   accepts_nested_attributes_for :members, :users
 
   mount_uploader :avatar, OrganizationAvatarUploader
-
-  # add new admin
-  def add_admin(user)
-    member = members.where(:user => user).first
-    if(member.present?)
-      member.update_attributes(:role => 2)
-    else
-      members.create(:user => user, :role => 2)
-    end
-  end
-
-  # remove admin
-  def remove_admin(user)
-    user.role = 0
-    user.save
-  end
-
-  # add new moderator
-  def add_moderator(user)
-    member = members.where(:user => user).first
-    if(member.present?)
-      member.update_attributes(:role => 1)
-    else
-      members.create(:user => user, :role => 1)
-    end
-  end
-
-  # remove moderator
-  def remove_moderator(user)
-    user.role = 0
-    user.save
-  end
 
   # User joins organization
   def join(user)

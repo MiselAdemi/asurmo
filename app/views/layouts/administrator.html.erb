@@ -28,6 +28,8 @@
             <li><a class="text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" href="#">Overview</a></li>
             <li><%= link_to "Settings", edit_administrator_organization_path(@organization), class: "text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" %></li>
             <li><%= link_to "Campaigns", administrator_organization_campaigns_path(@organization), class: "text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" %></li>
+            <li><%= link_to "Users", administrator_organization_users_path(@organization), class: "text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" %></li>
+            <li><%= link_to "Teams", administrator_organization_teams_path(@organization), class: "text-grey p-4 no-underline w-full block hover:text-grey-lighter hover:bg-blue-darkest" %></li>
           </ul>
         </div>
       </div>

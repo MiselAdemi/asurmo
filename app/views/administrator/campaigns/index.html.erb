@@ -8,6 +8,7 @@
         <tr class="header">
           <th class="p-2">Name</th>
           <th>Events #</th>
+          <th>Tasks #</th>
           <th>Created at</th>
           <th>Actions</th>
         </tr>
@@ -15,10 +16,11 @@
         <% @organization.campains.each do |campaign| %>
           <tr class="hover:bg-grey-lightest row">
             <td class="p-2">
-              <%= image_tag campaign_avatar(campaign), class: "w-10 h-10 float-left" %>
+              <%= image_tag campaign_avatar(campaign), class: "w-10 h-10 float-left rounded-lg" %>
               <%= link_to campaign.name, administrator_organization_campaign_path(@organization, campaign), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
             </td>
             <td><%= campaign.events.count %></td>
+            <td><%= campaign.tasks.count %></td>
             <td><%= campaign.created_at.strftime("%F") %></td>
             <td>
               <% if campaign.name != "Default" %>

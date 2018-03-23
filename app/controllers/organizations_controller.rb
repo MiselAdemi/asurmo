@@ -94,12 +94,12 @@ class OrganizationsController < ApplicationController
 
   def join_member
     @organization.members.create(:user_id => params[:user_id], :role => 0)
-    redirect_to organization_path(@organization)
+    redirect_back(fallback_location: root_path)
   end
 
   def remove_member
     @organization.members.where(:user_id => params[:user_id]).first.destroy
-    redirect_to organization_path(@organization)
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -149,7 +149,7 @@ class OrganizationsController < ApplicationController
   def set_events
     @events = @organization.campains.map { |campain| campain.events }.flatten
   end
-  
+
   def set_status
     @status = @organization.statuses.new
   end

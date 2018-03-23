@@ -21,6 +21,12 @@ svg path {
   transition-duration: 500ms;
   transition-timing-function: ease;
 }
+
+.tab-active {
+  @apply .border-l .border-t .border-r .rounded-t;
+  @apply .border-b .border-b-2;
+  border-bottom-color: #ffffff !important;
+}
 /**
  * Here you would add any of your custom component classes; stuff that you'd
  * want loaded *before* the utilities so that the utilities could still

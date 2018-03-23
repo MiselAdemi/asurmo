@@ -6,27 +6,135 @@
     </div>
 
     <div class="flex content p-4">
-      <div class="inline-flex">
-        <div class="w-1/6">
-          <%= image_tag @campaign.avatar.url, class: "w-full h-64 rounded-lg" %>
-        </div>
+      <div class="inline-flex w-full">
+        <div class="w-5/6">
+          <ul class="list-reset flex border-b w-full tabs">
+            <li class="w-12 mr-4"><%= image_tag @campaign.avatar.url, class: "w-12 h-12 rounded-full" %></li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-1">
+              <a class="no-underline bg-white inline-block tab-active py-2 px-4 text-blue-dark font-semibold" href="#tab-overview">Overview</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-2">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-events">Events</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-3">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-tasks">Tasks</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-4">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-people">People</a>
+            </li>
+          </ul>
 
-        <div class="w-5/6 p-6">
-          <h3 class="text-blue-dark flex-wrap border-b-2 pb-2 mb-2">Events</h3>
+          <div id="tab-1" class="tab-content current p-6">
+            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+          </div>
 
-          <div class="p-4">
+          <div id="tab-2" class="tab-content p-6">
             <table class="w-full">
               <% @campaign.events.each do |event| %>
                 <tr class="hover:bg-grey-lightest row">
                   <td class="p-2">
                     <%= image_tag event_avatar(event), class: "w-10 h-10 float-left rounded-lg" %>
-                    <%= link_to event.name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                    <%= link_to event.name, administrator_organization_campaign_event_path(@organization, @campaign, event), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
                   </td>
                 </tr>
               <% end %>
             </table>
           </div>
+
+          <div id="tab-3" class="tab-content p-6">
+            <% if @campaign.tasks.empty? %>
+              <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
+                <p>There is no tasks for this campaign! <a onclick="showModal('newTaskModal')" class="bg-orange rounded-full p-1 text-white hover:cursor-pointer">Add task</a></p>
+              </div>
+
+            <% else %>
+              <table class="w-full">
+                <% @campaign.tasks.each do |task| %>
+                  <tr class="hover:bg-grey-lightest row">
+                    <td class="p-2">
+                      <%= link_to task.name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </table>
+            <% end %>
+          </div>
+
+          <div id="tab-4" class="tab-content p-6">
+            <% if @campaign.participant_users.empty? %>
+              <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
+                <p>There is no users in this campaign!</p>
+              </div>
+            <% else %>
+              <table class="w-full">
+                <% @campaign.participant_users.each do |user| %>
+                  <tr class="hover:bg-grey-lightest row">
+                    <td class="p-2">
+                      <%= image_tag avatar(user), class: "w-10 h-10 float-left rounded-lg" %>
+                      <%= link_to user.full_name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </table>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="w-1/6 mt-6">
+
         </div>
       </div>
     </div>
+</div>
+
+
+<div id="newTaskModal" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+  <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
+    <h2 class="text-4xl text-center font-hairline md:leading-loose text-grey md:mt-8 mb-4">Add event</h2>
+
+    <%= form_for(@campaign.tasks.new, :url => administrator_organization_campaign_tasks_path(@organization, @campaign), :method => :post, :html => {class: 'w-full'}, validate: true) do |f| %>
+      <div class="flex items-center mb-6">
+        <div class="w-1/3">
+          <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+            Name
+          </label>
+        </div>
+        <div class="w-2/3">
+          <%= f.text_field :name, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
+        </div>
+      </div>
+
+      <div class="flex items-center mb-6">
+        <div class="w-1/3">
+          <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+            Start date
+          </label>
+        </div>
+        <div class="w-2/3">
+          <%= f.datetime_field :start_date, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
+        </div>
+      </div>
+
+      <div class="flex items-center mb-6">
+        <div class="w-1/3">
+          <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+            End date
+          </label>
+        </div>
+        <div class="w-2/3">
+          <%= f.datetime_field :end_date, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
+        </div>
+      </div>
+
+      <div class="inline-flex justify-center w-full">
+        <%= f.submit "Add", :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded", 'onclick': "showModal('newTaskModal')" %>
+        <a href="#newTaskModal" rel="modal:close" class="bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded">
+          Cancle
+        </a>
+      </div>
+    <% end %>
+    <span class="absolute pin-t pin-r pt-4 px-4">
+      <a href="#newTaskModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
+    </span>
+  </div>
 </div>

@@ -1,0 +1,32 @@
+<div class="w-full bg-white rounded-lg border-2 relative">
+  <p class="p-4 border-b shadow"><%= @event.name %> <small class="text-grey-dark ml-4">( Started <%= @event.start_date.strftime('%F') %> - <span class="text-red">Due <%= @event.end_date.strftime('%F') %></span> )</small></p>
+
+    <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
+      <%= link_to "Back to campaign", administrator_organization_campaign_path(@organization, @event.campain), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+    </div>
+
+    <div class="flex content p-4">
+      <div class="w-full">
+        <div class="w-full border-b p-6">
+          <h4 class="text-grey-darker">Description</h4>
+          <div class="p-6 text-grey-dark">
+            <%= @event.description %>
+          </div>
+        </div>
+
+        <div class="w-full border-b p-6">
+          <h4 class="text-grey-darker">Files</h4>
+          <div class="p-6 text-grey-dark">
+            <p>There is no files!</p>
+          </div>
+        </div>
+
+        <div class="w-full border-b p-6">
+          <h4 class="text-grey-darker">Comments</h4>
+          <div class="p-6 text-grey-dark">
+            <p>There is no comment for this task!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

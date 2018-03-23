@@ -50,6 +50,11 @@ class User < ApplicationRecord
   has_many :pending_friends, -> { where(friendships: { accepted: false}) }, through: :friendships, source: :friend
   has_many :requested_friendships, -> { where(friendships: { accepted: false}) }, through: :received_friendships, source: :user
 
+  has_many :teamables, :dependent => :destroy
+  has_many :teams, through: :teamables
+
+  has_many :participants, dependent: :destroy
+  has_many :viewable_campaigns, through: :participants, source: :campain, :dependent => :delete_all
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
@@ -83,6 +88,18 @@ class User < ApplicationRecord
   # is user moderator of organization
   def is_organization_moderator?(organizatin)
     organizatin.moderators.include?(self)
+  end
+
+  def organization_role_label(organization)
+    return "<label class='bg-blue-light p-2 rounded-lg text-white'>admin</label>" if self.is_organization_admin?(organization)
+    return "<label class='bg-orange-light p-2 rounded-lg text-white'>moderator</label>" if self.is_organization_moderator?(organization)
+    return "<label class='bg-green-light p-2 rounded-lg text-white'>member</label>"
+  end
+
+  def organization_role(organization)
+    return "admin" if self.is_organization_admin?(organization)
+    return "moderator" if self.is_organization_moderator?(organization)
+    return "member"
   end
 
   # all organizations where user is admin

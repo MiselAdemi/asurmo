@@ -50,4 +50,8 @@ module UsersHelper
   def avatar(user)
     user.avatar.present?? user.avatar.url : 'avatar.jpg'
   end
+
+  def self.viewable_campaigns(campaigns, user)
+    public_campaigns = campaigns.collect{ |campaign| campaign if campaign.teams.empty? && campaign.participant_users.empty? }.compact[0...-1]
+  end
 end
