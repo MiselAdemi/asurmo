@@ -1,0 +1,9 @@
+<div class="my-4 pt-4">
+  <h3>Change user role</h3>
+  <div class="mt-4">
+    <%= form_for(@organization.members.where(user_id: user.id).first, :url => administrator_organization_role_path(@organization, user.id), :method => "post") do |f| %>
+      <%= select_tag :role_id, options_for_select(Member.roles, Member.roles[user.organization_role(@organization)]), class: 'border p-2 bg-white' %>
+      <%= f.submit "Save", :class => "bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
+    <% end %>
+  </div>
+</div>

@@ -18,6 +18,9 @@ class Administrator::CampaignsController < Administrator::BaseController
 
     respond_to do |format|
       if @campaign.save
+        CampainsHelper.update_team(@campaign, params[:team_id])
+        CampainsHelper.update_viewable_users(@campaign, params[:users_id])
+        
         format.html { redirect_back(fallback_location: root_path, notice: 'Campaign was successfully created.' ) }
         format.json { render :json => @campaign.as_json }
       else

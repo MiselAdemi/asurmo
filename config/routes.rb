@@ -61,6 +61,8 @@ Rails.application.routes.draw do
           post "exit/:user_id" => 'teams#exit', as: 'exit'
         end
       end
+
+      post "role/:user_id" => 'members#change_role', as: 'role'
     end
   end
 

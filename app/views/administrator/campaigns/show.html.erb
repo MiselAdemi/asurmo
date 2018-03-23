@@ -20,7 +20,7 @@
               <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-tasks">Tasks</a>
             </li>
             <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-4">
-              <a class="no-underline bg-white inline-block py-2 px-4 text-grey-light font-semibold" href="#tab-people">People</a>
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-people">People</a>
             </li>
           </ul>
 
@@ -61,7 +61,22 @@
           </div>
 
           <div id="tab-4" class="tab-content p-6">
-            <p>people</p>
+            <% if @campaign.participant_users.empty? %>
+              <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
+                <p>There is no users in this campaign!</p>
+              </div>
+            <% else %>
+              <table class="w-full">
+                <% @campaign.participant_users.each do |user| %>
+                  <tr class="hover:bg-grey-lightest row">
+                    <td class="p-2">
+                      <%= image_tag avatar(user), class: "w-10 h-10 float-left rounded-lg" %>
+                      <%= link_to user.full_name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </table>
+            <% end %>
           </div>
         </div>
 

@@ -90,6 +90,18 @@ class User < ApplicationRecord
     organizatin.moderators.include?(self)
   end
 
+  def organization_role_label(organization)
+    return "<label class='bg-blue-light p-2 rounded-lg text-white'>admin</label>" if self.is_organization_admin?(organization)
+    return "<label class='bg-orange-light p-2 rounded-lg text-white'>moderator</label>" if self.is_organization_moderator?(organization)
+    return "<label class='bg-green-light p-2 rounded-lg text-white'>member</label>"
+  end
+
+  def organization_role(organization)
+    return "admin" if self.is_organization_admin?(organization)
+    return "moderator" if self.is_organization_moderator?(organization)
+    return "member"
+  end
+
   # all organizations where user is admin
   def self.all_organizations_where_user_admin(user)
     Organization.joins(:members).where("members.user_id = ? AND members.role = ?", user.id, 2)

@@ -9,14 +9,25 @@
     <div class="flex content p-4">
       <div class="w-full">
         <table class="w-full">
+          <tr class="border-b-2 w-full">
+            <td class="pb-2">Name</td>
+            <td>Email</td>
+            <td>Role</td>
+            <td></td>
+          </tr>
           <% @users.each do |user| %>
             <tr class="hover:bg-grey-lightest row">
               <td class="p-2">
                 <%= image_tag avatar(user), class: "w-10 h-10 float-left rounded-lg" %>
                 <%= link_to user.full_name, user_path(user), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
               </td>
-              <td>
-                <a onclick="showModal('manageTeamModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded">Manage teams</a>
+              <td><%= user.email %></td>
+              <td><%= user.organization_role_label(@organization).html_safe %></td>
+              <td class="text-right">
+                <% if @organization.owner != user %>
+                  <a onclick="showModal('manageTeamModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded">Manage teams</a>
+                  <a onclick="showModal('changeRoleModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-indigo-light text-indigo-dark font-semibold hover:text-white py-2 px-4 border border-indigo-light hover:border-transparent rounded">Change role</a>
+                <% end %>
               </td>
             </tr>
 
@@ -26,6 +37,15 @@
                 <%= render partial: "administrator/users/partials/team", :locals => {:user => user} %>
                 <span class="absolute pin-t pin-r pt-4 px-4">
                   <a href="#manageTeamModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
+                </span>
+              </div>
+            </div>
+
+            <div id="changeRoleModal<%= user.id %>" class="modal animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex">
+              <div class="animated fadeInDown fixed shadow-inner max-w-md md:relative pin-b pin-x align-top m-auto justify-end md:justify-center p-8 bg-white md:rounded w-full md:h-auto md:shadow flex flex-col">
+                <%= render partial: "administrator/users/partials/role", :locals => {:user => user} %>
+                <span class="absolute pin-t pin-r pt-4 px-4">
+                  <a href="#changeRoleModal" rel="modal:close"><svg class="h-12 w-12 text-grey hover:text-grey-darkest" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg></a>
                 </span>
               </div>
             </div>
