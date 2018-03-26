@@ -10,4 +10,8 @@ $(document).on("turbolinks:load", function() {
     $('a', this).addClass('tab-active')
     $("#" + tab_id).addClass('current')
   })
+
+  $( "#assignee_input" ).autocomplete({
+     source: $('#assignee_input').data('autocomplete-source')
+  })
 });

@@ -51,7 +51,16 @@ Rails.application.routes.draw do
     resources "organizations", only: [ :edit, :update ] do
       resources :campaigns do
         resources :events
-        resources :tasks
+        resources :tasks do
+          member do
+            post "assign_user" => "tasks#assign_user", as: "assign_user"
+            post "remove_assignee/:user_id" => "tasks#remove_assignee", as: "remove_assignee"
+          end
+        end
+
+        member do
+          get 'participant_users' => "campaigns#participant_users"
+        end
       end
 
       resources :users

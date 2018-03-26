@@ -56,6 +56,9 @@ class User < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :viewable_campaigns, through: :participants, source: :campain, :dependent => :delete_all
 
+  has_many :assignments
+  has_many :assigned_tasks, through: :assignments
+
   mount_uploader :avatar, AvatarUploader
   mount_uploader :cover_image, CoverPhotoUploader
 

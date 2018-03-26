@@ -1,0 +1,23 @@
+<%= render 'users/partials/header' %>
+
+<div id="row">
+  <%= render 'sidebar_left' %>
+
+
+  <div class="col-lg-9 profile-center">
+    <% current_user.friends.each do |friend| %>
+      <div class="col-lg-4">
+        <div class="col-lg-10 col-lg-offset-1 friend-box well">
+          <% if @user.avatar.url %>
+            <%= image_tag @user.avatar.url %>
+          <% else %>
+            <%= image_tag "https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg" %>
+          <% end %>  
+
+          <h3><%= friend.full_name %></h3>
+          <%= link_to "Remove", user_friendship_path(current_user, :id => friend.id), method: :delete, :class => "btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+
+</div>

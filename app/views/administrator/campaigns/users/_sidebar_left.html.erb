@@ -1,0 +1,87 @@
+<div class="w-1/4">
+
+  <div class="shadow w-full flex-wrap my-6 bg-white">
+    <p class="p-4 border-b border-grey text-grey-darker">Photos</p>
+
+    <div class="content">
+      <% if @user.pictures.blank? %>
+        <p class="p-4">There is no images!</p>
+      <% else %>
+        <% @user.pictures.limit(6).each do |picture| %>
+          <div class="inline-flex sidebar-image h-32">
+            <%= link_to image_tag(picture.picture.url, :class => "h-full"), album_picture_path(picture.user, picture.album, picture) %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+  <!-- <% if @user != current_user %>
+    <div class="panel panel-default panel-photo">
+      <div class="panel-body">
+        <% if  current_user.pending?(@user) %>
+          <p class="label label-info">Request pending ...</p>
+        <% elsif current_user.is_friend?(@user) %>
+          <%= link_to "Remove from friends", user_friendship_path(current_user, :id => @user.id), method: :delete, :class => "label label-danger" %>
+        <% else %>
+          <%= link_to "Add friend", user_friendships_path(current_user, :friend_id => @user.id), :method => :post, :class => "label label-info" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user == @user %>
+  <div class="panel panel-default panel-photo">
+    <div class="panel-heading">
+      <h3 class="panel-title">Friend requests</h3>
+    </div>
+    <div class="panel-body friend-request">
+      <ul style="list-style: none; margin-left: 0px; padding: 0px;">
+        <% current_user.requested_friendships.each do |request| %>
+          <li>
+            <%= request.full_name %>
+            <%= link_to "Accept",  user_friendship_path(current_user, :id => request.id), method: "put", :class => "label label-success" %>
+            <%= link_to "Decline", user_friendship_path(current_user, :id => request.id), method: :delete, :class => "label label-danger" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default panel-photo panel-friends">
+    <div class="panel-heading">
+      <h3 class="panel-title">Friends</h3>
+      <%= link_to "See all", user_friends_path(@user), :class => "panel-button" %>
+    </div>
+    <div class="panel-body friend-request">
+      <ul style="list-style: none; margin-left: 0px; padding: 0px;">
+        <% current_user.friends.take(6).each do |friend| %>
+          <div class="col-lg-6">
+            <% if friend.avatar.url %>
+              <%= link_to image_tag(friend.avatar.url, :class => "img-responsive"), user_path(friend) %>
+            <% else %>
+              <%= link_to image_tag("https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg", :class => "img-responsive"), user_path(friend) %>
+            <% end %>
+          </div>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% end %>
+
+  <div class="panel panel-default panel-photo">
+    <div class="panel-heading">
+      <h3 class="panel-title">Photos</h3>
+    </div>
+    <div class="panel-body">
+      <% @user.pictures.limit(6).each do |picture| %>
+        <div class="col-lg-6">
+          <%= link_to image_tag(picture.picture.url, :class => "img-responsive"), album_picture_path(picture.user, picture.album, picture) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div> -->

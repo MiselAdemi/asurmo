@@ -1,0 +1,12 @@
+<div class="panel panel-default panel-nav">
+  <div class="panel-body">
+    <ul>
+      <%= nav_link("Profile", user_path(current_user)) %>
+
+      <%= nav_link("About", user_about_path(current_user)) %>
+      <%= nav_link("Photos", albums_path(current_user)) %>
+      <%= nav_link("Edit profile", edit_user_path(current_user)) if @user == current_user%>
+      <%= nav_link("Organizations", user_organizations_path(current_user)) if @user == current_user%>
+    </ul>
+  </div>
+</div>

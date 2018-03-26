@@ -1,31 +1,55 @@
 <div class="w-full bg-white rounded-lg border-2 relative">
-  <p class="p-4 border-b shadow"><%= @campaign.name %></p>
+  <p class="p-4 border-b shadow"><%= @task.name %><small class="text-grey-dark ml-4">( Started <%= @task.start_date.strftime('%F') %> - <span class="text-red">Estimated end date <%= @task.end_date.strftime('%F') %></span> )</small></p>
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
-      <%= link_to "Back", administrator_organization_campaigns_path(@organization), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+      <%= link_to "Back", administrator_organization_campaign_path(@organization, @campaign), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
     </div>
 
     <div class="flex content p-4">
       <div class="inline-flex w-full">
         <div class="w-5/6">
           <ul class="list-reset flex border-b w-full tabs">
-            <li class="w-12 mr-4"><%= image_tag @campaign.avatar.url, class: "w-12 h-12 rounded-full" %></li>
             <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-1">
               <a class="no-underline bg-white inline-block tab-active py-2 px-4 text-blue-dark font-semibold" href="#tab-overview">Overview</a>
             </li>
             <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-2">
-              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-events">Events</a>
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-events">Time log</a>
             </li>
             <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-3">
-              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-tasks">Tasks</a>
-            </li>
-            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-4">
               <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-people">People</a>
             </li>
+            <% if @task.user == current_user %>
+              <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-4">
+                <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-settings">Settings</a>
+              </li>
+            <% end %>
           </ul>
 
           <div id="tab-1" class="tab-content current p-6">
-            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+            <div class="flex content p-4">
+              <div class="w-full">
+                <div class="w-full border-b p-6">
+                  <h4 class="text-grey-darker">Description</h4>
+                  <div class="p-6 text-grey-dark">
+
+                  </div>
+                </div>
+
+                <div class="w-full border-b p-6">
+                  <h4 class="text-grey-darker">Files</h4>
+                  <div class="p-6 text-grey-dark">
+                    <p>There is no files!</p>
+                  </div>
+                </div>
+
+                <div class="w-full border-b p-6">
+                  <h4 class="text-grey-darker">Comments</h4>
+                  <div class="p-6 text-grey-dark">
+                    <p>There is no comment for this task!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div id="tab-2" class="tab-content p-6">
@@ -51,44 +75,54 @@
               <table class="w-full">
                 <tr class="border-b">
                   <td class="pb-2">Name</td>
-                  <td>Start date</td>
-                  <td>End date</td>
-                  <td>Status</td>
-                  <td>Assignees</td>
+                  <td>Email</td>
                 </tr>
-                <% @campaign.tasks.each do |task| %>
+                <% @task.assignees.each do |assignee| %>
                   <tr class="hover:bg-grey-lightest row">
                     <td class="p-2">
-                      <%= link_to task.name, administrator_organization_campaign_task_path(@organization, @campaign, task), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                      <%= link_to assignee.full_name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
                     </td>
-                    <td><%= task.start_date.strftime("%F")  %></td>
-                    <td><%= task.end_date.strftime("%F")  %></td>
-                    <td><%= task_status_label(task.status.to_i).html_safe %></td>
-                    <td><%= task.assignees.count %></td>
+                    <td><%= assignee.email %></td>
                   </tr>
                 <% end %>
               </table>
             <% end %>
           </div>
 
-          <div id="tab-4" class="tab-content p-6">
-            <% if @campaign.participant_users.empty? %>
-              <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
-                <p>There is no users in this campaign!</p>
-              </div>
-            <% else %>
-              <table class="w-full">
-                <% @campaign.participant_users.each do |user| %>
-                  <tr class="hover:bg-grey-lightest row">
-                    <td class="p-2">
-                      <%= image_tag avatar(user), class: "w-10 h-10 float-left rounded-lg" %>
-                      <%= link_to user.full_name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
-                    </td>
-                  </tr>
-                <% end %>
-              </table>
-            <% end %>
-          </div>
+          <% if @task.user == current_user %>
+            <div id="tab-4" class="tab-content p-6">
+                <div class="flex content p-4">
+                  <div class="w-full">
+                    <div class="w-full border-b p-6">
+                      <h4 class="text-grey-darker">Assignees</h4>
+                      <div class="p-6 text-grey-dark">
+                        <%= form_for(@task, :url => assign_user_administrator_organization_campaign_task_path(@organization, @campaign, @task), :method => :post, :html => {class: 'w-full max-w-sm'}) do |f| %>
+                          <div class="flex items-center py-2">
+                            <%= text_field_tag :assignee, nil, id: "assignee_input", class: "appearance-none bg-transparent border border-grey-dark rounded w-full text-grey-darker mr-3 py-2 px-3", placeholder: "User email", data: {autocomplete_source: not_assignees(@task).map(&:email)} %>
+                            <%= f.submit "Add", class: "flex-no-shrink bg-teal hover:bg-teal-dark border-teal hover:border-teal-dark text-sm border-4 text-white py-1 px-2 rounded" %>
+                          </div>
+                        <% end %>
+
+                        <table class="mt-6 w-full">
+                          <tr class="border-b">
+                            <td class="pb-6">Name</td>
+                            <td>Email</td>
+                          </tr>
+                          <% @task.assignees.each do |assignee| %>
+                            <tr>
+                              <td class="pt-6"><%= assignee.full_name %></td>
+                              <td class="pt-6"><%= assignee.email %></td>
+                              <td class="pt-6"><%= link_to "Remove", remove_assignee_administrator_organization_campaign_task_path(@organization, @campaign, @task, assignee.id), method: :post, class: "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded" %></td>
+                            </tr>
+                          <% end %>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+          <% end %>
         </div>
 
         <div class="w-1/6 mt-6">

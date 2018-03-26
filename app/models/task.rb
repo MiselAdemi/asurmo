@@ -4,6 +4,9 @@ class Task < ApplicationRecord
   belongs_to :campain
   belongs_to :user
 
+  has_many :assignments
+  has_many :assignees, through: :assignments, source: :user
+
   enum status: [:upcomming, :in_progress, :finished]
 
   def set_default_status

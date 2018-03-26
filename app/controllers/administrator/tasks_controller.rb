@@ -1,9 +1,12 @@
 class Administrator::TasksController < Administrator::BaseController
   before_action :authenticate_admin
-  before_action :set_campaign, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :set_task, only: [ :edit, :update, :destroy ]
+  before_action :set_campaign, only: [ :show, :new, :create, :edit, :update, :destroy, :assign_user, :remove_assignee ]
+  before_action :set_task, only: [ :show, :edit, :update, :destroy, :assign_user, :remove_assignee ]
 
   def index
+  end
+
+  def show
   end
 
   def new
@@ -44,6 +47,20 @@ class Administrator::TasksController < Administrator::BaseController
     redirect_to edit_administrator_organization_campaign_path(@organization, @campaign)
   end
 
+  def assign_user
+    if @campaign.participant_users.exists?(User.where(email: params[:assignee]).first.id)
+      if !@task.assignees.exists?(@campaign.participant_users.where(email: params[:assignee]).first.id)
+        @task.assignees << @campaign.participant_users.where(email: params[:assignee]).first
+      end
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
+  def remove_assignee
+    @task.assignees.delete(@task.assignees.find(params[:user_id]))
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def task_params
@@ -55,6 +72,6 @@ class Administrator::TasksController < Administrator::BaseController
   end
 
   def set_task
-    @task = @campaign.tasks.friendly.find(params[:id])
+    @task = @campaign.tasks.find(params[:id])
   end
 end
