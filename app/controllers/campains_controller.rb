@@ -10,7 +10,7 @@ class CampainsController < ApplicationController
   end
 
   def show
-    @event = @campain.events.new
+    authorize @campain
   	@activities = Activity.where("to_id = ? AND to_type = ?", @campain.id, "campain").order(:created_at => :desc).page(params[:page]).per(2)
   end
 
@@ -46,11 +46,11 @@ class CampainsController < ApplicationController
   def set_campain
     @campain = Campain.friendly.find(params[:id])
   end
-  
+
   def set_status
     @status = @organization.statuses.new
   end
-  
+
   def load_events
   	@events = @campain.events
   end

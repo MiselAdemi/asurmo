@@ -50,6 +50,8 @@ gem 'activerecord-typedstore'
 gem 'jquery-datatables'
 gem 'magnific-popup-rails', '~> 1.1.0'
 gem 'jwt'
+gem 'chartkick'
+gem 'groupdate'
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

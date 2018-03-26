@@ -1,155 +1,43 @@
-<div class="row">
-
-  <div class="col-lg-9 campain-center">
-    <div class="col-lg-12 campain-header-events">
-
-      <ul class="list-inline">
-        <% @events.limit(4).each do |event| %>
-        <li>
-          <%= link_to image_tag(event.avatar.url), organization_campain_event_path(@organization, @campain, event) %>
-          <h5><%= event.name %></h5>
-        </li>
-        <% end %>
-      </ul>
-
+<div class="container flex w-full mx-auto item-centered mt-16">
+  <div class="w-1/4 mt-8 border-r sidebar-fixed">
+    <div class="text-center">
+      <%= image_tag campaign_avatar(@campain), class: "rounded-lg w-48 h-48" %>
+      <p class="text-center mt-2"><%= @campain.name %></p>
     </div>
 
-    <div class="col-lg-12 campain-center">
-      <% if @campain.is_editable?(current_user) %>
-      	<% if current_user.is_organization_admin?(@organization) %>
-  				<div class="col-lg-12 timeline-status-frame">
-            <%= form_for([@statusable, @status], :url => organization_campain_statuses_path(@organization, @campain)) do |f| %>
-              <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
-              <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
+    <div class="shadow w-full flex-wrap my-6 bg-white">
+      <p class="p-4 border-b border-grey text-grey-darker">Events</p>
 
-              <%= button_tag(type: 'submit', class: "btn btn-send pull-right") do %>
-                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-              <% end %>
-            <% end %>
-
-  				</div>
-  		  <% end %>
-      <% end %>
-
-		  <div class="col-lg-12 status-box">
-        <% if @activities.empty? %>
-		      <p> There is no post on campain timeline yet! </p>
-        <% else %>
-          <ul class="single-status">
-            <%= render @activities %>
-          </ul>
-
-          <%= paginate @activities %>
-        <% end %>
-		  </div>
-		</div>
-  </div>
-
-  <div class="col-lg-3 campain-left-side">
-    <div class="info">
-      <% if @campain.avatar.url %>
-        <%= image_tag @campain.avatar.url, :class => "campain-avatar" %>
-      <% else %>
-        <%= image_tag "http://www.colourmebronze.com.au/media/catalog/product/cache/1/image/500x500/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/noImage.jpg", :class => "campain-avatar" %>
-      <% end %>
-    </div>
-    <br>
-    <div class="events panel panel-default">
-      <div class="panel-body">
-        <label>Campain name: </label> <%= @campain.name %>
-        <label>Organization: </label> <%= link_to @campain.organization.name, organization_path(@campain.organization) %>
-      </div>
-    </div>
-
-    <div class="panel panel-default latest-campain-widget">
-      <div class="panel-heading">
-        <h3 class="panel-title">Events</h3>
-        <a data-toggle="modal" data-target="#newEventModal">New event</a>
-      </div>
-      <div class="panel-body">
-        <% if !@events.any? %>
-          <p>There is no events yet</p>
+      <div class="content p">
+        <% if !@events.exists? %>
+          <p class="p-3">There is no event for this campaign!</p>
         <% else %>
           <div class="list-group">
             <% @events.each do |event| %>
-              <% if(event.id != nil) %>
-                <%= link_to event.name, organization_campain_event_path(@organization, event.campain_id, event), :class => "list-group-item list-group-item-action" %>
-              <% end %>
+              <%= link_to event.name, organization_campain_event_path(@organization, @campain, event), :class => "relative block no-underline hover:bg-grey-lightest border-b p-4 text-grey-darker" %>
             <% end %>
           </div>
         <% end %>
       </div>
     </div>
-
   </div>
 
-</div>
+  <div class="w-1/2 mt-6 mx-4" style="margin-left: 27%;">
+    <div class="w-full shadow overflow-hidden">
+      <%= form_for([@statusable, @status], :url => organization_campain_statuses_path(@organization, @campain)) do |f| %>
+        <div style="height: auto;" class="bg-white animation h-24 appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
+        <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
 
-<!-- New Event Modal -->
-<div class="modal animated zoomIn" id="newEventModal" tabindex="-1" role="dialog" aria-labelledby="newEventModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Create new event</h4>
-      </div>
-      <%= form_for([@organization, @campain, @event], :html => {:multipart => true}) do |f| %>
-        <div class="modal-body clearfix">
-
-          <div class="form-group field">
-            <%= f.label :name, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.text_field :name, :class => "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group field">
-            <%= f.label :location, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.text_field :location, :class => "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group field">
-            <%= f.label :start_date, :class => "col-md-3 control-label" %>
-            <div class='col-md-8 pull-right input-group date' id='datetimepicker6'>
-              <%= f.text_field :start_date, :class => "form-control" %>
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div>
-          </div>
-
-          <div class="form-group field">
-            <%= f.label :end_date, :class => "col-md-3 control-label" %>
-            <div class='col-md-8 pull-right input-group date' id='datetimepicker7'>
-              <%= f.text_field :end_date, :class => "form-control" %>
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div>
-          </div>
-
-          <div class="form-group field">
-            <%= f.label :avatar, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.file_field :avatar, :class => "form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group field">
-            <%= f.label :description, :class => "col-md-3 control-label" %>
-            <div class="col-md-8 pull-right">
-              <%= f.text_area :description, :class => "form-control" %>
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Create", :class => "btn btn-primary" %>
-        </div>
+        <%= button_tag(type: 'submit', class: "bg-transparent animation float-right hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded") do %>
+          Send
+        <% end %>
       <% end %>
     </div>
+
+    <div class="single-status">
+      <%= render @activities %>
+    </div>
+
+    <%= paginate @activities %>
   </div>
 </div>

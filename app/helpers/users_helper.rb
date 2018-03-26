@@ -53,5 +53,7 @@ module UsersHelper
 
   def self.viewable_campaigns(campaigns, user)
     public_campaigns = campaigns.collect{ |campaign| campaign if campaign.teams.empty? && campaign.participant_users.empty? }.compact[0...-1]
+    private_campaigns = campaigns.collect{ |campaign| campaign if campaign.participant_users.exists?(user.id) }.compact
+    public_campaigns + private_campaigns
   end
 end

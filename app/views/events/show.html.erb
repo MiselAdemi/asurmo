@@ -1,62 +1,26 @@
-<div class="row">
-
-  <div class="col-lg-9">
-    <% if current_user.is_organization_admin?(@organization) %>
-        <div class="col-lg-12 timeline-status-frame well">
-          <%= form_for([@statusable, @status], :url => organization_campain_event_statuses_path(@organization, @campain, @event)) do |f| %>
-            <div id="status-textarea" placeholder="Say your oppinion..." contenteditable="true" data-behavior="autocomplete"></div>
-            <%= f.text_area :body, :rows => "2", :id => "status-hidden-textarea",  :placeholder => "Say your oppinion..." %>
-
-            <%= button_tag(type: 'submit', class: "btn btn-send pull-right") do %>
-              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-            <% end %>
-          <% end %>
-
-        </div>
-      <% end %>
-
-      <div class="col-lg-12 status-box">
-        <% if @activities.empty? %>
-          <p> There is no post on campain timeline yet! </p>
-        <% else %>
-          <ul class="single-status well">
-            <%= render @activities %>
-          </ul>
-
-          <%= paginate @activities %>
-        <% end %>
-      </div>
-  </div>
-
-  <div class="col-lg-3 event-left-side">
-    <div class="info well">
-      <%= image_tag @event.avatar.url, :class => "event-avatar" %>
+<div class="container flex w-full mx-auto item-centered mt-16">
+  <div class="w-1/4 mt-8 border-r sidebar-fixed">
+    <div class="text-center">
+      <%= image_tag event_avatar(@event), class: "rounded-lg w-48 h-48" %>
+      <p class="text-center mt-2"><%= @event.name %></p>
     </div>
 
-    <br>
+    <div class="shadow w-full flex-wrap my-6 bg-white">
+      <p class="p-4 border-b border-grey text-grey-darker">Time frame</p>
 
-    <div class="events panel panel-default event-info">
-      <div class="panel-body">
-        <label>Event name: </label> <%= @event.name %><br>
-        <label>Campain: </label> <%= link_to @event.campain.name, organization_campain_path(@event.campain.organization, @event.campain) %><br>
-        <label>Organization: </label> <%= link_to @event.campain.organization.name, organization_path(@event.campain.organization) %>
+      <div class="content p-3">
+        <label>From: </label> <%= @event.start_date.strftime("%-d-%-m-%Y: %H:%M") %><br><br>
+        <label>To: </label> <%= @event.end_date.strftime("%-d-%-m-%Y: %H:%M") %>
       </div>
     </div>
 
-    <div class="events panel panel-default event-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">Date</h3>
-      </div>
-      <div class="panel-body">
-       <label>From: </label> <%= @event.start_date %><br>
-       <label>To: </label> <%= @event.end_date %>
-      </div>
-    </div>
+    <div class="shadow w-full flex-wrap my-6 bg-white">
+      <p class="p-4 border-b border-grey text-grey-darker">Description</p>
 
-    <div class="well description">
-      <p><%= @event.description %></p>
+      <div class="content p-3">
+        <p><%= @event.description %></p>
+      </div>
     </div>
 
   </div>
-
 </div>

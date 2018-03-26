@@ -6,6 +6,10 @@ class EventPolicy
     @event = model
   end
 
+  def show?
+    @event.campain.is_accessable_by_user?(current_user)
+  end
+
   def create?
     !current_user.events_quota_full?
   end

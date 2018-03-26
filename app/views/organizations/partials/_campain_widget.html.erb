@@ -7,7 +7,10 @@
     <% else %>
       <div class="list-group">
         <% UsersHelper.viewable_campaigns(@campains, current_user).each do |campaign| %>
-          <%= link_to campaign.name, organization_campain_path(@organization, campaign), :class => "block no-underline hover:bg-grey-lightest border-b p-4 text-grey-darker" %>
+          <%= link_to organization_campain_path(@organization, campaign), :class => "relative block no-underline hover:bg-grey-lightest border-b p-4 text-grey-darker" do %>
+            <%= campaign.name %>
+            <%= OrganizationsHelper.publicity_label(campaign).html_safe %>
+          <% end %>
         <% end %>
       </div>
     <% end %>

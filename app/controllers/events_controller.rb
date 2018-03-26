@@ -24,6 +24,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    authorize @event
     @activities = Activity.where("to_id = ? AND to_type = ?", @event.id, "event").order(:created_at => :desc).page(params[:page]).per(2)
   end
 

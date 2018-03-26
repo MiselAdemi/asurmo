@@ -24,4 +24,9 @@ module OrganizationsHelper
 			end
 		end
 	end
+
+	def self.publicity_label(campaign)
+		return '<label class="bg-transparent border p-1 text-xs rounded-lg text-grey-darker absolute pin-r pin-t mt-4 mr-4">Public</label>' if campaign.teams.empty? && campaign.participant_users.empty?
+		return '<label class="bg-transparent border border-orange-dark p-1 text-xs rounded-lg text-orange-dark absolute pin-r pin-t mt-4 mr-4">Private</label>'
+	end
 end

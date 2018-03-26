@@ -49,11 +49,20 @@
 
             <% else %>
               <table class="w-full">
+                <tr class="border-b">
+                  <td class="pb-2">Name</td>
+                  <td>Start date</td>
+                  <td>End date</td>
+                  <td>Status</td>
+                </tr>
                 <% @campaign.tasks.each do |task| %>
                   <tr class="hover:bg-grey-lightest row">
                     <td class="p-2">
                       <%= link_to task.name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
                     </td>
+                    <td><%= task.start_date.strftime("%F")  %></td>
+                    <td><%= task.end_date.strftime("%F")  %></td>
+                    <td><%= task_status_label(task.status.to_i).html_safe %></td>
                   </tr>
                 <% end %>
               </table>

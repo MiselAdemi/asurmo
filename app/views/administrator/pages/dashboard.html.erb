@@ -1,1 +1,9 @@
-<h1>DASHBOARD</h1>
+<div class="w-full bg-white rounded-lg border-2 relative">
+  <p class="p-4 border-b shadow">Overview</p>
+
+  <div class="flex content p-4">
+    <div class="flex-initial w-full">
+      <%= line_chart @organization.campains.group_by_month_of_year(:created_at).count %>
+    </div>
+  </div>
+</div>

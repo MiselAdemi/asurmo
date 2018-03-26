@@ -5,6 +5,8 @@
 //= require jquery-maskedinput
 //= require turbolinks
 //= require rails.validations
+//= require Chart.bundle
+//= require chartkick
 //= require_tree ./administrator
 
 function showModal(modalName) {

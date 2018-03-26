@@ -6,6 +6,10 @@ class CampainPolicy
     @campaign = model
   end
 
+  def show?
+    @campaign.is_accessable_by_user?(current_user)
+  end
+
   def create?
     !current_user.campains_quota_full?
   end

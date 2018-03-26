@@ -187,3 +187,9 @@ nav .dropdown-menu.notify-drop .notify-drop-footer a {
     display: none;
   }
 }
+ .sidebar-fixed {
+   min-height: 90vh;
+   position: fixed;
+   width: 16% !important;
+   padding-right: 20px;
+ }
