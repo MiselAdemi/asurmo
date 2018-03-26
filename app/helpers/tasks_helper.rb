@@ -4,4 +4,8 @@ module TasksHelper
     return '<label class="bg-green-light p-2 rounded-lg text-white">In Progress</label>' if status_id == 1
     return '<label class="bg-red-light p-2 rounded-lg text-white">Finished</label>' if status_id == 2
   end
+
+  def not_assignees(task)
+    task.campain.participant_users - task.assignees
+  end
 end

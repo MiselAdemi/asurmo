@@ -1,0 +1,23 @@
+<div class="flex profile-cover h-112 mt-16">
+
+</div>
+
+<div class="item-centered flex bg-white shadow">
+  <div class="container mx-auto flex relative h-12">
+    <div class="w-auto">
+      <%= image_tag avatar(@user), alt: "", class: "rounded-lg w-32 h-32 absolute pin-b border-2 -m-b-1" %>
+    </div>
+
+    <div class="w-3/6" style="padding-top: 10px; padding-left: 138px;">
+      <p class="text-2xl"><%= @user.full_name %></p>
+    </div>
+  </div>
+</div>
+
+<style media="screen">
+  .profile-cover {
+    background: url(<%= asset_path(cover_image(@user)) %>);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+</style>

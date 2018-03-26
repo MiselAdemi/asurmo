@@ -1,6 +1,6 @@
 class Administrator::CampaignsController < Administrator::BaseController
   before_action :authenticate_admin
-  before_action :set_campaign, only: [ :show, :edit, :update ]
+  before_action :set_campaign, only: [ :show, :edit, :update, :participant_users ]
 
   def index
   end
@@ -20,7 +20,7 @@ class Administrator::CampaignsController < Administrator::BaseController
       if @campaign.save
         CampainsHelper.update_team(@campaign, params[:team_id])
         CampainsHelper.update_viewable_users(@campaign, params[:users_id])
-        
+
         format.html { redirect_back(fallback_location: root_path, notice: 'Campaign was successfully created.' ) }
         format.json { render :json => @campaign.as_json }
       else
@@ -44,6 +44,12 @@ class Administrator::CampaignsController < Administrator::BaseController
         format.html { render action: 'edit' }
         format.json { render json: @campaign.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def participant_users
+    respond_to do |format|
+      format.json { render :json => @campaign.participant_users }
     end
   end
 

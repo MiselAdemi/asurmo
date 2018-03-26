@@ -40,3 +40,7 @@ table {
 .tab-content.current {
   display: inherit;
 }
+
+.ui-autocomplete {
+  z-index: 100;
+}
