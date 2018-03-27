@@ -51,6 +51,7 @@ class Administrator::TasksController < Administrator::BaseController
     if @campaign.participant_users.exists?(User.where(email: params[:assignee]).first.id)
       if !@task.assignees.exists?(@campaign.participant_users.where(email: params[:assignee]).first.id)
         @task.assignees << @campaign.participant_users.where(email: params[:assignee]).first
+        Assignment.notify_user(@campaign.participant_users.where(email: params[:assignee]).first, current_user)
       end
     end
     redirect_back(fallback_location: root_path)
@@ -64,7 +65,7 @@ class Administrator::TasksController < Administrator::BaseController
   private
 
   def task_params
-    params.require(:task).permit(:name, :start_date, :end_date, :status, :user_id)
+    params.require(:task).permit(:name, :description, :start_date, :end_date, :status, :user_id)
   end
 
   def set_campaign

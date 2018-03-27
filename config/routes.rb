@@ -56,6 +56,8 @@ Rails.application.routes.draw do
             post "assign_user" => "tasks#assign_user", as: "assign_user"
             post "remove_assignee/:user_id" => "tasks#remove_assignee", as: "remove_assignee"
           end
+
+          resources :statuses
         end
 
         member do

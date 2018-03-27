@@ -3,6 +3,7 @@
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
       <%= link_to "Back", administrator_organization_campaign_path(@organization, @campaign), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+      <%= link_to "Edit", edit_administrator_organization_campaign_task_path(@organization, @campaign, @task), class: "no-underline bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue-dark hover:border-transparent rounded" %>
     </div>
 
     <div class="flex content p-4">
@@ -30,8 +31,8 @@
               <div class="w-full">
                 <div class="w-full border-b p-6">
                   <h4 class="text-grey-darker">Description</h4>
-                  <div class="p-6 text-grey-dark">
-
+                  <div class="p-6 text-grey-dark text-justify">
+                    <%= sanitize(@task.description) %>
                   </div>
                 </div>
 
@@ -45,7 +46,24 @@
                 <div class="w-full border-b p-6">
                   <h4 class="text-grey-darker">Comments</h4>
                   <div class="p-6 text-grey-dark">
-                    <p>There is no comment for this task!</p>
+                    <%= render partial: 'administrator/tasks/partials/comment_form', locals: { new_comment: Comment.build_from(@task, current_user.id, "") } %>
+                    <!-- <p>There is no comment for this task!</p> -->
+                    <div class="p-6 border-t mt-6">
+                      <% @task.root_comments.reverse.each do |comment| %>
+                        <div class="border-b mb-6">
+                          <div class="overflow-hidden">
+                            <%= image_tag avatar(comment.user), class: 'float-left w-12 h-12 rounded-lg' %>
+                            <%= link_to comment.user.full_name, '#', class: 'float-left ml-4 no-underline text-grey-darker' %>
+                            <small class="float-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                          </div>
+
+                          <div class="p-2" style="width: 86%; margin-left: 5%;">
+                            <%= sanitize(comment.body) %> <br>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+
                   </div>
                 </div>
               </div>
