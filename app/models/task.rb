@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  acts_as_commentable
   before_save :set_default_status
 
   belongs_to :campain

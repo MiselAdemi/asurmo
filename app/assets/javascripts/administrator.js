@@ -7,6 +7,7 @@
 //= require rails.validations
 //= require Chart.bundle
 //= require chartkick
+//= require trix
 //= require_tree ./administrator
 
 function showModal(modalName) {

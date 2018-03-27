@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       make_child_comment
+      redirect_back(fallback_location: root_path)
     end
   end
 
