@@ -24,6 +24,9 @@
               <td><%= user.email %></td>
               <td><%= user.organization_role_label(@organization).html_safe %></td>
               <td class="text-right">
+                <% if @organization.owner == current_user && user == current_user %>
+                  <a onclick="showModal('manageTeamModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded">Manage teams</a>
+                <% end %>
                 <% if @organization.owner != user %>
                   <a onclick="showModal('manageTeamModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-orange text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded">Manage teams</a>
                   <a onclick="showModal('changeRoleModal<%= user.id %>')" class="no-underline bg-transparent cursor-pointer hover:bg-indigo-light text-indigo-dark font-semibold hover:text-white py-2 px-4 border border-indigo-light hover:border-transparent rounded">Change role</a>
