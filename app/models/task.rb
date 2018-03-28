@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   acts_as_commentable
-  before_save :set_default_status
+  after_create :set_default_status
 
   belongs_to :campain
   belongs_to :user
@@ -8,9 +8,10 @@ class Task < ApplicationRecord
   has_many :assignments
   has_many :assignees, through: :assignments, source: :user
 
-  enum status: [:upcomming, :in_progress, :finished]
+  enum status_type: [:upcomming, :in_progress, :finished]
 
   def set_default_status
-    self.status = Task.statuses.key(0)
+    self.status = Task.status_types.key(0)
+    self.save
   end
 end

@@ -56,6 +56,8 @@ module CampainsHelper
 					campaign.participant_users << campaign.organization.users.find(user)
 				end
 			end
+		else
+			campaign.participant_users.delete(users_outside_team(campaign))
 		end
 	end
 
@@ -65,8 +67,5 @@ module CampainsHelper
 		else
 			(campaign.participant_users - campaign.teams.first.users).pluck(:id).join(', ')
 		end
-
-		# return (campaign.participant_users).pluck(:id).join(', ') if !campaign.participant_users.empty?
-		# return (campaign.participant_users - campaign.teams.first.users).pluck(:id).join(', ') if !campaign.participant_users.empty? && !campaign.teams.empty?
 	end
 end
