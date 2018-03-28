@@ -10,7 +10,7 @@
           <th>Events #</th>
           <th>Tasks #</th>
           <th>Created at</th>
-          <th>Actions</th>
+          <th></th>
         </tr>
 
         <% @organization.campains.each do |campaign| %>
@@ -22,9 +22,11 @@
             <td><%= campaign.events.count %></td>
             <td><%= campaign.tasks.count %></td>
             <td><%= campaign.created_at.strftime("%F") %></td>
-            <td>
+            <td class="text-right">
               <% if campaign.name != "Default" %>
-                <%= link_to '<svg class="w-4 h-4 text-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/></svg>'.html_safe, edit_administrator_organization_campaign_path(@organization, campaign), class: "" %>
+                <%= link_to 'Edit', edit_administrator_organization_campaign_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-orange-light text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded no-underline" %>
+                <%= link_to 'Add event', edit_administrator_organization_campaign_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-teal-light text-teal-dark font-semibold hover:text-white py-2 px-4 border border-teal-dark hover:border-transparent rounded no-underline" %>
+                <%= link_to 'Add task', new_administrator_organization_campaign_task_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-indigo-light text-indigo-dark font-semibold hover:text-white py-2 px-4 border border-indigo-dark hover:border-transparent rounded no-underline" %>
               <% end %>
             </td>
           </tr>

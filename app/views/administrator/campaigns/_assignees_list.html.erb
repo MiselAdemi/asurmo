@@ -1,0 +1,9 @@
+<% if task.assignees.empty? %>
+  <p>There is no assignees</p>
+<% else %>
+  <% task.assignees.each do |assignee| %>
+    <div class="inline-block">
+      <%= image_tag avatar(assignee), class: 'w-8 h-8 rounded-lg', title: assignee.full_name %>
+    </div>
+  <% end %>
+<% end %>

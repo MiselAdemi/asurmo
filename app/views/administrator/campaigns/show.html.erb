@@ -44,7 +44,7 @@
           <div id="tab-3" class="tab-content p-6">
             <% if @campaign.tasks.empty? %>
               <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
-                <p>There is no tasks for this campaign! <a onclick="showModal('newTaskModal')" class="bg-orange rounded-full p-1 text-white hover:cursor-pointer">Add task</a></p>
+                <p>There is no tasks for this campaign! <%= link_to 'Add task', new_administrator_organization_campaign_task_path(@organization, @campaign), class: "bg-orange rounded-full p-1 text-white hover:cursor-pointer" %></p>
               </div>
 
             <% else %>
@@ -64,7 +64,7 @@
                     <td><%= task.start_date.strftime("%F")  %></td>
                     <td><%= task.end_date.strftime("%F")  %></td>
                     <td><%= task_status_label(task.status.to_i).html_safe %></td>
-                    <td><%= task.assignees.count %></td>
+                    <td><%= render partial: 'administrator/campaigns/assignees_list', locals: { task: task } %></td>
                   </tr>
                 <% end %>
               </table>

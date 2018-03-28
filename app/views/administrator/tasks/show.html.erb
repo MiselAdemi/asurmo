@@ -1,5 +1,9 @@
 <div class="w-full bg-white rounded-lg border-2 relative">
-  <p class="p-4 border-b shadow"><%= @task.name %><small class="text-grey-dark ml-4">( Started <%= @task.start_date.strftime('%F') %> - <span class="text-red">Estimated end date <%= @task.end_date.strftime('%F') %></span> )</small></p>
+  <p class="p-4 border-b shadow">
+    <%= @task.name %>
+    <small class="text-grey-dark ml-4">( Started <%= @task.start_date.strftime('%F') %> - <span class="text-red">Estimated end date <%= @task.end_date.strftime('%F') %></span> )</small>
+    <small><%= task_status_label(@task.status.to_i).html_safe %></small>
+  </p>
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
       <%= link_to "Back", administrator_organization_campaign_path(@organization, @campaign), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
