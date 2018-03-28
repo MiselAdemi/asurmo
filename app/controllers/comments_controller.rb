@@ -2,7 +2,6 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # byebug
     if params[:id]
       @comments = Activity.find(params[:activity_id]).trackable.root_comments.where('id < ?', params[:id]).limit(2)
       # @comments = Activity.find(11).trackable.root_comments.limit(2)
@@ -22,6 +21,7 @@ class CommentsController < ApplicationController
     @comment = Comment.build_from(commentable, current_user.id, body)
 
     if @comment.save
+      @comment.send_notifications!
       make_child_comment
       redirect_back(fallback_location: root_path)
     end

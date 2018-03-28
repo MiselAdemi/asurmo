@@ -39,15 +39,20 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
     domain: "asurmo.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: Rails.application.secrets.MAIL_USERNAME,
-    password: Rails.application.secrets.MAIL_PASSWORD
+    user_name: Rails.application.secrets.GMAIL_USERNAME,
+    password: Rails.application.secrets.GMAIL_PASSWORD
   }
+
+  # user_name: Rails.application.secrets.MAIL_USERNAME,
+  # password: Rails.application.secrets.MAIL_PASSWORD
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

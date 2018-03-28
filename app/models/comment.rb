@@ -45,4 +45,13 @@ class Comment < ApplicationRecord
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
   end
+
+  def send_notifications!
+    if self.commentable.class == Task
+      users = self.commentable.campain.participant_users.uniq - [user]
+      users.each do |user|
+        NotificationMailer.task_comment_notification(user, commentable).deliver_later
+      end
+    end
+  end
 end
