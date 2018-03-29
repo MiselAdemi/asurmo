@@ -66,6 +66,7 @@ Rails.application.routes.draw do
       end
 
       resources :users
+      resources :members, module: :organizations
       resources :teams do
         collection do
           post "join/:user_id" => 'teams#join', as: 'join'

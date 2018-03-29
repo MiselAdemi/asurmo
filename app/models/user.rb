@@ -71,7 +71,11 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
 
   def full_name
-    first_name + " " + last_name
+    if !first_name.nil?
+      first_name + " " + last_name
+    else
+      "Invited User"
+    end
   end
 
   def likes?(activity)
