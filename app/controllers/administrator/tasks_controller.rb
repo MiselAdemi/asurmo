@@ -35,6 +35,7 @@ class Administrator::TasksController < Administrator::BaseController
       if @task.update(task_params)
         format.html { redirect_back(fallback_location: root_path, notice: 'Task was successfully updated.' ) }
         format.json { head :ok }
+        format.js
       else
         format.html { render action: 'edit' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -59,6 +60,11 @@ class Administrator::TasksController < Administrator::BaseController
 
   def remove_assignee
     @task.assignees.delete(@task.assignees.find(params[:user_id]))
+    redirect_back(fallback_location: root_path)
+  end
+
+  def complete
+    @campaign.tasks.find(params[:task_id])
     redirect_back(fallback_location: root_path)
   end
 

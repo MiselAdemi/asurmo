@@ -14,4 +14,8 @@ class Task < ApplicationRecord
     self.status = Task.status_types.key(0)
     self.save
   end
+
+  def is_completed?
+    self.status == "finished" ? true : false
+  end
 end

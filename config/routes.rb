@@ -57,6 +57,10 @@ Rails.application.routes.draw do
             post "remove_assignee/:user_id" => "tasks#remove_assignee", as: "remove_assignee"
           end
 
+          collection do
+            put :complete
+          end
+
           resources :statuses
         end
 

@@ -2,7 +2,7 @@
   <p class="p-4 border-b shadow">
     <%= @task.name %>
     <small class="text-grey-dark ml-4">( Started <%= @task.start_date.strftime('%F') %> - <span class="text-red">Estimated end date <%= @task.end_date.strftime('%F') %></span> )</small>
-    <small><%= task_status_label(@task.status.to_i).html_safe %></small>
+    <small><%= task_status_label(@task.status).html_safe %></small>
   </p>
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
@@ -145,7 +145,7 @@
                     <div class="p-6 text-grey-dark">
                       <%= form_for(@task, :url => administrator_organization_campaign_task_path(@organization, @campaign, @task), :method => :put, :html => {class: 'w-full'}) do |f| %>
                         <div class="flex items-center py-2">
-                          <%= f.select :status, options_for_select(Task.status_types, Task.status_types[Task.status_types.key(@task.status.to_i)]), {}, class: "border p-2 bg-white mr-4" %>
+                          <%= f.select :status, options_for_select(Task.status_types.keys, Task.status_types[Task.status_types.key(@task.status.to_i)]), {}, class: "border p-2 bg-white mr-4" %>
                           <%= f.submit "Change", class: "flex-no-shrink bg-teal hover:bg-teal-dark border-teal hover:border-teal-dark text-sm border-4 text-white py-1 px-2 rounded" %>
                         </div>
                       <% end %>
