@@ -1,9 +1,9 @@
 <div class="w-full bg-white rounded-lg border-2 relative">
-  <p class="p-4 border-b shadow">Edit Task</p>
+  <p class="p-4 border-b shadow">Edit event</p>
 
-  <%= form_for(@task, :url => administrator_organization_campaign_task_path(@organization, @campaign, @task), :method => :put, :html => {class: 'w-full'}) do |f| %>
+  <%= form_for(@event, :url => administrator_organization_campaign_events_path(@organization, @campaign), :method => :put, :html => {class: 'w-full'}, validate: true) do |f| %>
     <div class="form-buttons absolute pin-t pin-r mt-2 mr-4">
-      <%= link_to "Back", administrator_organization_campaign_task_path(@organization, @campaign, @task), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+      <%= link_to "Back", administrator_organization_campaign_event_path(@organization, @campaign, @event), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
       <%= f.submit "Update", :class => "bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
     </div>
 
@@ -32,6 +32,17 @@
             <div class="w-2/5">
               <%= f.hidden_field :description, id: 'task_description' %>
               <trix-editor input="task_description"></trix-editor>
+            </div>
+          </div>
+
+          <div class="flex items-center mb-6">
+            <div class="w-1/3">
+              <label class="block text-grey font-bold  mb-1 md:mb-0 pr-4" for="inline-full-name">
+                Avatar
+              </label>
+            </div>
+            <div class="w-2/3">
+              <%= f.file_field :avatar, :class => "shadow appearance-none border border-grey-lighter hover:border-blue rounded w-full py-2 px-4 text-grey-darker", :required => true %>
             </div>
           </div>
 

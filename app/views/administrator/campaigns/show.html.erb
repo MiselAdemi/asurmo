@@ -31,12 +31,19 @@
           <div id="tab-2" class="tab-content p-6 relative">
             <%= link_to "New", administrator_organization_campaigns_path(@organization), class: "absolute pin-r no-underline bg-transparent cursor-pointer hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green-dark hover:border-transparent rounded" %>
             <table class="w-5/6">
+              <tr class="border-b">
+                <td class="pb-4">Name</td>
+                <td>Stard date</td>
+                <td>End date</td>
+              </tr>
               <% @campaign.events.each do |event| %>
                 <tr class="hover:bg-grey-lightest row">
                   <td class="p-2">
                     <%= image_tag event_avatar(event), class: "w-10 h-10 float-left rounded-lg" %>
                     <%= link_to event.name, administrator_organization_campaign_event_path(@organization, @campaign, event), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
                   </td>
+                  <td><%= event.start_date.strftime("%F") %></td>
+                  <td><%= event.end_date.strftime("%F") %></td>
                 </tr>
               <% end %>
             </table>

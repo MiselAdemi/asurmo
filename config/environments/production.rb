@@ -60,14 +60,16 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "asurmo_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :smtp
+  
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
     domain: "asurmo.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: Rails.application.secrets.MAIL_USERNAME,
-    password: Rails.application.secrets.MAIL_PASSWORD
+    user_name: Rails.application.secrets.GMAIL_USERNAME,
+    password: Rails.application.secrets.GMAIL_PASSWORD
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

@@ -7,10 +7,5 @@
 <div class="w-1/3 text-center inline-block">
   <h4 class="pb-6">Tasks stats</h4>
 
-  <%= pie_chart campaign.tasks.group(:status).count, donut: true, messages: {empty: "No data"}, legend: false %>
-  <div class="mt-6 text-center">
-    <span class="bg-blue w-8 h-2 inline-block"></span> Upcomming
-    <span class="bg-green w-8 h-2 inline-block"></span> In progress
-    <span class="bg-red w-8 h-2 inline-block"></span> Finished
-  </div>
+  <%= pie_chart task_chart_data(campaign), donut: true, messages: {empty: "No data"}, legend: true, colors: task_chart_colors(campaign) %>
 </div>

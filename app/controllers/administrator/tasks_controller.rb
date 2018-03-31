@@ -49,10 +49,12 @@ class Administrator::TasksController < Administrator::BaseController
   end
 
   def assign_user
-    if @campaign.participant_users.exists?(User.where(email: params[:assignee]).first.id)
-      if !@task.assignees.exists?(@campaign.participant_users.where(email: params[:assignee]).first.id)
-        @task.assignees << @campaign.participant_users.where(email: params[:assignee]).first
-        Assignment.notify_user(@campaign.participant_users.where(email: params[:assignee]).first, current_user)
+    email = params[:assignee].scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i).first
+
+    if @campaign.participant_users.exists?(User.where(email: email).first.id)
+      if !@task.assignees.exists?(@campaign.participant_users.where(email: email).first.id)
+        @task.assignees << @campaign.participant_users.where(email: email).first
+        Assignment.notify_user(@campaign.participant_users.where(email: email).first, current_user)
       end
     end
     redirect_back(fallback_location: root_path)

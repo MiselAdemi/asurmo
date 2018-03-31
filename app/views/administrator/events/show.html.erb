@@ -3,6 +3,7 @@
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
       <%= link_to "Back to campaign", administrator_organization_campaign_path(@organization, @event.campain), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+      <%= link_to "Edit", edit_administrator_organization_campaign_event_path(@organization, @event.campain, @event), class: "no-underline bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue-dark hover:border-transparent rounded" %>
     </div>
 
     <div class="flex content p-4">
@@ -24,7 +25,23 @@
         <div class="w-full border-b p-6">
           <h4 class="text-grey-darker">Comments</h4>
           <div class="p-6 text-grey-dark">
-            <p>There is no comment for this task!</p>
+            <%= render partial: 'administrator/events/partials/comment_form', locals: { new_comment: Comment.build_from(@event, current_user.id, "") } %>
+
+            <div class="p-6 border-t mt-6">
+              <% @event.root_comments.order("created_at DESC").each do |comment| %>
+                <div class="border-b mb-6">
+                  <div class="overflow-hidden">
+                    <%= image_tag avatar(comment.user), class: 'float-left w-12 h-12 rounded-lg' %>
+                    <%= link_to comment.user.full_name, '#', class: 'float-left ml-4 no-underline text-grey-darker' %>
+                    <small class="float-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                  </div>
+
+                  <div class="p-2 leading-normal" style="width: 86%; margin-left: 5%;">
+                    <%= sanitize(comment.body) %> <br>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

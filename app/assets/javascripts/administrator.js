@@ -8,6 +8,7 @@
 //= require Chart.bundle
 //= require chartkick
 //= require trix
+//= require datetimepicker
 //= require_tree ./administrator
 
 function showModal(modalName) {

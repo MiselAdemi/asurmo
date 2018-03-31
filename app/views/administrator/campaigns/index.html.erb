@@ -25,7 +25,7 @@
             <td class="text-right">
               <% if campaign.name != "Default" %>
                 <%= link_to 'Edit', edit_administrator_organization_campaign_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-orange-light text-orange-dark font-semibold hover:text-white py-2 px-4 border border-orange-dark hover:border-transparent rounded no-underline" %>
-                <%= link_to 'Add event', edit_administrator_organization_campaign_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-teal-light text-teal-dark font-semibold hover:text-white py-2 px-4 border border-teal-dark hover:border-transparent rounded no-underline" %>
+                <%= link_to 'Add event', new_administrator_organization_campaign_event_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-teal-light text-teal-dark font-semibold hover:text-white py-2 px-4 border border-teal-dark hover:border-transparent rounded no-underline" %>
                 <%= link_to 'Add task', new_administrator_organization_campaign_task_path(@organization, campaign), class: "bg-transparent cursor-pointer hover:bg-indigo-light text-indigo-dark font-semibold hover:text-white py-2 px-4 border border-indigo-dark hover:border-transparent rounded no-underline" %>
               <% end %>
             </td>

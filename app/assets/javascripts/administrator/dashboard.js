@@ -14,4 +14,6 @@ $(document).on("turbolinks:load", function() {
   $( "#assignee_input" ).autocomplete({
      source: $('#assignee_input').data('autocomplete-source')
   })
+
+  $('.datetimepicker').datetimepicker();
 });

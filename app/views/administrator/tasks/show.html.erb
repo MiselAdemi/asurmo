@@ -6,6 +6,8 @@
   </p>
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
+      <%= link_to "Mark as completed", administrator_organization_campaign_task_path(@organization, @campaign, @task, task: { status: "finished" }), method: :put, class: "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded" if !@task.is_completed? %>
+      <%= link_to "Mark as in progress", administrator_organization_campaign_task_path(@organization, @campaign, @task, task: { status: "in_progress" }), method: :put, class: "no-underline bg-transparent cursor-pointer hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green-dark hover:border-transparent rounded" if @task.is_completed? %>
       <%= link_to "Back", administrator_organization_campaign_path(@organization, @campaign), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
       <%= link_to "Edit", edit_administrator_organization_campaign_task_path(@organization, @campaign, @task), class: "no-underline bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue-dark hover:border-transparent rounded" %>
     </div>
@@ -86,13 +88,20 @@
           </div>
 
           <div id="tab-3" class="tab-content p-6">
-            <% if @campaign.tasks.empty? %>
+            <%= form_for(@task, :url => assign_user_administrator_organization_campaign_task_path(@organization, @campaign, @task), :method => :post, :html => {class: 'w-full max-w-sm'}) do |f| %>
+              <div class="flex items-center py-2">
+                <%= text_field_tag :assignee, nil, id: "assignee_input", class: "appearance-none bg-transparent border border-grey-dark rounded w-full text-grey-darker mr-3 py-2 px-3", placeholder: "User name", data: {autocomplete_source: not_assignees(@task).map{ |u| "#{u.full_name} ( #{u.email} )" }} %>
+                <%= f.submit "Add", class: "flex-no-shrink bg-teal hover:bg-teal-dark border-teal hover:border-teal-dark text-sm border-4 text-white py-1 px-2 rounded" %>
+              </div>
+            <% end %>
+
+            <% if @task.assignees.empty? %>
               <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
-                <p>There is no tasks for this campaign! <a onclick="showModal('newTaskModal')" class="bg-orange rounded-full p-1 text-white hover:cursor-pointer">Add task</a></p>
+                <p>There is no user assigned to task!</p>
               </div>
 
             <% else %>
-              <table class="w-full">
+              <table class="w-full mt-6">
                 <tr class="border-b">
                   <td class="pb-2">Name</td>
                   <td>Email</td>
@@ -100,9 +109,10 @@
                 <% @task.assignees.each do |assignee| %>
                   <tr class="hover:bg-grey-lightest row">
                     <td class="p-2">
-                      <%= link_to assignee.full_name, "#", class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                      <%= link_to assignee.full_name, user_path(assignee), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
                     </td>
                     <td><%= assignee.email %></td>
+                    <td><%= link_to "Remove", remove_assignee_administrator_organization_campaign_task_path(@organization, @campaign, @task, assignee.id), method: :post, class: "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded" %></td>
                   </tr>
                 <% end %>
               </table>
@@ -112,34 +122,6 @@
           <div id="tab-4" class="tab-content p-6">
               <div class="flex content p-4">
                 <div class="w-full">
-                  <% if @task.user == current_user %>
-                    <div class="w-full border-b p-6">
-                      <h4 class="text-grey-darker">Assignees</h4>
-                      <div class="p-6 text-grey-dark">
-                        <%= form_for(@task, :url => assign_user_administrator_organization_campaign_task_path(@organization, @campaign, @task), :method => :post, :html => {class: 'w-full max-w-sm'}) do |f| %>
-                          <div class="flex items-center py-2">
-                            <%= text_field_tag :assignee, nil, id: "assignee_input", class: "appearance-none bg-transparent border border-grey-dark rounded w-full text-grey-darker mr-3 py-2 px-3", placeholder: "User email", data: {autocomplete_source: not_assignees(@task).map(&:email)} %>
-                            <%= f.submit "Add", class: "flex-no-shrink bg-teal hover:bg-teal-dark border-teal hover:border-teal-dark text-sm border-4 text-white py-1 px-2 rounded" %>
-                          </div>
-                        <% end %>
-
-                        <table class="mt-6 w-full">
-                          <tr class="border-b">
-                            <td class="pb-6">Name</td>
-                            <td>Email</td>
-                          </tr>
-                          <% @task.assignees.each do |assignee| %>
-                            <tr>
-                              <td class="pt-6"><%= assignee.full_name %></td>
-                              <td class="pt-6"><%= assignee.email %></td>
-                              <td class="pt-6"><%= link_to "Remove", remove_assignee_administrator_organization_campaign_task_path(@organization, @campaign, @task, assignee.id), method: :post, class: "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded" %></td>
-                            </tr>
-                          <% end %>
-                        </table>
-                      </div>
-                    </div>
-                  <% end %>
-
                   <div class="w-full border-b p-6">
                     <h4 class="text-grey-darker">Status</h4>
                     <div class="p-6 text-grey-dark">

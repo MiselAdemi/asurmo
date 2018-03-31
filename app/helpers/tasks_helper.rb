@@ -8,4 +8,18 @@ module TasksHelper
   def not_assignees(task)
     task.campain.participant_users - task.assignees
   end
+
+  def task_chart_data(campaign)
+    campaign.tasks.group(:status).count
+  end
+
+  def task_chart_colors(campaign)
+    data = campaign.tasks.group(:status).count
+    score_colors = {"upcomming" => 'blue', "in_progress" => 'green', "finished" => 'red'}
+    colors = []
+    data.each do |score, _|
+      colors << score_colors[score]
+    end
+    colors
+  end
 end
