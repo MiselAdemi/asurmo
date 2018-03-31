@@ -9,6 +9,7 @@
 //= require chartkick
 //= require trix
 //= require datetimepicker
+//= require selectize
 //= require_tree ./administrator
 
 function showModal(modalName) {

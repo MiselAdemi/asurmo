@@ -63,9 +63,9 @@ module CampainsHelper
 
 	def self.users_outside_team(campaign)
 		if campaign.teams.empty?
-			campaign.participant_users.pluck(:id).join(', ')
+			campaign.participant_users
 		else
-			(campaign.participant_users - campaign.teams.first.users).pluck(:id).join(', ')
+			campaign.participant_users - campaign.teams.first.users
 		end
 	end
 end

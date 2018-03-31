@@ -36,7 +36,7 @@ class Administrator::CampaignsController < Administrator::BaseController
     respond_to do |format|
       if @campaign.update(campaign_params)
         CampainsHelper.update_team(@campaign, params[:team_id])
-        CampainsHelper.update_viewable_users(@campaign, params[:users_id])
+        # CampainsHelper.update_viewable_users(@campaign, params[:users_id])
 
         format.html { redirect_back(fallback_location: root_path, notice: 'Campaign was successfully updated.' ) }
         format.json { head :ok }
@@ -56,7 +56,7 @@ class Administrator::CampaignsController < Administrator::BaseController
   private
 
   def campaign_params
-    params.require(:campain).permit(:name, :avatar, :users_id, events_attributes: [ :id, :name])
+    params.require(:campain).permit(:name, :avatar, :users_id, events_attributes: [ :id, :name], participant_user_ids: [])
   end
 
   def set_campaign
