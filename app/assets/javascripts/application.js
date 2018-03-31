@@ -27,7 +27,6 @@
 //= require react
 //= require react_ujs
 //= require layout/components
-//= require timeago
 //= require magnific-popup
 //= require turbolinks
 //= require rails.validations

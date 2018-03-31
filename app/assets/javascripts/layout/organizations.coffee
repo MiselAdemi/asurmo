@@ -29,7 +29,7 @@ $(document).on "turbolinks:load", ->
 		if $('.new-organization-form-field').val() == ''
 			$(".new_organization .btn").attr('disabled', true)
 			return
-			
+
 		$(".new_organization .btn").attr('disabled', false)
 
 	$('.filterable .btn-filter').click ->
@@ -44,10 +44,10 @@ $(document).on "turbolinks:load", ->
     	$tbody.find('.no-result').remove()
     	$tbody.find('tr').show()
 
-  otable = $('#members-table').DataTable();
-
-  otable.columns().every ->
-  	that = this
-  	$('input', @header()).on 'keyup change', ->
-    	if that.search() != @value
-      	that.search(@value).draw()
+  # otable = $('#members-table').DataTable();
+  # 
+  # otable.columns().every ->
+  # 	that = this
+  # 	$('input', @header()).on 'keyup change', ->
+  #   	if that.search() != @value
+  #     	that.search(@value).draw()
