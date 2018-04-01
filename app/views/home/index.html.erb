@@ -37,8 +37,24 @@
         <h3>It´s your time to change world!</h3>
       </div>
 
-      <div class="col-lg-12 logo-wrapper">
-        <%= image_tag "logo.png" %>
+      <div class="w-1/2 m-auto mt-16">
+        <h2 class="mb-8">Get early access</h2>
+        <%= form_for Lead.new do |f| %>
+          <%= f.email_field :email, class: 'shadow appearance-none border rounded w-3/5 inlnie-block py-2 px-3 text-grey-darker', placeholder: "Your email" %>
+          <%= f.submit "Request access", class: 'bg-blue hover:bg-blue-dark text-white inline-block font-bold py-2 px-4 rounded' %>
+        <% end %>
+
+        <% if notice %>
+          <div class="mt-6 bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md" role="alert">
+            <div class="flex">
+              <div class="py-1"><svg class="fill-current h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+              <div>
+                <p class="font-bold"><%= notice %></p>
+                <p class="text-sm">When registration is enabled for beta users you will get email with instructions.</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -50,7 +66,7 @@
       <div class="row well sign-up-wrapper">
         <%= render "devise/registrations/new" if Rails.env.development? %>
       </div>
-      <h4>This si pre alpha, you can join just with invitation!</h4>
+      <h4>This is pre alpha, you can join just with invitation!</h4>
     </div>
   <% end %>
 </div>
