@@ -7,13 +7,25 @@
     <div class="w-full mt-6">
       <table class="w-1/2">
         <tr>
+          <td class="border-b pb-4">Id</td>
           <td class="border-b pb-4">Email</td>
           <td class="border-b pb-4">Request access date</td>
+          <td class="border-b pb-4"></td>
         </tr>
-        <% @leads.each do |lead| %>
+        <% @leads.each_with_index do |lead, index| %>
           <tr>
+            <td class="pt-2"><%= index + 1 %></td>
             <td class="pt-2"><%= lead.email %></td>
             <td class="pt-2"><%= lead.created_at.strftime("%d-%m-%Y") %></td>
+            <td class="pt-4">
+              <% if lead_status(lead) == 0 %>
+                <%= link_to "Send invitation", admin_lead_invite_path(lead), class: "bg-transparent cursor-pointer hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green hover:border-transparent rounded no-underline" %>
+              <% elsif lead_status(lead) == "pending" %>
+                <span class="bg-orange font-semibold text-white py-2 px-4 border border-orange hover:border-transparent rounded">Pending</span>
+              <% else %>
+                <span class="bg-blue font-semibold text-white py-2 px-4 border border-blue hover:border-transparent rounded">Registered</span>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </table>

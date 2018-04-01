@@ -7,6 +7,7 @@ class Administrator::TasksController < Administrator::BaseController
   end
 
   def show
+    @comments = @task.root_comments.order("created_at DESC").page(params[:page]).per(10)
   end
 
   def new

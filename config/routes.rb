@@ -44,7 +44,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :leads
+    resources :leads do
+      get 'invite' => 'leads#invite'
+    end
   end
 
   namespace :administrator do

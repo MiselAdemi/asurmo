@@ -6,7 +6,8 @@ module TasksHelper
   end
 
   def not_assignees(task)
-    task.campain.participant_users - task.assignees
+    return task.campain.participant_users - task.assignees if task.campain.participant_users.present?
+    return task.campain.organization.users if !task.campain.participant_users.present?
   end
 
   def task_chart_data(campaign)
