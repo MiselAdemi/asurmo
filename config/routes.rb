@@ -43,6 +43,8 @@ Rails.application.routes.draw do
         get "unblock" => "users#unblock"
       end
     end
+
+    resources :leads
   end
 
   namespace :administrator do

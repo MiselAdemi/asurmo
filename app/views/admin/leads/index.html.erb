@@ -1,0 +1,22 @@
+<div class="border rounded p-6 mt-8">
+  <div class="w-full border-b pb-4">
+    <h2 class="text-grey-darker">Beta testers list</h2>
+  </div>
+
+  <div class="w-full">
+    <div class="w-full mt-6">
+      <table class="w-1/2">
+        <tr>
+          <td class="border-b pb-4">Email</td>
+          <td class="border-b pb-4">Request access date</td>
+        </tr>
+        <% @leads.each do |lead| %>
+          <tr>
+            <td class="pt-2"><%= lead.email %></td>
+            <td class="pt-2"><%= lead.created_at.strftime("%d-%m-%Y") %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
