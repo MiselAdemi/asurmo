@@ -3,7 +3,7 @@ module TasksHelper
     return '<label class="bg-blue-light p-2 rounded-lg text-white">Upcomming</label>' if status_id == "upcomming"
     return '<label class="bg-yellow-dark p-2 rounded-lg text-white">In Progress</label>' if status_id == "in_progress"
     return '<label class="bg-green-light p-2 rounded-lg text-white">Finished</label>' if status_id == "finished"
-    return '<label class="bg-red-light p-2 rounded-lg text-white">Finished</label>' if status_id == "Delay"
+    return '<label class="bg-red-light p-2 rounded-lg text-white">Delay</label>' if status_id == "delay"
   end
 
   def not_assignees(task)
