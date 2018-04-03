@@ -2,7 +2,7 @@ class Administrator::UsersController < Administrator::BaseController
   before_action :authenticate_admin
 
   def index
-    @users = @organization.users
+    @users = Organization.user_search(@organization.id, params[:keywords], params[:role])
   end
 
   def show

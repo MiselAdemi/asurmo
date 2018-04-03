@@ -17,7 +17,7 @@ module TasksHelper
 
   def task_chart_colors(campaign)
     data = campaign.tasks.group(:status).count
-    score_colors = {"upcomming" => 'blue', "in_progress" => 'green', "finished" => 'red'}
+    score_colors = {"upcomming" => 'blue', "in_progress" => 'yellow', "finished" => 'green', "delay" => "red"}
     colors = []
     data.each do |score, _|
       colors << score_colors[score]

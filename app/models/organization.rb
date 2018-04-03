@@ -57,4 +57,11 @@ class Organization < ApplicationRecord
   def number_of_events
     owner.number_of_events_user_ownes
   end
+
+  def self.user_search(organization_id, keywords, role)
+    search = User.joins(:members).where("members.organization_id = ?", organization_id)
+    search = search.where("lower(first_name) LIKE ? OR lower(last_name) LIKE ?", "%#{keywords.downcase}%", "%#{keywords.downcase}%") if keywords.present?
+    search = search.where("members.role = ?", role.to_i) if role.present?
+    search
+  end
 end

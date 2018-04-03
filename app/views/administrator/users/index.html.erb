@@ -8,6 +8,15 @@
 
     <div class="flex content p-4">
       <div class="w-full">
+        <div class="mb-6">
+          <%= form_for administrator_organization_users_path(@organization), method: "GET" do %>
+            <%= text_field_tag :keywords, params[:keywords], placeholder: "User name", class: 'border p-2 bg-white' %>
+            <%= select_tag :role, options_for_select(Member.roles, nil), include_blank: "Select role", class: 'border p-2 bg-white' %>
+            <%= submit_tag "Search", name: nil, class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
+            <%= link_to "Reset", administrator_organization_users_path(@organization), class: "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded" %>
+          <% end %>
+        </div>
+
         <table class="w-full">
           <tr class="border-b-2 w-full">
             <td class="pb-2">Name</td>
