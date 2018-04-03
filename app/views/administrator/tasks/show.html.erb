@@ -6,8 +6,8 @@
   </p>
 
     <div class="form-buttons absolute pin-t pin-r mt-4 mr-4">
-      <%= link_to "Mark as completed", administrator_organization_campaign_task_path(@organization, @campaign, @task, task: { status: "finished" }), method: :put, class: "no-underline bg-transparent cursor-pointer hover:bg-red text-red-dark font-semibold hover:text-white py-2 px-4 border border-red-dark hover:border-transparent rounded" if !@task.is_completed? %>
-      <%= link_to "Mark as in progress", administrator_organization_campaign_task_path(@organization, @campaign, @task, task: { status: "in_progress" }), method: :put, class: "no-underline bg-transparent cursor-pointer hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green-dark hover:border-transparent rounded" if @task.is_completed? %>
+      <%= link_to "Mark as completed", administrator_organization_campaign_task_path(@organization, @campaign, @task, task: { status: "finished" }), method: :put, class: "no-underline bg-transparent cursor-pointer hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green-dark hover:border-transparent rounded" if !@task.is_completed? %>
+      <%= link_to "Mark as in progress", administrator_organization_campaign_task_path(@organization, @campaign, @task, task: { status: "in_progress" }), method: :put, class: "no-underline bg-transparent cursor-pointer hover:bg-yellow-dark text-yellow-dark font-semibold hover:text-white py-2 px-4 border border-yellow-dark hover:border-transparent rounded" if @task.is_completed? %>
       <%= link_to "Back", administrator_organization_campaign_path(@organization, @campaign), class: "no-underline bg-transparent cursor-pointer hover:bg-grey text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded" %>
       <%= link_to "Edit", edit_administrator_organization_campaign_task_path(@organization, @campaign, @task), class: "no-underline bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue-dark hover:border-transparent rounded" %>
     </div>

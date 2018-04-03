@@ -8,7 +8,7 @@ class Task < ApplicationRecord
   has_many :assignments
   has_many :assignees, through: :assignments, source: :user
 
-  enum status_type: [:upcomming, :in_progress, :finished]
+  enum status_type: [:upcomming, :in_progress, :finished, :delay]
 
   def set_default_status
     self.status = Task.status_types.key(0)
