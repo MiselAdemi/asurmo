@@ -20,6 +20,24 @@
               <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-tasks">Tasks</a>
             </li>
             <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-4">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-milestone">Milestone</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-5">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-calendar">Calendar</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-6">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-messages">Messages</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-7">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-files">Files</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-8">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-notebooks">Notebooks</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-9">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-comments">Comments</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-10">
               <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-people">People</a>
             </li>
           </ul>
@@ -138,11 +156,30 @@
                     </tr>
                   <% end %>
                 </table>
-              </div<
+              </div>
             <% end %>
           </div>
 
-          <div id="tab-4" class="tab-content p-6">
+          <div id="tab-4" class="tab-content p-6 relative">Milestone</div>
+          <div id="tab-5" class="tab-content p-6 relative">
+            <%= month_calendar(attribute: :start_date, events: @calendar_items) do |date, items| %>
+              <span class="border-r border-b p-2"><%= date.day %></span>
+
+              <div class="p-2">
+                <% items.each do |item| %>
+                  <div class="p-1 mt-2 bg-blue rounded-lg text-white">
+                    <%= item.name %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div id="tab-6" class="tab-content p-6 relative">Messages</div>
+          <div id="tab-7" class="tab-content p-6 relative">Files</div>
+          <div id="tab-8" class="tab-content p-6 relative">Notebooks</div>
+          <div id="tab-9" class="tab-content p-6 relative">Comments</div>
+          <div id="tab-10" class="tab-content p-6 relative">
+            hdafgds
             <% if @campaign.participant_users.empty? %>
               <div class="bg-orange-lightest border-l-4 border-orange text-orange-dark p-4" role="alert">
                 <p>There is no users in this campaign!</p>

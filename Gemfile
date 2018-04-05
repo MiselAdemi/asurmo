@@ -54,6 +54,7 @@ gem 'chartkick'
 gem 'groupdate'
 gem 'trix'
 gem "selectize-rails"
+gem "simple_calendar", "~> 2.0"
 
 gem 'rails-assets-jquery-maskedinput', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-ui', source: 'https://rails-assets.org'

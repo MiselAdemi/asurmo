@@ -6,6 +6,7 @@ class Administrator::CampaignsController < Administrator::BaseController
   end
 
   def show
+    @calendar_items = @campaign.events + @campaign.tasks
   end
 
   def new
