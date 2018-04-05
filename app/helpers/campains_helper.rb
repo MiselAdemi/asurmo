@@ -68,4 +68,20 @@ module CampainsHelper
 			campaign.participant_users - campaign.teams.first.users
 		end
 	end
+
+	def self.all_events_comments(campaign)
+		result = []
+		campaign.events.each do |event|
+			result << event.root_comments
+		end
+		result
+	end
+
+	def self.all_tasks_comments(campaign)
+		result = []
+		campaign.tasks.each do |task|
+			result << task.root_comments
+		end
+		result
+	end
 end

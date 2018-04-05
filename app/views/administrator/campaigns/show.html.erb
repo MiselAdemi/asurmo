@@ -177,7 +177,24 @@
           <div id="tab-6" class="tab-content p-6 relative">Messages</div>
           <div id="tab-7" class="tab-content p-6 relative">Files</div>
           <div id="tab-8" class="tab-content p-6 relative">Notebooks</div>
-          <div id="tab-9" class="tab-content p-6 relative">Comments</div>
+          <div id="tab-9" class="tab-content p-6 relative">
+            <% @all_comments.each do |comment| %>
+              <div class="border-b mb-8 pb-4">
+                <div class="float-left mr-4">
+                  <%= image_tag avatar(comment.user), class: "w-12 h-12 rounded-lg border-2" %>
+                </div>
+                <div class="inline-block">
+                  <div class="">
+                    <span class="text-blue-dark"><%= comment.user.full_name %></span> <span class="text-grey-darker">commented on <%= comment.commentable_type.downcase %></span> <span class="text-green-dark"><%= comment.commentable.name %></span> <small class="text-grey-dark"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                  </div>
+
+                  <div class="p-4 text-grey-darkest">
+                    <%= comment.body.html_safe.truncate(100, separator: ' ') %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
           <div id="tab-10" class="tab-content p-6 relative">
             hdafgds
             <% if @campaign.participant_users.empty? %>

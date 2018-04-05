@@ -23,5 +23,4 @@ $(document).on("turbolinks:load", function() {
 
   // Set open tab
   $(".tab-link[data-tab='" + localStorage.getItem("tab") + "']").click();
-
 });

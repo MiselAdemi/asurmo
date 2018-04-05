@@ -7,6 +7,7 @@ class Administrator::CampaignsController < Administrator::BaseController
 
   def show
     @calendar_items = @campaign.events + @campaign.tasks
+    @all_comments = (CampainsHelper::all_events_comments(@campaign) + CampainsHelper::all_tasks_comments(@campaign)).first
   end
 
   def new
