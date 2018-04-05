@@ -189,7 +189,7 @@
                   </div>
 
                   <div class="p-4 text-grey-darkest">
-                    <%= comment.body.html_safe.truncate(100, separator: ' ') %>
+                    <%= sanitize(comment.body.truncate(100, separator: ' ')) %>
                   </div>
                 </div>
               </div>
