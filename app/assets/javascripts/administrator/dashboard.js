@@ -16,4 +16,12 @@ $(document).on("turbolinks:load", function() {
   })
 
   $('.datetimepicker').datetimepicker();
+
+  $(".tab-link").on("click", function(){
+    localStorage.setItem("tab", $(this).data('tab'));
+  });
+
+  // Set open tab
+  $(".tab-link[data-tab='" + localStorage.getItem("tab") + "']").click();
+
 });

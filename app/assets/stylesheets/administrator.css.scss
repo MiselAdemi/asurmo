@@ -4,6 +4,7 @@
  *= require datetimepicker
  *= require selectize
  *= require selectize.default
+ *= require simple_calendar
  *= require_tree ./administrator
  *= require_self
  */
@@ -47,4 +48,18 @@ table {
 
 .ui-autocomplete {
   z-index: 100;
+}
+
+// Calendar
+.simple-calendar {
+  .prev-month, .next-month {
+    background: #f9f9f9;
+  }
+
+  .day {
+    padding: 0px;
+    padding-top: 0.5rem;
+    height: 116px;
+    min-height: 116px;
+  }
 }
