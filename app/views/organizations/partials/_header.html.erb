@@ -24,7 +24,7 @@
 
 <style media="screen">
   .profile-cover {
-    background: url("http://lorempixel.com/700/300/nature/2/");
+    background: url(<%= asset_path(cover_image(@organization)) %>);
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403063348) do
+ActiveRecord::Schema.define(version: 20180406073127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 20180403063348) do
     t.string "description"
     t.boolean "removed", default: false
     t.integer "world_member_id"
+    t.string "cover_image"
     t.index ["owner_id"], name: "index_organizations_on_owner_id"
     t.index ["slug"], name: "index_organizations_on_slug"
   end

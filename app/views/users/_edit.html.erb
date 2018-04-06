@@ -41,6 +41,34 @@
 </div>
 
 <div class="shadow w-full mb-6">
+  <p class="p-4">Avatar and cover image</p>
+
+  <div class="content bg-white p-4 overflow-hidden">
+    <%= form_for(@user) do |f| %>
+      <div class="w-full flex my-2">
+        <%= f.label :avatar, :class => "text-grey-darkest w-2/5 pt-2" %>
+        <%= f.file_field :avatar, :class => "bg-white w-1/2 animation appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" %>
+      </div>
+      <div class="w-2/3 edit-image">
+        <%= image_tag avatar(@user), class: "w-48 h-48" %>
+      </div>
+
+      <div class="w-full flex my-2">
+        <%= f.label :cover_image, :class => "text-grey-darkest w-2/5 pt-2" %>
+        <%= f.file_field :cover_image, :class => "bg-white w-1/2 animation appearance-none border-2 border-grey-lighter hover:border-blue-dark rounded w-full py-2 px-4 text-grey-darker" %>
+      </div>
+      <div class="w-2/3 edit-image">
+        <%= image_tag cover_image(@user), class: "w-full h-48" %>
+      </div>
+
+      <div class="mt-6">
+        <%= f.submit 'Update profile', :class => "bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="shadow w-full mb-6">
   <p class="p-4">Address</p>
 
   <div class="content bg-white p-4">

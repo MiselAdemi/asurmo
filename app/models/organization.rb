@@ -15,6 +15,7 @@ class Organization < ApplicationRecord
   accepts_nested_attributes_for :members, :users
 
   mount_uploader :avatar, OrganizationAvatarUploader
+  mount_uploader :cover_image, OrganizationCoverImageUploader
 
   # User joins organization
   def join(user)

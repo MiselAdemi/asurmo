@@ -19,6 +19,6 @@ class Administrator::OrganizationsController < Administrator::BaseController
   private
 
   def organization_params
-    params.require(:organization).permit(:name, :description, :avatar)
+    params.require(:organization).permit(:name, :description, :avatar, :cover_image)
   end
 end

@@ -6,14 +6,18 @@
       <%= image_tag @organization.avatar.url, class: "w-64 h-64 rounded-lg" %>
 
       <%= form_for(@organization, :url => administrator_organization_path(@organization), :method => :put, :html => {:multipart => true}) do |f| %>
-        <%= f.file_field :avatar, :class => "my-4" %>
+        <%= f.file_field :avatar, :class => "my-4" %><br>
         <%= f.submit "Upload", :class => "bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
       <% end %>
     </div>
 
     <div class="flex-initial">
-      <%= image_tag "http://colorfully.eu/wp-content/uploads/2012/10/empty-road-highway-with-fog-facebook-cover.jpg", class: "w-full h-64 rounded-lg" %>
-      <input type="file" name="" value="">
+      <%= image_tag cover_image(@organization), class: "w-full h-64 rounded-lg" %>
+
+      <%= form_for(@organization, :url => administrator_organization_path(@organization), :method => :put, :html => {:multipart => true}) do |f| %>
+        <%= f.file_field :cover_image, :class => "my-4" %><br>
+        <%= f.submit "Upload", :class => "bg-transparent cursor-pointer hover:bg-blue text-blue-dark font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded" %>
+      <% end %>
     </div>
 
   </div>
