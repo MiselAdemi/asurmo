@@ -1,4 +1,4 @@
-class CreateModerators < ActiveRecord::Migration
+class CreateModerators < ActiveRecord::Migration[5.1]
   def change
     create_table :moderators do |t|
       t.references :user, index: true, foreign_key: true

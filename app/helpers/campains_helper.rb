@@ -5,7 +5,7 @@ module CampainsHelper
 	end
 
 	def campaign_avatar(campaign)
-		campaign.avatar.present?? campaign.avatar.url : 'avatar.jpg'
+		campaign.avatar.present?? campaign.avatar.url : 'avatar.png'
 	end
 
 	def self.update_team(campaign, team_id)

@@ -1,4 +1,4 @@
-class CreateCampains < ActiveRecord::Migration
+class CreateCampains < ActiveRecord::Migration[5.1]
   def change
     create_table :campains do |t|
       t.string :name

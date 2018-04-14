@@ -39,7 +39,7 @@
         </ul>
       </div>
 
-      <%= image_tag current_user.avatar.present?? current_user.avatar.url : 'avatar.jpg', class: "w-10 h-10 rounded-lg mr-4" %>
+      <%= image_tag avatar(current_user), class: "w-10 h-10 rounded-lg mr-4" %>
       <div class="dropdown">
         <button onclick="myFunction(this)" class="dropbtn text-grey-dark"><%= current_user.full_name %></button>
         <div id="myDropdown" class="dropdown-content dropdown-box">

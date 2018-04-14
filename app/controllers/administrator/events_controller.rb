@@ -7,6 +7,7 @@ class Administrator::EventsController < Administrator::BaseController
   end
 
   def show
+    @comments = @event.root_comments.order("created_at DESC").page(params[:page]).per(10)
   end
 
   def new

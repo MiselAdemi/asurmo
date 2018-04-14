@@ -1,4 +1,4 @@
-class ChangeGanderIntegerToString < ActiveRecord::Migration
+class ChangeGanderIntegerToString < ActiveRecord::Migration[5.1]
   def self.up
     change_column :users, :gender, :string
   end

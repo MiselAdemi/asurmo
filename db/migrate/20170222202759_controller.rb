@@ -1,4 +1,4 @@
-class Controller < ActiveRecord::Migration
+class Controller < ActiveRecord::Migration[5.1]
   def change
   end
 end

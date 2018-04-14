@@ -1,4 +1,4 @@
-class AddCachedSupportsToStatuses < ActiveRecord::Migration
+class AddCachedSupportsToStatuses < ActiveRecord::Migration[5.1]
   def self.up
     add_column :statuses, :cached_votes_total, :integer, :default => 0
     add_column :statuses, :cached_votes_score, :integer, :default => 0

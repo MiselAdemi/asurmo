@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20180406073127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
+  create_table "activities", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "action"
     t.integer "trackable_id"
     t.string "trackable_type"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
-  create_table "albums", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
+  create_table "albums", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "campains", id: :serial, force: :cascade do |t|
+  create_table "campains", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "organization_id"
+    t.bigint "user_id"
+    t.bigint "organization_id"
     t.string "slug"
     t.string "avatar"
     t.index ["organization_id"], name: "index_campains_on_organization_id"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.boolean "direct_message", default: false
   end
 
-  create_table "comments", id: :serial, force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
     t.integer "commentable_id"
     t.string "commentable_type"
     t.string "title"
@@ -88,33 +88,33 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.integer "parent_id"
     t.integer "lft"
     t.integer "rgt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "conversations", id: :serial, force: :cascade do |t|
+  create_table "conversations", force: :cascade do |t|
     t.integer "sender_id"
     t.integer "recipient_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "countries", id: :serial, force: :cascade do |t|
+  create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "events", id: :serial, force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string "name"
     t.string "location"
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "campain_id"
+    t.bigint "campain_id"
     t.string "avatar"
     t.string "slug"
     t.datetime "start_date"
@@ -161,7 +161,7 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "locations", id: :serial, force: :cascade do |t|
+  create_table "locations", force: :cascade do |t|
     t.string "country"
     t.string "city"
     t.string "accentcity"
@@ -174,9 +174,9 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.integer "country_id"
   end
 
-  create_table "members", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "organization_id"
+  create_table "members", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role"
@@ -213,11 +213,11 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
-  create_table "organizations", id: :serial, force: :cascade do |t|
+  create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "owner_id"
+    t.bigint "owner_id"
     t.string "slug"
     t.string "avatar"
     t.string "description"
@@ -235,9 +235,9 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pictures", id: :serial, force: :cascade do |t|
-    t.integer "album_id"
-    t.integer "user_id"
+  create_table "pictures", force: :cascade do |t|
+    t.bigint "album_id"
+    t.bigint "user_id"
     t.string "caption"
     t.text "description"
     t.datetime "created_at", null: false
@@ -254,7 +254,7 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.integer "events_quota"
   end
 
-  create_table "search_suggestions", id: :serial, force: :cascade do |t|
+  create_table "search_suggestions", force: :cascade do |t|
     t.string "term"
     t.integer "popularity"
     t.datetime "created_at", null: false
@@ -324,14 +324,7 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.integer "organization_id"
   end
 
-  create_table "user_searches", force: :cascade do |t|
-    t.string "keywords"
-    t.string "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -342,8 +335,8 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "role"
     t.string "first_name"
     t.string "last_name"
@@ -374,7 +367,7 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
-    t.integer "invited_by_id"
+    t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.json "interests"
     t.boolean "blocked", default: false
@@ -382,6 +375,7 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug"
   end
@@ -391,18 +385,20 @@ ActiveRecord::Schema.define(version: 20180406073127) do
     t.integer "subscriptions_quota_id"
   end
 
-  create_table "votes", id: :serial, force: :cascade do |t|
+  create_table "votes", force: :cascade do |t|
     t.string "votable_type"
-    t.integer "votable_id"
+    t.bigint "votable_id"
     t.string "voter_type"
-    t.integer "voter_id"
+    t.bigint "voter_id"
     t.boolean "vote_flag"
     t.string "vote_scope"
     t.integer "vote_weight"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
     t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
   create_table "world_members", id: :serial, force: :cascade do |t|

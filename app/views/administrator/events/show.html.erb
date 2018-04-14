@@ -7,42 +7,102 @@
     </div>
 
     <div class="flex content p-4">
-      <div class="w-full">
-        <div class="w-full border-b p-6">
-          <h4 class="text-grey-darker">Description</h4>
-          <div class="p-6 text-grey-dark">
-            <%= @event.description %>
-          </div>
-        </div>
+      <div class="inline-flex w-full">
+        <div class="w-5/6">
+          <ul class="list-reset flex border-b w-full tabs">
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-1">
+              <a class="no-underline bg-white inline-block tab-active py-2 px-4 text-blue-dark font-semibold" href="#tab-overview">Overview</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-2">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#tab-events">Time log</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-3">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-people">People</a>
+            </li>
+            <li class="-mb-px mr-1 mt-4 tab-link" data-tab="tab-4">
+              <a class="no-underline bg-white inline-block py-2 px-4 text-blue font-semibold" href="#tab-settings">Settings</a>
+            </li>
+          </ul>
 
-        <div class="w-full border-b p-6">
-          <h4 class="text-grey-darker">Files</h4>
-          <div class="p-6 text-grey-dark">
-            <p>There is no files!</p>
-          </div>
-        </div>
-
-        <div class="w-full border-b p-6">
-          <h4 class="text-grey-darker">Comments</h4>
-          <div class="p-6 text-grey-dark">
-            <%= render partial: 'administrator/events/partials/comment_form', locals: { new_comment: Comment.build_from(@event, current_user.id, "") } %>
-
-            <div class="p-6 border-t mt-6">
-              <% @event.root_comments.order("created_at DESC").each do |comment| %>
-                <div class="border-b mb-6">
-                  <div class="overflow-hidden">
-                    <%= image_tag avatar(comment.user), class: 'float-left w-12 h-12 rounded-lg' %>
-                    <%= link_to comment.user.full_name, '#', class: 'float-left ml-4 no-underline text-grey-darker' %>
-                    <small class="float-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
-                  </div>
-
-                  <div class="p-2 leading-normal" style="width: 86%; margin-left: 5%;">
-                    <%= sanitize(comment.body) %> <br>
+          <div id="tab-1" class="tab-content current p-6">
+            <div class="flex content p-4">
+              <div class="w-full">
+                <div class="w-full border-b p-6">
+                  <h4 class="text-grey-darker">Description</h4>
+                  <div class="p-6 text-grey-dark text-justify leading-normal">
+                    <%= sanitize(@event.description) %>
                   </div>
                 </div>
-              <% end %>
+
+                <div class="w-full border-b p-6">
+                  <h4 class="text-grey-darker">Files</h4>
+                  <div class="p-6 text-grey-dark">
+                    <p>There is no files!</p>
+                  </div>
+                </div>
+
+                <div class="w-full border-b p-6">
+                  <h4 class="text-grey-darker">Comments</h4>
+                  <div class="p-6 text-grey-dark">
+                    <%= render partial: 'administrator/tasks/partials/comment_form', locals: { new_comment: Comment.build_from(@task, current_user.id, "") } %>
+                    <div class="p-6 border-t mt-6">
+                      <% @comments.each do |comment| %>
+                        <div class="border-b mb-6">
+                          <div class="overflow-hidden">
+                            <%= image_tag avatar(comment.user), class: 'float-left w-12 h-12 rounded-lg' %>
+                            <%= link_to comment.user.full_name, '#', class: 'float-left ml-4 no-underline text-grey-darker' %>
+                            <small class="float-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
+                          </div>
+
+                          <div class="p-2 leading-normal" style="width: 86%; margin-left: 5%;">
+                            <%= sanitize(comment.body) %> <br>
+                          </div>
+                        </div>
+                      <% end %>
+
+                      <%= paginate @comments %>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <div id="tab-2" class="tab-content p-6">
+            <table class="w-full">
+              <% @campaign.events.each do |event| %>
+                <tr class="hover:bg-grey-lightest row">
+                  <td class="p-2">
+                    <%= image_tag event_avatar(event), class: "w-10 h-10 float-left rounded-lg" %>
+                    <%= link_to event.name, administrator_organization_campaign_event_path(@organization, @campaign, event), class: "ml-2 mt-2 float-left no-underline text-blue-dark" %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+
+          <div id="tab-3" class="tab-content p-6">
+            <p>Work in progress</p>
+          </div>
+
+          <div id="tab-4" class="tab-content p-6">
+              <div class="flex content p-4">
+                <div class="w-full">
+                  <div class="w-full border-b p-6">
+                    <h4 class="text-grey-darker">Status</h4>
+                    <div class="p-6 text-grey-dark">
+                      <p>Work in progress</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="w-1/6 mt-6">
+
         </div>
       </div>
     </div>
